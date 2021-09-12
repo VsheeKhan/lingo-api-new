@@ -60,7 +60,7 @@ Resources:
           Type: Api
           Properties:
             Path: /book
-            Method: create
+            Method: post
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
