@@ -84,6 +84,25 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
 
+  GetSingleBookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GetBook
+      Timeout: 30
+      MemorySize: 128
+      Handler: app.book_get_single_lambda_handler
+      CodeUri: functions/books/
+      Runtime: python3.8
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            Path: /book/{id}
+            Method: get
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref BooksTable
+
   BooksTable:
     Type: AWS::DynamoDB::Table
     Properties:

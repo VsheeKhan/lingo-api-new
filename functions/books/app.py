@@ -59,3 +59,22 @@ def books_delete_lambda_handler(event, context):
         "multiValueHeaders": {},
         "body": ""
     }
+
+
+def book_get_single_lambda_handler(event, context):
+    book = dynamodb_client.get_item(
+        TableName=TABLE_NAME,
+        Key={
+            'id': {
+                'S': event['pathParameters']['id']
+            },
+        }
+    )
+    print(book)
+    return {
+        "isBase64Encoded": False,
+        "statusCode": 200,
+        "headers": {},
+        "multiValueHeaders": {},
+        "body": json.dumps(book)
+    }
