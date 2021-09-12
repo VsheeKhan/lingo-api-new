@@ -27,20 +27,34 @@ Resources:
   HelloNameFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: HelloName  # Name for lambda function, if not set gets generated automatically
       Timeout: 3
       MemorySize: 128
       Handler: app.lambda_hello_name
       CodeUri: /home/ishan/Eir/hello_world
       Runtime: python3.8
+      Events:  # What is going to trigger the function (ex. Api, SQS)?
+        HelloNameCaller:  # Name of the event. (could be anything)
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /hello_name
+            Method: post
 
   OlaNameFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: Ola  # Name for lambda function, if not set gets generated automatically
       Timeout: 3
       MemorySize: 128
       Handler: app.lambda_ola_name
-      CodeUri: /home/ishan/Eir/hello_world
+      CodeUri: hello_world/
       Runtime: python3.8
+      Events: # What is going to trigger the function (ex. Api, SQS)?
+        HelloNameCaller: # Name of the event. (could be anything)
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /ola
+            Method: post
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
