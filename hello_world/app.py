@@ -40,3 +40,21 @@ def lambda_handler(event, context):
             # "location": ip.text.replace("\n", "")
         }),
     }
+
+
+def lambda_hello_name(event, context):
+    return {
+        "statusCode": 200,
+        "body": json.dumps({
+            "message": "Hello {}".format(event["name"]),
+        }),
+    }
+
+
+def lambda_ola_name(event, context):
+    return {
+        "statusCode": 200,
+        "body": json.dumps({
+            "message": "Ola {}".format(event["name"]),
+        }),
+    }

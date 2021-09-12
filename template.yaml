@@ -24,6 +24,24 @@ Resources:
             Path: /hello
             Method: get
 
+  HelloNameFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 3
+      MemorySize: 128
+      Handler: app.lambda_hello_name
+      CodeUri: /home/ishan/Eir/hello_world
+      Runtime: python3.8
+
+  OlaNameFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 3
+      MemorySize: 128
+      Handler: app.lambda_ola_name
+      CodeUri: /home/ishan/Eir/hello_world
+      Runtime: python3.8
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
@@ -34,6 +52,12 @@ Outputs:
   HelloWorldFunction:
     Description: "Hello World Lambda Function ARN"
     Value: !GetAtt HelloWorldFunction.Arn
+  HelloNameFunction:
+    Description: "Hello Name Lambda Function ARN"
+    Value: !GetAtt HelloNameFunction.Arn
+  OlaNameFunction:
+    Description: "Ola Name Lambda Function ARN"
+    Value: !GetAtt OlaNameFunction.Arn
   HelloWorldFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
     Value: !GetAtt HelloWorldFunctionRole.Arn
