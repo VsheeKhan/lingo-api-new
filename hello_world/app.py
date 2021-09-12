@@ -46,7 +46,7 @@ def lambda_hello_name(event, context):
     return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": "Hello {}".format(event["name"]),
+            "message": "Hello {}".format(json.loads(event['body'])['name']),
         }),
     }
 
@@ -55,6 +55,6 @@ def lambda_ola_name(event, context):
     return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": "Ola {}".format(event["name"]),
+            "message": "Ola {}".format(json.loads(event['body'])['name']),
         }),
     }
