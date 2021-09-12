@@ -27,6 +27,75 @@ Resources:
             Path: /ola
             Method: post
 
+  ListBooksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: ListBooks
+      Timeout: 30
+      MemorySize: 128
+      Handler: app.books_list_lambda_handler
+      CodeUri: functions/books/
+      Runtime: python3.8
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            Path: /book
+            Method: get
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref BooksTable
+
+  CreateBookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: CreateBook
+      Timeout: 30
+      MemorySize: 128
+      Handler: app.books_create_lambda_handler
+      CodeUri: functions/books/
+      Runtime: python3.8
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            Path: /book
+            Method: create
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable
+
+  DeleteBooksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DeleteBook
+      Timeout: 30
+      MemorySize: 128
+      Handler: app.books_delete_lambda_handler
+      CodeUri: functions/books/
+      Runtime: python3.8
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            Path: /book/{id}
+            Method: delete
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable
+
+  BooksTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: books
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
@@ -40,3 +109,7 @@ Outputs:
   OlaNameFunctionIamRole:
     Description: "Implicit IAM Role created for Ola Name function"
     Value: !GetAtt OlaNameFunctionRole.Arn
+
+  BooksApi:
+    Description: "API Gateway endpoint URL for Prod stage for Books related functions"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/book/"
