@@ -3,7 +3,7 @@ import json
 # import requests
 
 
-def lambda_handler(event, context):
+def ola_name_lambda_handler(event, context):
     """Sample pure Lambda function
 
     Parameters
@@ -33,25 +33,6 @@ def lambda_handler(event, context):
 
     #     raise e
 
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "message": "hello world",
-            # "location": ip.text.replace("\n", "")
-        }),
-    }
-
-
-def lambda_hello_name(event, context):
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "message": "Hello {}".format(json.loads(event['body'])['name']),
-        }),
-    }
-
-
-def lambda_ola_name(event, context):
     name = json.loads(event['body'])['name']
     print("Greeting {}".format(name))
     return {

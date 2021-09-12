@@ -11,43 +11,14 @@ Globals:
     Timeout: 3
 
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-    Properties:
-      CodeUri: hello_world/
-      Handler: app.lambda_handler
-      Runtime: python3.8
-      Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /hello
-            Method: get
-
-  HelloNameFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: HelloName  # Name for lambda function, if not set gets generated automatically
-      Timeout: 3
-      MemorySize: 128
-      Handler: app.lambda_hello_name
-      CodeUri: /home/ishan/Eir/hello_world
-      Runtime: python3.8
-      Events:  # What is going to trigger the function (ex. Api, SQS)?
-        HelloNameCaller:  # Name of the event. (could be anything)
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /hello_name
-            Method: post
-
   OlaNameFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: Ola  # Name for lambda function, if not set gets generated automatically
       Timeout: 3
       MemorySize: 128
-      Handler: app.lambda_ola_name
-      CodeUri: hello_world/
+      Handler: app.ola_name_lambda_handler
+      CodeUri: functions/ola/
       Runtime: python3.8
       Events: # What is going to trigger the function (ex. Api, SQS)?
         HelloNameCaller: # Name of the event. (could be anything)
@@ -60,18 +31,12 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloNameFunction:
-    Description: "Hello Name Lambda Function ARN"
-    Value: !GetAtt HelloNameFunction.Arn
+  OlaNameApi:
+    Description: "API Gateway endpoint URL for Prod stage for Ola Name function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ola/"
   OlaNameFunction:
     Description: "Ola Name Lambda Function ARN"
     Value: !GetAtt OlaNameFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  OlaNameFunctionIamRole:
+    Description: "Implicit IAM Role created for Ola Name function"
+    Value: !GetAtt OlaNameFunctionRole.Arn
