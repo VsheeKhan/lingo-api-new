@@ -56,7 +56,7 @@ def lambda_ola_name(event, context):
     print(json.dumps(event))
     return {
         "statusCode": 200,
-        "body": json.dumps({
+        "body": {
             "message": "Ola {}".format(json.loads(event['body'])['name']),
-        }),
+        },
     }
