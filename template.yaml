@@ -30,6 +30,17 @@ Resources:
             Path: /ola
             Method: post
 
+  BooksApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors: "'*'"  # TODO ishan 13-09-2021 This needs to be tightened for security
+      Auth:
+        DefaultAuthorizer: EirCognitoAuthorizer
+        Authorizers:
+          EirCognitoAuthorizer:
+            UserPoolArn: !GetAtt EirCognitoUserPool.Arn
+
   ListBooksFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -43,8 +54,11 @@ Resources:
         CreateBookCaller:
           Type: Api
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book
             Method: get
+            Auth:
+              Authorizer: NONE
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
@@ -100,6 +114,7 @@ Resources:
         CreateBookCaller:
           Type: Api
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book/{id}
             Method: get
       Policies:
@@ -117,6 +132,31 @@ Resources:
       KeySchema:
         - AttributeName: id
           KeyType: HASH
+
+  EirCognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: EirCognitoUserPool
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+      UsernameAttributes:
+        - email
+      Schema:
+        - AttributeDataType: String
+          Name: email
+          Required: true
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      AutoVerifiedAttributes:
+        - email
+
+  EirCognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref EirCognitoUserPool
+      ClientName: EirCognitoUserPoolClient
+      GenerateSecret: false
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
