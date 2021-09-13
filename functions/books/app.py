@@ -79,7 +79,11 @@ def book_get_single_lambda_handler(event, context):
     return {
         "isBase64Encoded": False,
         "statusCode": 200,
-        "headers": {},
+        "headers": {
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*'
+        },
         "multiValueHeaders": {},
         "body": json.dumps(book)
     }
