@@ -1,9 +1,10 @@
 import json
 import boto3
 import uuid
+import os
 
 dynamodb_client = boto3.client('dynamodb')
-TABLE_NAME = "books"
+TABLE_NAME = os.environ.get("BOOKS_TABLE_NAME")
 
 
 def books_create_lambda_handler(event, context):
