@@ -36,18 +36,19 @@ Resources:
       StageName: Prod
 #      Cors: "'*'"  # TODO ishan 13-09-2021 This needs to be tightened for security
       Cors:
-        AllowCredentials: false
-        AllowHeaders: "'*'"
-        AllowMethods: "'*'"
+        AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        AllowHeaders: "'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
+        AllowOrigin: "'http://localhost:3000'"
+        MaxAge: "'600'"
+        AllowCredentials: true
 #        AllowOrigin: "'amazonaws.com'"
 #        AllowOrigin: "'localhost:3000'"
-        AllowOrigin: "'*'"
 #        MaxAge: String
 #        AllowOrigin: "'*'"
 #        AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
 #        AllowHeaders: "'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
       Auth:
-        DefaultAuthorizer: EirCognitoAuthorizer
+#        DefaultAuthorizer: NONE
         Authorizers:
           EirCognitoAuthorizer:
             UserPoolArn: !GetAtt EirCognitoUserPool.Arn
@@ -69,7 +70,7 @@ Resources:
             Path: /book
             Method: get
             Auth:
-              Authorizer: NONE
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
@@ -90,6 +91,8 @@ Resources:
             RestApiId: !Ref BooksApi
             Path: /book
             Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
@@ -110,6 +113,8 @@ Resources:
             RestApiId: !Ref BooksApi
             Path: /book/{id}
             Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
@@ -130,31 +135,33 @@ Resources:
             RestApiId: !Ref BooksApi
             Path: /book/{id}
             Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
 
-  OptionsSingleBookFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: OptionsBook
-      Timeout: 30
-      MemorySize: 128
-      Handler: app.book_options_single_lambda_handler
-      CodeUri: functions/books/
-      Runtime: python3.8
-      Events:
-        GetSingleBookCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref BooksApi
-            Path: /book/{id}
-            Method: options
-            Auth:
-              Authorizer: NONE
-      Policies:
-        - DynamoDBReadPolicy:
-            TableName: !Ref BooksTable
+#  OptionsSingleBookFunction:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      FunctionName: OptionsBook
+#      Timeout: 30
+#      MemorySize: 128
+#      Handler: app.book_options_single_lambda_handler
+#      CodeUri: functions/books/
+#      Runtime: python3.8
+#      Events:
+#        GetSingleBookCaller:
+#          Type: Api
+#          Properties:
+#            RestApiId: !Ref BooksApi
+#            Path: /book/{id}
+#            Method: options
+#            Auth:
+#              Authorizer: NONE
+#      Policies:
+#        - DynamoDBReadPolicy:
+#            TableName: !Ref BooksTable
 
   BooksTable:
     Type: AWS::DynamoDB::Table
