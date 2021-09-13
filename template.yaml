@@ -83,8 +83,8 @@ Resources:
       Events:
         CreateBookCaller:
           Type: Api
-          RestApiId: !Ref BooksApi
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book
             Method: post
       Policies:
@@ -103,8 +103,8 @@ Resources:
       Events:
         DeleteBooksCaller:
           Type: Api
-          RestApiId: !Ref BooksApi
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book/{id}
             Method: delete
       Policies:
