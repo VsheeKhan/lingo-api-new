@@ -67,8 +67,6 @@ Resources:
             RestApiId: !Ref BooksApi
             Path: /book
             Method: get
-            Auth:
-              Authorizer: NONE
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
@@ -89,8 +87,6 @@ Resources:
           Properties:
             Path: /book
             Method: post
-            Auth:
-              Authorizer: NONE
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
@@ -111,8 +107,6 @@ Resources:
           Properties:
             Path: /book/{id}
             Method: delete
-            Auth:
-              Authorizer: NONE
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
@@ -133,8 +127,6 @@ Resources:
             RestApiId: !Ref BooksApi
             Path: /book/{id}
             Method: get
-            Auth:
-              Authorizer: NONE
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
