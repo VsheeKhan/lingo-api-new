@@ -6,6 +6,13 @@ import os
 dynamodb_client = boto3.client('dynamodb')
 TABLE_NAME = os.environ.get("BOOKS_TABLE_NAME")
 
+CORS_HEADERS = {
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Credentials': True,
+}
+
 
 def books_create_lambda_handler(event, context):
     print(json.dumps(event))
@@ -30,7 +37,7 @@ def books_create_lambda_handler(event, context):
     return {
         "isBase64Encoded": False,
         "statusCode": 201,
-        "headers": {},
+        "headers": CORS_HEADERS,
         "multiValueHeaders": {},
         "body": json.dumps(book)
     }
@@ -41,11 +48,7 @@ def books_list_lambda_handler(event, context):
     return {
         "isBase64Encoded": False,
         "statusCode": 200,
-        "headers": {
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': '*'
-        },
+        "headers": CORS_HEADERS,
         "multiValueHeaders": {},
         "body": json.dumps(books)
     }
@@ -60,7 +63,7 @@ def books_delete_lambda_handler(event, context):
     return {
         "isBase64Encoded": False,
         "statusCode": 200,
-        "headers": {},
+        "headers": CORS_HEADERS,
         "multiValueHeaders": {},
         "body": ""
     }
@@ -79,11 +82,7 @@ def book_get_single_lambda_handler(event, context):
     return {
         "isBase64Encoded": False,
         "statusCode": 200,
-        "headers": {
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': '*'
-        },
+        "headers": CORS_HEADERS,
         "multiValueHeaders": {},
         "body": json.dumps(book)
     }
