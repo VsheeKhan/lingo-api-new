@@ -7,9 +7,9 @@ dynamodb_client = boto3.client('dynamodb')
 TABLE_NAME = os.environ.get("BOOKS_TABLE_NAME")
 
 CORS_HEADERS = {
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Headers': os.environ.get('ALLOW_HEADERS'),
+    'Access-Control-Allow-Origin':  os.environ.get('ALLOW_ORIGIN'),
+    'Access-Control-Allow-Methods': os.environ.get('ALLOW_METHODS'),
     'Access-Control-Allow-Credentials': True,
 }
 
