@@ -29,10 +29,10 @@ Globals:
         ALLOW_ORIGIN: !Sub '${Origin}'
 
 Resources:
-  BooksApi:
+  MainApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: !Sub ${Environment}_Prod
+      StageName: !Sub ${Environment}_API
       Cors:
         AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
         AllowHeaders: "'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
@@ -57,7 +57,7 @@ Resources:
         ListBooksCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book
             Method: get
             Auth:
@@ -79,7 +79,7 @@ Resources:
         CreateBookCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book
             Method: post
             Auth:
@@ -101,7 +101,7 @@ Resources:
         DeleteBooksCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book/{id}
             Method: delete
             Auth:
@@ -123,7 +123,7 @@ Resources:
         GetSingleBookCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book/{id}
             Method: get
             Auth:
@@ -177,9 +177,9 @@ Outputs:
   Origin:
     Description: "Domain configured as allowed Origin"
     Value: !Sub '${Origin}'
-  BooksApi:
+  MainApi:
     Description: "API Gateway endpoint URL for Prod stage for Books related functions"
-    Value: !Sub "https://${BooksApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}_Prod/book"
+    Value: !Sub "https://${MainApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}_API/book"
   EirCognitoUserPool:
     Description: "Cognito User Pool ID"
     Value: !Sub "${EirCognitoUserPool}"
