@@ -29,22 +29,6 @@ Globals:
         ALLOW_ORIGIN: !Sub '${Origin}'
 
 Resources:
-  OlaNameFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_Ola  # Name for lambda function, if not set gets generated automatically
-      Timeout: 3
-      MemorySize: 128
-      Handler: app.ola_name_lambda_handler
-      CodeUri: functions/ola/
-      Runtime: python3.8
-      Events: # What is going to trigger the function (ex. Api, SQS)?
-        HelloNameCaller: # Name of the event. (could be anything)
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /ola
-            Method: post
-
   BooksApi:
     Type: AWS::Serverless::Api
     Properties:
@@ -190,15 +174,6 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  OlaNameApi:
-    Description: "API Gateway endpoint URL for Prod stage for Ola Name function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ola/"
-  OlaNameFunction:
-    Description: "Ola Name Lambda Function ARN"
-    Value: !GetAtt OlaNameFunction.Arn
-  OlaNameFunctionIamRole:
-    Description: "Implicit IAM Role created for Ola Name function"
-    Value: !GetAtt OlaNameFunctionRole.Arn
   Origin:
     Description: "Domain configured as allowed Origin"
     Value: !Sub '${Origin}'
