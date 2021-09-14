@@ -12,6 +12,9 @@ Globals:
     Environment:
       Variables:
         BOOKS_TABLE_NAME: books
+        ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
+        ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
+        ALLOW_ORIGIN: 'http://localhost:3000'
 
 Resources:
   OlaNameFunction:
@@ -30,6 +33,21 @@ Resources:
             Path: /ola
             Method: post
 
+  BooksApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        AllowHeaders: "'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
+        AllowOrigin: "'http://localhost:3000'"
+        MaxAge: "'600'"
+        AllowCredentials: true
+      Auth:
+        Authorizers:
+          EirCognitoAuthorizer:
+            UserPoolArn: !GetAtt EirCognitoUserPool.Arn
+
   ListBooksFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -40,11 +58,14 @@ Resources:
       CodeUri: functions/books/
       Runtime: python3.8
       Events:
-        CreateBookCaller:
+        ListBooksCaller:
           Type: Api
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book
             Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
@@ -62,8 +83,11 @@ Resources:
         CreateBookCaller:
           Type: Api
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book
             Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
@@ -78,11 +102,14 @@ Resources:
       CodeUri: functions/books/
       Runtime: python3.8
       Events:
-        CreateBookCaller:
+        DeleteBooksCaller:
           Type: Api
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book/{id}
             Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
@@ -97,11 +124,14 @@ Resources:
       CodeUri: functions/books/
       Runtime: python3.8
       Events:
-        CreateBookCaller:
+        GetSingleBookCaller:
           Type: Api
           Properties:
+            RestApiId: !Ref BooksApi
             Path: /book/{id}
             Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
@@ -118,7 +148,33 @@ Resources:
         - AttributeName: id
           KeyType: HASH
 
+  EirCognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: EirCognitoUserPool
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+      UsernameAttributes:
+        - email
+      Schema:
+        - AttributeDataType: String
+          Name: email
+          Required: true
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      AutoVerifiedAttributes:
+        - email
+
+  EirCognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref EirCognitoUserPool
+      ClientName: EirCognitoUserPoolClient
+      GenerateSecret: false
+
 Outputs:
+  # TODO ishan 14-09-2021 Cleanup the output to only have the APIs
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
