@@ -34,6 +34,22 @@ To use the SAM CLI, you need the following tools.
 * [Python 3 installed](https://www.python.org/downloads/)
 * Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community)
 
+To build and deploy using AWS Toolkit for Jetbrains:
+* Copy the below parameters to `Deploy Serverless Application`.
+  * Local Config:
+  ```bash
+  Environment=DEV
+  Origin=http://localhost:3000
+  ```
+  * Production Config:
+  ```bash
+  Environment=PROD
+  Origin=https://main.d3pbzq317h5g22.amplifyapp.com
+  ```
+* Select/Create a stack of your own naming convention.
+* Select/Create a bucket for deployment.
+* Deploy
+
 To build and deploy your application for the first time, run the following in your shell:
 
 ```bash
