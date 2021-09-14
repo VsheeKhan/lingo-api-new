@@ -5,42 +5,38 @@ Description: >
 
   Sample SAM Template for Eir
 
+Parameters:
+  Environment:
+    Type: String
+    AllowedValues:
+      - DEV
+      - PROD
+  Origin:
+    Type: String
+    AllowedValues:
+      - http://localhost:3000
+      - https://main.d3pbzq317h5g22.amplifyapp.com
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 3
     Environment:
       Variables:
-        BOOKS_TABLE_NAME: books
+        BOOKS_TABLE_NAME: !Sub ${Environment}_books
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
-        ALLOW_ORIGIN: 'http://localhost:3000'
+        ALLOW_ORIGIN: !Sub '${Origin}'
 
 Resources:
-  OlaNameFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: Ola  # Name for lambda function, if not set gets generated automatically
-      Timeout: 3
-      MemorySize: 128
-      Handler: app.ola_name_lambda_handler
-      CodeUri: functions/ola/
-      Runtime: python3.8
-      Events: # What is going to trigger the function (ex. Api, SQS)?
-        HelloNameCaller: # Name of the event. (could be anything)
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /ola
-            Method: post
-
-  BooksApi:
+  MainApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: Prod
+      StageName: !Sub ${Environment}_API
       Cors:
         AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
         AllowHeaders: "'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
-        AllowOrigin: "'http://localhost:3000'"
+        AllowOrigin: !Sub "'${Origin}'"
         MaxAge: "'600'"
         AllowCredentials: true
       Auth:
@@ -51,7 +47,7 @@ Resources:
   ListBooksFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: ListBooks
+      FunctionName: !Sub ${Environment}_ListBooks
       Timeout: 30
       MemorySize: 128
       Handler: app.books_list_lambda_handler
@@ -61,7 +57,7 @@ Resources:
         ListBooksCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book
             Method: get
             Auth:
@@ -73,7 +69,7 @@ Resources:
   CreateBookFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: CreateBook
+      FunctionName: !Sub ${Environment}_CreateBook
       Timeout: 30
       MemorySize: 128
       Handler: app.books_create_lambda_handler
@@ -83,7 +79,7 @@ Resources:
         CreateBookCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book
             Method: post
             Auth:
@@ -95,7 +91,7 @@ Resources:
   DeleteBooksFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: DeleteBook
+      FunctionName: !Sub ${Environment}_DeleteBook
       Timeout: 30
       MemorySize: 128
       Handler: app.books_delete_lambda_handler
@@ -105,7 +101,7 @@ Resources:
         DeleteBooksCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book/{id}
             Method: delete
             Auth:
@@ -117,7 +113,7 @@ Resources:
   GetSingleBookFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: GetBook
+      FunctionName: !Sub ${Environment}_GetBook
       Timeout: 30
       MemorySize: 128
       Handler: app.book_get_single_lambda_handler
@@ -127,7 +123,7 @@ Resources:
         GetSingleBookCaller:
           Type: Api
           Properties:
-            RestApiId: !Ref BooksApi
+            RestApiId: !Ref MainApi
             Path: /book/{id}
             Method: get
             Auth:
@@ -139,7 +135,7 @@ Resources:
   BooksTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: books
+      TableName: !Sub ${Environment}_books
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -151,7 +147,7 @@ Resources:
   EirCognitoUserPool:
     Type: AWS::Cognito::UserPool
     Properties:
-      UserPoolName: EirCognitoUserPool
+      UserPoolName: !Sub ${Environment}_EirCognitoUserPool
       Policies:
         PasswordPolicy:
           MinimumLength: 8
@@ -170,7 +166,7 @@ Resources:
     Type: AWS::Cognito::UserPoolClient
     Properties:
       UserPoolId: !Ref EirCognitoUserPool
-      ClientName: EirCognitoUserPoolClient
+      ClientName: !Sub ${Environment}_EirCognitoUserPoolClient
       GenerateSecret: false
 
 Outputs:
@@ -178,16 +174,15 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  OlaNameApi:
-    Description: "API Gateway endpoint URL for Prod stage for Ola Name function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ola/"
-  OlaNameFunction:
-    Description: "Ola Name Lambda Function ARN"
-    Value: !GetAtt OlaNameFunction.Arn
-  OlaNameFunctionIamRole:
-    Description: "Implicit IAM Role created for Ola Name function"
-    Value: !GetAtt OlaNameFunctionRole.Arn
-
-  BooksApi:
+  Origin:
+    Description: "Domain configured as allowed Origin"
+    Value: !Sub '${Origin}'
+  MainApi:
     Description: "API Gateway endpoint URL for Prod stage for Books related functions"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/book/"
+    Value: !Sub "https://${MainApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}_API/book"
+  EirCognitoUserPool:
+    Description: "Cognito User Pool ID"
+    Value: !Sub "${EirCognitoUserPool}"
+  EirCognitoUserPoolClient:
+    Description: "Cognito User Pool Client ID"
+    Value: !Sub "${EirCognitoUserPoolClient}"
