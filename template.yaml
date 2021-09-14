@@ -34,21 +34,13 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
-#      Cors: "'*'"  # TODO ishan 13-09-2021 This needs to be tightened for security
       Cors:
         AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
         AllowHeaders: "'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
         AllowOrigin: "'http://localhost:3000'"
         MaxAge: "'600'"
         AllowCredentials: true
-#        AllowOrigin: "'amazonaws.com'"
-#        AllowOrigin: "'localhost:3000'"
-#        MaxAge: String
-#        AllowOrigin: "'*'"
-#        AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
-#        AllowHeaders: "'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
       Auth:
-#        DefaultAuthorizer: NONE
         Authorizers:
           EirCognitoAuthorizer:
             UserPoolArn: !GetAtt EirCognitoUserPool.Arn
@@ -141,28 +133,6 @@ Resources:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
 
-#  OptionsSingleBookFunction:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: OptionsBook
-#      Timeout: 30
-#      MemorySize: 128
-#      Handler: app.book_options_single_lambda_handler
-#      CodeUri: functions/books/
-#      Runtime: python3.8
-#      Events:
-#        GetSingleBookCaller:
-#          Type: Api
-#          Properties:
-#            RestApiId: !Ref BooksApi
-#            Path: /book/{id}
-#            Method: options
-#            Auth:
-#              Authorizer: NONE
-#      Policies:
-#        - DynamoDBReadPolicy:
-#            TableName: !Ref BooksTable
-
   BooksTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -201,6 +171,7 @@ Resources:
       GenerateSecret: false
 
 Outputs:
+  # TODO ishan 14-09-2021 Cleanup the output to only have the APIs
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api

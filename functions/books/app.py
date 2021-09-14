@@ -86,19 +86,3 @@ def book_get_single_lambda_handler(event, context):
         "multiValueHeaders": {},
         "body": json.dumps(book)
     }
-
-
-def book_options_single_lambda_handler(event, context):
-    options_permissions = {
-        "Allow": "GET,POST,DELETE,OPTIONS",
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-        "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
-        "Access-Control-Allow-Headers": "*",
-    }
-    return {
-        "isBase64Encoded": False,
-        "statusCode": 200,
-        "headers": options_permissions,
-        "multiValueHeaders": {},
-        "body": json.dumps(options_permissions)
-    }
