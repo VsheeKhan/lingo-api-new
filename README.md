@@ -36,10 +36,16 @@ To use the SAM CLI, you need the following tools.
 
 To build and deploy using AWS Toolkit for Jetbrains:
 * Copy the below parameters to `Deploy Serverless Application`.
-```bash
-Environment=DEV
-Origin=http://localhost:3000
-```
+  * Local Config:
+  ```bash
+  Environment=DEV
+  Origin=http://localhost:3000
+  ```
+  * Production Config:
+  ```bash
+  Environment=PROD
+  Origin=https://main.d3pbzq317h5g22.amplifyapp.com
+  ```
 * Select/Create a stack of your own naming convention.
 * Select/Create a bucket for deployment.
 * Deploy
