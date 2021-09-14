@@ -2,15 +2,15 @@
   "prod": {
     "BooksApi": {
       "description": "API Gateway endpoint URL for Prod stage for Books related functions",
-      "value": "https://32sa80rcz0.execute-api.us-east-1.amazonaws.com/PROD_Prod/book"
+      "value": "https://aps1qjiczj.execute-api.us-east-1.amazonaws.com/PROD_API"
     },
     "EirCognitoUserPool": {
       "description": "Cognito User Pool ID",
-      "value": "us-east-1_pRVdUfDKj"
+      "value": "us-east-1_SYdeQKGxg"
     },
     "EirCognitoUserPoolClient": {
       "description": "Cognito User Pool Client ID",
-      "value": "35vlrcv0b3qab6jua4gkgq8flv"
+      "value": "32f4vli21m8k26dsfceu702l3v"
     },
     "Origin": {
       "description": "Domain configured as allowed Origin",
