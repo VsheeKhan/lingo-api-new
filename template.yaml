@@ -179,7 +179,7 @@ Outputs:
     Value: !Sub '${Origin}'
   MainApi:
     Description: "API Gateway endpoint URL for Prod stage for Books related functions"
-    Value: !Sub "https://${MainApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}_API/book"
+    Value: !Sub "https://${MainApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}_API"
   EirCognitoUserPool:
     Description: "Cognito User Pool ID"
     Value: !Sub "${EirCognitoUserPool}"
