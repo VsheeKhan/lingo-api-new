@@ -8,11 +8,15 @@ Description: >
 Parameters:
   Environment:
     Type: String
+    Default: DEV
+    Description: (Required) Environment type
     AllowedValues:
       - DEV
       - PROD
   Origin:
     Type: String
+    Default: http://localhost:3000
+    Description: (Required) Frontend web app "Origin" which is allowed for CORS.
     AllowedValues:
       - http://localhost:3000
       - https://main.d3pbzq317h5g22.amplifyapp.com
