@@ -161,10 +161,19 @@ Resources:
         - AttributeDataType: String
           Name: email
           Required: true
+        - AttributeDataType: String
+          Name: phone_number
+          Required: true
       AdminCreateUserConfig:
         AllowAdminCreateUserOnly: false
       AutoVerifiedAttributes:
         - email
+        - phone_number
+      SmsConfiguration:
+        SnsCallerArn: !GetAtt EirCognitoSnsIamRole.Arn
+        ExternalId: "b989b444-47ef-4609-b9ae-d127c035a44b"
+#        SnsCallerArn: "arn:aws:iam::633292692150:role/service-role/testing_iam_role_for_cognito_sms_DEV_Eir2"
+#        ExternalId: "9421ee89-95b0-4278-9fb5-766a4adc5bff"
 
   EirCognitoUserPoolClient:
     Type: AWS::Cognito::UserPoolClient
@@ -172,6 +181,33 @@ Resources:
       UserPoolId: !Ref EirCognitoUserPool
       ClientName: !Sub ${Environment}_EirCognitoUserPoolClient
       GenerateSecret: false
+
+  EirCognitoSnsIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${Environment}_EirCognitoSnsIamRole
+      Description: "IAM role to call SNS publish which in turn will send SMS message"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: cognito-idp.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                sts:ExternalId: "b989b444-47ef-4609-b9ae-d127c035a44b"
+      Policies:
+        - PolicyName: SnsPublishPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sns:publish
+                Resource:
+                  - "*"
 
 Outputs:
   # TODO ishan 14-09-2021 Cleanup the output to only have the APIs
