@@ -1,16 +1,16 @@
 {
   "prod": {
-    "BooksApi": {
+    "MainApi": {
       "description": "API Gateway endpoint URL for Prod stage for Books related functions",
-      "value": "https://aps1qjiczj.execute-api.us-east-1.amazonaws.com/PROD_API"
+      "value": "https://mdq246kaw3.execute-api.us-east-1.amazonaws.com/PROD_API"
     },
     "EirCognitoUserPool": {
       "description": "Cognito User Pool ID",
-      "value": "us-east-1_SYdeQKGxg"
+      "value": "us-east-1_dEBm8yrjM"
     },
     "EirCognitoUserPoolClient": {
       "description": "Cognito User Pool Client ID",
-      "value": "32f4vli21m8k26dsfceu702l3v"
+      "value": "22e571o0p4nerig5gli911jd9o"
     },
     "Origin": {
       "description": "Domain configured as allowed Origin",
@@ -18,21 +18,21 @@
     }
   },
   "dev": {
-    "BooksApi": {
+    "MainApi": {
       "description": "API Gateway endpoint URL for Prod stage for Books related functions",
-      "value": "https://wltp30d3z8.execute-api.us-east-1.amazonaws.com/DEV_API"
+      "value": "https://gy953njsk9.execute-api.us-east-1.amazonaws.com/DEV_API"
     },
     "EirCognitoUserPool": {
       "description": "Cognito User Pool ID",
-      "value": "us-east-1_e50KGX8Ln"
+      "value": "us-east-1_BcOwOrDd0"
     },
     "EirCognitoUserPoolClient": {
       "description": "Cognito User Pool Client ID",
-      "value": "56j4nhq28ho261vrm3e3uqorgk"
+      "value": "5601gvd35410p13v81u4vnm6p6"
     },
     "Origin": {
       "description": "Domain configured as allowed Origin",
-      "value": "https://localhost:3000"
+      "value": "http://localhost:3000"
     }
   }
 }

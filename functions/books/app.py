@@ -3,6 +3,7 @@ import boto3
 import uuid
 import os
 
+# TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
 dynamodb_client = boto3.client('dynamodb')
 TABLE_NAME = os.environ.get("BOOKS_TABLE_NAME")
 
