@@ -172,8 +172,6 @@ Resources:
       SmsConfiguration:
         SnsCallerArn: !GetAtt EirCognitoSnsIamRole.Arn
         ExternalId: "b989b444-47ef-4609-b9ae-d127c035a44b"
-#        SnsCallerArn: "arn:aws:iam::633292692150:role/service-role/testing_iam_role_for_cognito_sms_DEV_Eir2"
-#        ExternalId: "9421ee89-95b0-4278-9fb5-766a4adc5bff"
 
   EirCognitoUserPoolClient:
     Type: AWS::Cognito::UserPoolClient

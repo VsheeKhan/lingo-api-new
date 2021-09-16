@@ -1,6 +1,6 @@
 {
   "prod": {
-    "BooksApi": {
+    "MainApi": {
       "description": "API Gateway endpoint URL for Prod stage for Books related functions",
       "value": "https://aps1qjiczj.execute-api.us-east-1.amazonaws.com/PROD_API"
     },
@@ -18,7 +18,7 @@
     }
   },
   "dev": {
-    "BooksApi": {
+    "MainApi": {
       "description": "API Gateway endpoint URL for Prod stage for Books related functions",
       "value": "https://gy953njsk9.execute-api.us-east-1.amazonaws.com/DEV_API"
     },
