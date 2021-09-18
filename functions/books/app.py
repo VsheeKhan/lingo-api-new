@@ -6,7 +6,7 @@ from pylambdarest import route
 
 # TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
 dynamodb_client = boto3.client('dynamodb')
-TABLE_NAME = os.environ.get('BOOKS_TABLE_NAME')
+BOOKS_TABLE_NAME = os.environ.get('BOOKS_TABLE_NAME')
 
 CORS_HEADERS = {
     'Access-Control-Allow-Headers': os.environ.get('ALLOW_HEADERS'),
@@ -41,19 +41,19 @@ def books_create_lambda_handler(request):
             'N': str(request.json['pages'])
         },
     }
-    dynamodb_client.put_item(TableName=TABLE_NAME, Item=book)
+    dynamodb_client.put_item(TableName=BOOKS_TABLE_NAME, Item=book)
     return 201, book, CORS_HEADERS
 
 
 @route()
 def books_list_lambda_handler():
-    books = dynamodb_client.scan(TableName=TABLE_NAME)
+    books = dynamodb_client.scan(TableName=BOOKS_TABLE_NAME)
     return 200, books['Items'], CORS_HEADERS
 
 
 @route()
 def books_delete_lambda_handler(id):
-    dynamodb_client.delete_item(TableName=TABLE_NAME, Key={
+    dynamodb_client.delete_item(TableName=BOOKS_TABLE_NAME, Key={
         "id": {
             "S": id
         }
@@ -61,20 +61,14 @@ def books_delete_lambda_handler(id):
     return 200, None, CORS_HEADERS
 
 
-def book_get_single_lambda_handler(event, context):
+@route()
+def book_get_single_lambda_handler(id):
     book = dynamodb_client.get_item(
-        TableName=TABLE_NAME,
+        TableName=BOOKS_TABLE_NAME,
         Key={
             'id': {
-                'S': event['pathParameters']['id']
+                'S': id
             },
         }
     )
-    print(book)
-    return {
-        "isBase64Encoded": False,
-        "statusCode": 200,
-        "headers": CORS_HEADERS,
-        "multiValueHeaders": {},
-        "body": json.dumps(book)
-    }
+    return 200, book, CORS_HEADERS
