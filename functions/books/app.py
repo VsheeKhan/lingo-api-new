@@ -51,19 +51,14 @@ def books_list_lambda_handler():
     return 200, books['Items'], CORS_HEADERS
 
 
-def books_delete_lambda_handler(event, context):
+@route()
+def books_delete_lambda_handler(id):
     dynamodb_client.delete_item(TableName=TABLE_NAME, Key={
         "id": {
-            "S": event['pathParameters']['id']
+            "S": id
         }
     })
-    return {
-        "isBase64Encoded": False,
-        "statusCode": 200,
-        "headers": CORS_HEADERS,
-        "multiValueHeaders": {},
-        "body": ""
-    }
+    return 200, None, CORS_HEADERS
 
 
 def book_get_single_lambda_handler(event, context):
