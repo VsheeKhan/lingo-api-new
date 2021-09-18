@@ -26,7 +26,7 @@ CORS_HEADERS = {
     'required': ['name', 'pages', 'author'],
     'additionalProperties': False
 })
-def books_create_lambda_handler(request, event, context):
+def books_create_lambda_handler(request):
     book = {
         'id': {
             'S': str(uuid.uuid4())
@@ -42,25 +42,13 @@ def books_create_lambda_handler(request, event, context):
         },
     }
     dynamodb_client.put_item(TableName=TABLE_NAME, Item=book)
-
-    return {
-        "isBase64Encoded": False,
-        "statusCode": 201,
-        "headers": CORS_HEADERS,
-        "multiValueHeaders": {},
-        "body": json.dumps(book)
-    }
+    return 201, book, CORS_HEADERS
 
 
-def books_list_lambda_handler(event, context):
+@route()
+def books_list_lambda_handler():
     books = dynamodb_client.scan(TableName=TABLE_NAME)
-    return {
-        "isBase64Encoded": False,
-        "statusCode": 200,
-        "headers": CORS_HEADERS,
-        "multiValueHeaders": {},
-        "body": json.dumps(books)
-    }
+    return 200, books['Items'], CORS_HEADERS
 
 
 def books_delete_lambda_handler(event, context):
