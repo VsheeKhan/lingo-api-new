@@ -2,6 +2,7 @@ import json
 import boto3
 import uuid
 import os
+from pylambdarest import route
 
 # TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
 dynamodb_client = boto3.client('dynamodb')
@@ -15,22 +16,29 @@ CORS_HEADERS = {
 }
 
 
-def books_create_lambda_handler(event, context):
-    print(json.dumps(event))
-    body = json.loads(event['body'])
-
+@route(body_schema={
+    'type': 'object',
+    'properties': {
+        'name': {'type': 'string'},
+        'pages': {'type': 'number', 'exclusiveMinimum': 0},
+        'author': {'type': 'string'},
+    },
+    'required': ['name', 'pages', 'author'],
+    'additionalProperties': False
+})
+def books_create_lambda_handler(request, event, context):
     book = {
         'id': {
             'S': str(uuid.uuid4())
         },
         'name': {
-            'S': body['name']
+            'S': request.json['name']
         },
         'author': {
-            'S': body['author']
+            'S': request.json['author']
         },
         'pages': {
-            'N': str(body['pages'])
+            'N': str(request.json['pages'])
         },
     }
     dynamodb_client.put_item(TableName=TABLE_NAME, Item=book)
