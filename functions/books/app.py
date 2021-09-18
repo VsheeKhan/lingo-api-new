@@ -5,13 +5,13 @@ import os
 
 # TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
 dynamodb_client = boto3.client('dynamodb')
-TABLE_NAME = os.environ.get("BOOKS_TABLE_NAME")
+TABLE_NAME = os.environ.get('BOOKS_TABLE_NAME')
 
 CORS_HEADERS = {
     'Access-Control-Allow-Headers': os.environ.get('ALLOW_HEADERS'),
     'Access-Control-Allow-Origin':  os.environ.get('ALLOW_ORIGIN'),
     'Access-Control-Allow-Methods': os.environ.get('ALLOW_METHODS'),
-    'Access-Control-Allow-Credentials': True,
+    'Access-Control-Allow-Credentials': os.environ.get('ALLOW_CREDENTIALS'),
 }
 
 
