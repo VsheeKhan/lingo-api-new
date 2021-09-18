@@ -5,6 +5,7 @@ Description: >
 
   Sample SAM Template for Eir
 
+# Parameters that can be used everywhere
 Parameters:
   Environment:
     Type: String
@@ -24,7 +25,9 @@ Parameters:
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 30
+    MemorySize: 128
+    Runtime: python3.8
     Environment:
       Variables:
         BOOKS_TABLE_NAME: !Sub ${Environment}_books
@@ -33,6 +36,7 @@ Globals:
         ALLOW_ORIGIN: !Sub '${Origin}'
 
 Resources:
+  # API
   MainApi:
     Type: AWS::Serverless::Api
     Properties:
@@ -48,15 +52,13 @@ Resources:
           EirCognitoAuthorizer:
             UserPoolArn: !GetAtt EirCognitoUserPool.Arn
 
+  # Lambda Functions
   ListBooksFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_ListBooks
-      Timeout: 30
-      MemorySize: 128
       Handler: app.books_list_lambda_handler
       CodeUri: functions/books/
-      Runtime: python3.8
       Events:
         ListBooksCaller:
           Type: Api
@@ -74,11 +76,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_CreateBook
-      Timeout: 30
-      MemorySize: 128
       Handler: app.books_create_lambda_handler
       CodeUri: functions/books/
-      Runtime: python3.8
       Events:
         CreateBookCaller:
           Type: Api
@@ -96,11 +95,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_DeleteBook
-      Timeout: 30
-      MemorySize: 128
       Handler: app.books_delete_lambda_handler
       CodeUri: functions/books/
-      Runtime: python3.8
       Events:
         DeleteBooksCaller:
           Type: Api
@@ -118,11 +114,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_GetBook
-      Timeout: 30
-      MemorySize: 128
       Handler: app.book_get_single_lambda_handler
       CodeUri: functions/books/
-      Runtime: python3.8
       Events:
         GetSingleBookCaller:
           Type: Api
@@ -136,6 +129,7 @@ Resources:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
 
+  # Database
   BooksTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -148,6 +142,7 @@ Resources:
         - AttributeName: id
           KeyType: HASH
 
+  # User Pool
   EirCognitoUserPool:
     Type: AWS::Cognito::UserPool
     Properties:
