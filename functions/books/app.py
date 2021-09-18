@@ -71,4 +71,4 @@ def book_get_single_lambda_handler(id):
             },
         }
     )
-    return 200, book, CORS_HEADERS
+    return 200, book['Item'], CORS_HEADERS
