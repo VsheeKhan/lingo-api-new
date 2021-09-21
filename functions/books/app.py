@@ -7,6 +7,7 @@ from pylambdarest import route
 from .models import Book
 
 # TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
+# TODO ishan 21-09-2021 migrate from boto3.client to PynamoDB and fallback to boto3.resource if PynamoDB fails
 dynamodb_client = boto3.client('dynamodb')
 BOOKS_TABLE_NAME = os.environ.get('BOOKS_TABLE_NAME')
 
