@@ -1,15 +1,9 @@
 import os
-import uuid
 
-import boto3
 from pylambdarest import route
+from pynamodb.exceptions import DoesNotExist, DeleteError
 
 from models import Book
-
-# TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
-# TODO ishan 21-09-2021 migrate from boto3.client to PynamoDB and fallback to boto3.resource if PynamoDB fails
-dynamodb_client = boto3.client('dynamodb')
-BOOKS_TABLE_NAME = os.environ.get('BOOKS_TABLE_NAME')
 
 CORS_HEADERS = {
     'Access-Control-Allow-Headers': os.environ.get('ALLOW_HEADERS'),
@@ -21,22 +15,10 @@ CORS_HEADERS = {
 
 @route(body_schema=Book.body_schema())
 def books_create_lambda_handler(request):
-    book = {
-        'id': {
-            'S': str(uuid.uuid4())
-        },
-        'name': {
-            'S': request.json['name']
-        },
-        'author': {
-            'S': request.json['author']
-        },
-        'pages': {
-            'N': str(request.json['pages'])
-        },
-    }
-    dynamodb_client.put_item(TableName=BOOKS_TABLE_NAME, Item=book)
-    return 201, book, CORS_HEADERS
+    book = Book()
+    book.deserialize(request.json)
+    book.save()
+    return 201, book.serialize(), CORS_HEADERS
 
 
 @route()
@@ -46,16 +28,25 @@ def books_list_lambda_handler():
 
 
 @route()
-def books_delete_lambda_handler(id):
-    book = Book.get(id)
-    if not book:
+def books_delete_lambda_handler(pk):
+    try:
+        book = Book.get(pk)
+    except DoesNotExist:
         return 404, None, CORS_HEADERS
-    delete_response = book.delete()
-    print(delete_response)
+    try:
+        book.delete()
+    except DeleteError as error:
+        print(error)
+        return 500, error.cause_response_message, CORS_HEADERS
+
     return 200, None, CORS_HEADERS
 
 
 @route()
-def book_get_single_lambda_handler(id):
-    book = Book.get(id)
+def book_get_single_lambda_handler(pk):
+    try:
+        book = Book.get(pk)
+    except DoesNotExist:
+        return 404, None, CORS_HEADERS
+
     return 200, book.serialize(), CORS_HEADERS
