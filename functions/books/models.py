@@ -15,7 +15,6 @@ ATTRIBUTE_CODE_MAP = {
         'db': 'N',
     },
 }
-BOOKS_TABLE_NAME = os.environ.get('BOOKS_TABLE_NAME')
 
 
 class BaseModel(Model):
@@ -53,7 +52,7 @@ class Book(BaseModel):
     pages = NumberAttribute(null=True)
 
     class Meta:
-        table_name = BOOKS_TABLE_NAME
+        table_name = os.environ.get('BOOKS_TABLE_NAME')
 
     @classmethod
     def body_schema(cls):
