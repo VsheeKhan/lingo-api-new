@@ -30,11 +30,12 @@ Globals:
     Runtime: python3.8
     Environment:
       Variables:
-        BOOKS_TABLE_NAME: !Sub ${Environment}_books
+        BOOKS_TABLE_NAME: &books_table_name !Sub ${Environment}_books
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
         ALLOW_ORIGIN: !Sub '${Origin}'
         ALLOW_CREDENTIALS: true
+        SNS_EXTERNAL_ID: &sns_external_id "b989b444-47ef-4609-b9ae-d127c035a44b"
 
 Resources:
   # API
@@ -134,7 +135,7 @@ Resources:
   BooksTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub ${Environment}_books
+      TableName: *books_table_name
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -167,7 +168,7 @@ Resources:
         - phone_number
       SmsConfiguration:
         SnsCallerArn: !GetAtt EirCognitoSnsIamRole.Arn
-        ExternalId: "b989b444-47ef-4609-b9ae-d127c035a44b"
+        ExternalId: *sns_external_id
 
   EirCognitoUserPoolClient:
     Type: AWS::Cognito::UserPoolClient
@@ -191,7 +192,7 @@ Resources:
             Action: sts:AssumeRole
             Condition:
               StringEquals:
-                sts:ExternalId: "b989b444-47ef-4609-b9ae-d127c035a44b"
+                sts:ExternalId: *sns_external_id
       Policies:
         - PolicyName: SnsPublishPolicy
           PolicyDocument:
@@ -204,7 +205,6 @@ Resources:
                   - "*"
 
 Outputs:
-  # TODO ishan 14-09-2021 Cleanup the output to only have the APIs
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api

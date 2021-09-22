@@ -1,10 +1,13 @@
-import json
-import boto3
-import uuid
 import os
+import uuid
+
+import boto3
 from pylambdarest import route
 
+from .models import Book
+
 # TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
+# TODO ishan 21-09-2021 migrate from boto3.client to PynamoDB and fallback to boto3.resource if PynamoDB fails
 dynamodb_client = boto3.client('dynamodb')
 BOOKS_TABLE_NAME = os.environ.get('BOOKS_TABLE_NAME')
 
@@ -16,16 +19,7 @@ CORS_HEADERS = {
 }
 
 
-@route(body_schema={
-    'type': 'object',
-    'properties': {
-        'name': {'type': 'string'},
-        'pages': {'type': 'number', 'exclusiveMinimum': 0},
-        'author': {'type': 'string'},
-    },
-    'required': ['name', 'pages', 'author'],
-    'additionalProperties': False
-})
+@route(body_schema=Book.body_schema())
 def books_create_lambda_handler(request):
     book = {
         'id': {
