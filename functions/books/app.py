@@ -4,7 +4,7 @@ import uuid
 import boto3
 from pylambdarest import route
 
-from .models import Book
+from models import Book
 
 # TODO ishan 16-09-2021 migrate from boto3.client to boto3.resource
 # TODO ishan 21-09-2021 migrate from boto3.client to PynamoDB and fallback to boto3.resource if PynamoDB fails
@@ -41,8 +41,8 @@ def books_create_lambda_handler(request):
 
 @route()
 def books_list_lambda_handler():
-    books = dynamodb_client.scan(TableName=BOOKS_TABLE_NAME)
-    return 200, books['Items'], CORS_HEADERS
+    books = [b.attribute_values for b in Book.scan(limit=10)]
+    return 200, books, CORS_HEADERS
 
 
 @route()

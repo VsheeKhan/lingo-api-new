@@ -39,7 +39,7 @@ class BaseModel(Model):
 
 
 class Book(BaseModel):
-    id = UnicodeAttribute(null=False, default_for_new=uuid.uuid4())
+    id = UnicodeAttribute(hash_key=True, null=False, default_for_new=uuid.uuid4())
     name = UnicodeAttribute(null=False)
     author = UnicodeAttribute(null=True)
     pages = NumberAttribute(null=True)
