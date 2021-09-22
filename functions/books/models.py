@@ -33,7 +33,7 @@ class BaseModel(Model):
             body_schema['properties'][attr_name] = {
                 'type': ATTRIBUTE_NAME_MAP[type(attr)]
             }
-            if not attr.null:
+            if not attr.null and not attr.default_for_new:
                 body_schema['required'].append(attr_name)
         return body_schema
 

@@ -41,28 +41,21 @@ def books_create_lambda_handler(request):
 
 @route()
 def books_list_lambda_handler():
-    books = [b.attribute_values for b in Book.scan(limit=10)]
+    books = [b.serialize() for b in Book.scan(limit=10)]
     return 200, books, CORS_HEADERS
 
 
 @route()
 def books_delete_lambda_handler(id):
-    dynamodb_client.delete_item(TableName=BOOKS_TABLE_NAME, Key={
-        "id": {
-            "S": id
-        }
-    })
+    book = Book.get(id)
+    if not book:
+        return 404, None, CORS_HEADERS
+    delete_response = book.delete()
+    print(delete_response)
     return 200, None, CORS_HEADERS
 
 
 @route()
 def book_get_single_lambda_handler(id):
-    book = dynamodb_client.get_item(
-        TableName=BOOKS_TABLE_NAME,
-        Key={
-            'id': {
-                'S': id
-            },
-        }
-    )
-    return 200, book['Item'], CORS_HEADERS
+    book = Book.get(id)
+    return 200, book.serialize(), CORS_HEADERS
