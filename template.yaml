@@ -131,6 +131,23 @@ Resources:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
 
+  # AllScripts Functions
+  GetSecurityTokenFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetSecurityToek
+      Handler: app.get_security_token_lambda_handler
+      CodeUri: functions/adp/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/getSecurityToken
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table
