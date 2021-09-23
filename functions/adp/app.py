@@ -17,7 +17,31 @@ def get_security_token_lambda_handler(request):
     )
     token_result = untangle.parse(response.text)
     token = token_result.GetSecurityTokenResponse.GetSecurityTokenResult.cdata
-    print(token)
     return 200, {
         'GetSecurityTokenResult': token
     }, CORS_HEADERS
+
+
+@route()
+def magic_lambda_handler(request):
+    response = requests.post(
+        '{0}/MagicJson'.format(adp_config['json_api']),
+        json={
+            'Action': request.json.get('Action'),
+            'Appname': adp_config['app_name'],
+            'Token': request.json.get('Token'),
+            'AppUserID': request.json.get('AppUserID'),
+            'PatientID': request.json.get('PatientID'),
+            'Parameter1': request.json.get('Parameter1'),
+            'Parameter2': request.json.get('Parameter2'),
+            'Parameter3': request.json.get('Parameter3'),
+            'Parameter4': request.json.get('Parameter4'),
+            'Parameter5': request.json.get('Parameter5'),
+            'Parameter6': request.json.get('Parameter6'),
+        },
+        verify=adp_config['ssl_verify']
+    )
+    if int(response.status_code / 100) != 2:
+        return response.status_code, response.text, CORS_HEADERS
+
+    return response.status_code, response.json(), CORS_HEADERS
