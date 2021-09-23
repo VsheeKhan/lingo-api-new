@@ -144,7 +144,7 @@ Resources:
           Properties:
             RestApiId: !Ref MainApi
             Path: /adp/getSecurityToken
-            Method: post
+            Method: get
             Auth:
               Authorizer: EirCognitoAuthorizer
 
