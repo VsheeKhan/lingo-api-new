@@ -29,32 +29,42 @@ def get_security_token_lambda_handler(request):
     }, CORS_HEADERS
 
 
-@route()
-def magic_lambda_handler(request):
-    try:
-        response = requests.post(
-            '{0}/MagicJson'.format(adp_config['json_api']),
-            json={
-                'Action': request.json.get('Action'),
-                'Appname': adp_config['app_name'],
-                'Token': request.json.get('Token'),
-                'AppUserID': request.json.get('AppUserID'),
-                'PatientID': request.json.get('PatientID'),
-                'Parameter1': request.json.get('Parameter1'),
-                'Parameter2': request.json.get('Parameter2'),
-                'Parameter3': request.json.get('Parameter3'),
-                'Parameter4': request.json.get('Parameter4'),
-                'Parameter5': request.json.get('Parameter5'),
-                'Parameter6': request.json.get('Parameter6'),
-            },
-            verify=adp_config['ssl_verify']
-        )
-    except ConnectionError as error:
-        print(error)
-        return 500, str(error), CORS_HEADERS
+def magic_creator():
+    @route()
+    def handler(request):
+        try:
+            response = requests.post(
+                '{0}/MagicJson'.format(adp_config['json_api']),
+                json={
+                    'Action': request.json.get('Action'),
+                    'Appname': adp_config['app_name'],
+                    'Token': request.json.get('Token'),
+                    'AppUserID': request.json.get('AppUserID'),
+                    'PatientID': request.json.get('PatientID'),
+                    'Parameter1': request.json.get('Parameter1'),
+                    'Parameter2': request.json.get('Parameter2'),
+                    'Parameter3': request.json.get('Parameter3'),
+                    'Parameter4': request.json.get('Parameter4'),
+                    'Parameter5': request.json.get('Parameter5'),
+                    'Parameter6': request.json.get('Parameter6'),
+                },
+                verify=adp_config['ssl_verify']
+            )
+        except ConnectionError as error:
+            print(error)
+            return 500, str(error), CORS_HEADERS
 
-    if int(response.status_code / 100) != 2:
-        response_content = response.text
-    else:
-        response_content = response.json()
-    return response.status_code, response_content, CORS_HEADERS
+        if int(response.status_code / 100) != 2:
+            response_content = response.text
+        else:
+            response_content = response.json()
+        return response.status_code, response_content, CORS_HEADERS
+
+    return handler
+
+
+# Magic (generic)
+magic_lambda_handler = magic_creator()
+
+# # Echo
+# echo_lambda_handler = magic_creator()
