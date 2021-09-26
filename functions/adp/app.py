@@ -1,17 +1,17 @@
 import requests
-from requests.exceptions import ConnectionError
 import untangle
 from pylambdarest import route
+from requests.exceptions import ConnectionError
 
 from commons.constants import CORS_HEADERS
-from .constants import adp_config
+from .constants import adp_config, ApiType
 
 
 @route()
 def get_security_token_lambda_handler(request):
     try:
         response = requests.post(
-            '{0}/GetSecurityToken'.format(adp_config['json_api']),
+            f'{adp_config["json_api"][ApiType.PRO_EHR]}/GetSecurityToken',
             json={
                 "Username": adp_config['svc_username'],
                 "Password": adp_config['svc_password']
@@ -29,12 +29,17 @@ def get_security_token_lambda_handler(request):
     }, CORS_HEADERS
 
 
-def magic_creator(action=None):
+def magic_creator(api_type=None, action=None):
+    if api_type is None:
+        raise TypeError
+    if not isinstance(api_type, ApiType):
+        return ValueError
+
     @route()
     def handler(request):
         try:
             response = requests.post(
-                '{0}/MagicJson'.format(adp_config['json_api']),
+                f'{adp_config["json_api"][api_type]}/MagicJson',
                 json={
                     'Action': action or request.json.get('Action'),
                     'Appname': adp_config['app_name'],
@@ -64,7 +69,7 @@ def magic_creator(action=None):
 
 
 # Magic (generic)
-magic_lambda_handler = magic_creator()
+magic_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR)
 
 # Echo
-echo_lambda_handler = magic_creator(action='Echo')
+echo_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='Echo')
