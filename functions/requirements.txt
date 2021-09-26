@@ -3,3 +3,4 @@ boto3~=1.18.40
 pylambdarest~=0.2.0
 pynamodb~=5.1.0
 untangle~=1.1.1
+json2xml~=3.7.0

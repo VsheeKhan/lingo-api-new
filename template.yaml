@@ -166,6 +166,7 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # Magic (Generic API)
   ProEHRMagicFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -198,6 +199,7 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # Echo
   ProEHREchoFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -226,6 +228,23 @@ Resources:
           Properties:
             RestApiId: !Ref MainApi
             Path: /adp/pro_pm/echo
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatient
+  ProPMSavePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSavePatient
+      Handler: adp.app.pro_pm_save_patient_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_patient
             Method: POST
             Auth:
               Authorizer: EirCognitoAuthorizer
