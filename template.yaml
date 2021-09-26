@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   Eir
 
-  Sample SAM Template for Eir
+  AWS SAM Template for Eir
 
 # Parameters that can be used everywhere
 Parameters:
