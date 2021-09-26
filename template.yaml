@@ -59,8 +59,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_ListBooks
-      Handler: app.books_list_lambda_handler
-      CodeUri: functions/books/
+      Handler: books.app.books_list_lambda_handler
+      CodeUri: functions/
       Events:
         ListBooksCaller:
           Type: Api
@@ -78,8 +78,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_CreateBook
-      Handler: app.books_create_lambda_handler
-      CodeUri: functions/books/
+      Handler: books.app.books_create_lambda_handler
+      CodeUri: functions/
       Events:
         CreateBookCaller:
           Type: Api
@@ -97,8 +97,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_DeleteBook
-      Handler: app.books_delete_lambda_handler
-      CodeUri: functions/books/
+      Handler: books.app.books_delete_lambda_handler
+      CodeUri: functions/
       Events:
         DeleteBooksCaller:
           Type: Api
@@ -116,8 +116,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_GetBook
-      Handler: app.book_get_single_lambda_handler
-      CodeUri: functions/books/
+      Handler: books.app.book_get_single_lambda_handler
+      CodeUri: functions/
       Events:
         GetSingleBookCaller:
           Type: Api

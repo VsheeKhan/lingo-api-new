@@ -1,16 +1,8 @@
-import os
-
 from pylambdarest import route
 from pynamodb.exceptions import DoesNotExist, DeleteError
 
-from models import Book
-
-CORS_HEADERS = {
-    'Access-Control-Allow-Headers': os.environ.get('ALLOW_HEADERS'),
-    'Access-Control-Allow-Origin':  os.environ.get('ALLOW_ORIGIN'),
-    'Access-Control-Allow-Methods': os.environ.get('ALLOW_METHODS'),
-    'Access-Control-Allow-Credentials': os.environ.get('ALLOW_CREDENTIALS'),
-}
+from commons.constants import CORS_HEADERS
+from .models import Book
 
 
 @route(body_schema=Book.body_schema())
