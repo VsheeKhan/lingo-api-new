@@ -29,14 +29,14 @@ def get_security_token_lambda_handler(request):
     }, CORS_HEADERS
 
 
-def magic_creator():
+def magic_creator(action=None):
     @route()
     def handler(request):
         try:
             response = requests.post(
                 '{0}/MagicJson'.format(adp_config['json_api']),
                 json={
-                    'Action': request.json.get('Action'),
+                    'Action': action or request.json.get('Action'),
                     'Appname': adp_config['app_name'],
                     'Token': request.json.get('Token'),
                     'AppUserID': request.json.get('AppUserID'),
@@ -66,5 +66,5 @@ def magic_creator():
 # Magic (generic)
 magic_lambda_handler = magic_creator()
 
-# # Echo
-# echo_lambda_handler = magic_creator()
+# Echo
+echo_lambda_handler = magic_creator(action='Echo')
