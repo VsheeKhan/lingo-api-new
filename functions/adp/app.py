@@ -39,6 +39,7 @@ def security_token_creator(api_type=None):
 
 # Security Token
 pro_ehr_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_EHR)
+pro_pm_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_PM)
 
 
 def magic_creator(api_type=None, action=None):
@@ -82,6 +83,8 @@ def magic_creator(api_type=None, action=None):
 
 # Magic (generic)
 pro_ehr_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR)
+pro_pm_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_PM)
 
 # Echo
 pro_ehr_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='Echo')
+pro_pm_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='Echo')
