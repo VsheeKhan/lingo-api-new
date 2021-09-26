@@ -28,6 +28,7 @@ Globals:
     Timeout: 30
     MemorySize: 128
     Runtime: python3.8
+    CodeUri: functions/
     Environment:
       Variables:
         BOOKS_TABLE_NAME: &books_table_name !Sub ${Environment}_books
@@ -61,7 +62,6 @@ Resources:
     Properties:
       FunctionName: !Sub ${Environment}_ListBooks
       Handler: books.app.books_list_lambda_handler
-      CodeUri: functions/
       Events:
         ListBooksCaller:
           Type: Api
@@ -80,7 +80,6 @@ Resources:
     Properties:
       FunctionName: !Sub ${Environment}_CreateBook
       Handler: books.app.books_create_lambda_handler
-      CodeUri: functions/
       Events:
         CreateBookCaller:
           Type: Api
@@ -99,7 +98,6 @@ Resources:
     Properties:
       FunctionName: !Sub ${Environment}_DeleteBook
       Handler: books.app.books_delete_lambda_handler
-      CodeUri: functions/
       Events:
         DeleteBooksCaller:
           Type: Api
@@ -118,7 +116,6 @@ Resources:
     Properties:
       FunctionName: !Sub ${Environment}_GetBook
       Handler: books.app.book_get_single_lambda_handler
-      CodeUri: functions/
       Events:
         GetSingleBookCaller:
           Type: Api
@@ -138,7 +135,6 @@ Resources:
     Properties:
       FunctionName: !Sub ${Environment}_GetSecurityToken
       Handler: adp.app.get_security_token_lambda_handler
-      CodeUri: functions/
       Events:
         ApiRequest:
           Type: Api
@@ -154,7 +150,6 @@ Resources:
     Properties:
       FunctionName: !Sub ${Environment}_Magic
       Handler: adp.app.magic_lambda_handler
-      CodeUri: functions/
       Events:
         ApiRequest:
           Type: Api
@@ -170,7 +165,6 @@ Resources:
     Properties:
       FunctionName: !Sub ${Environment}_Echo
       Handler: adp.app.echo_lambda_handler
-      CodeUri: functions/
       Events:
         ApiRequest:
           Type: Api
