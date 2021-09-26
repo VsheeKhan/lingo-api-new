@@ -140,7 +140,7 @@ Resources:
       Handler: adp.app.get_security_token_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -156,7 +156,7 @@ Resources:
       Handler: adp.app.magic_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -172,7 +172,7 @@ Resources:
       Handler: adp.app.echo_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
