@@ -7,26 +7,38 @@ from commons.constants import CORS_HEADERS
 from .constants import adp_config, ApiType
 
 
-@route()
-def get_security_token_lambda_handler(request):
-    try:
-        response = requests.post(
-            f'{adp_config["json_api"][ApiType.PRO_EHR]}/GetSecurityToken',
-            json={
-                "Username": adp_config['svc_username'],
-                "Password": adp_config['svc_password']
-            },
-            verify=adp_config['ssl_verify']
-        )
-    except ConnectionError as error:
-        print(error)
-        return 500, str(error), CORS_HEADERS
+def security_token_creator(api_type=None):
+    if api_type is None:
+        raise TypeError
+    if not isinstance(api_type, ApiType):
+        return ValueError
 
-    token_result = untangle.parse(response.text)
-    token = token_result.GetSecurityTokenResponse.GetSecurityTokenResult.cdata
-    return 200, {
-        'GetSecurityTokenResult': token
-    }, CORS_HEADERS
+    @route()
+    def handler(request):
+        try:
+            response = requests.post(
+                f'{adp_config["json_api"][api_type]}/GetSecurityToken',
+                json={
+                    "Username": adp_config['svc_username'],
+                    "Password": adp_config['svc_password']
+                },
+                verify=adp_config['ssl_verify']
+            )
+        except ConnectionError as error:
+            print(error)
+            return 500, str(error), CORS_HEADERS
+
+        token_result = untangle.parse(response.text)
+        token = token_result.GetSecurityTokenResponse.GetSecurityTokenResult.cdata
+        return 200, {
+            'GetSecurityTokenResult': token
+        }, CORS_HEADERS
+
+    return handler
+
+
+# Security Token
+pro_ehr_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_EHR)
 
 
 def magic_creator(api_type=None, action=None):
@@ -69,7 +81,7 @@ def magic_creator(api_type=None, action=None):
 
 
 # Magic (generic)
-magic_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR)
+pro_ehr_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR)
 
 # Echo
-echo_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='Echo')
+pro_ehr_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='Echo')

@@ -137,7 +137,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_GetSecurityToken
-      Handler: adp.app.get_security_token_lambda_handler
+      Handler: adp.app.pro_ehr_get_security_token_lambda_handler
       CodeUri: functions/
       Events:
         ApiRequest:
@@ -153,7 +153,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_Magic
-      Handler: adp.app.magic_lambda_handler
+      Handler: adp.app.pro_ehr_magic_lambda_handler
       CodeUri: functions/
       Events:
         ApiRequest:
@@ -169,7 +169,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_Echo
-      Handler: adp.app.echo_lambda_handler
+      Handler: adp.app.pro_ehr_echo_lambda_handler
       CodeUri: functions/
       Events:
         ApiRequest:
