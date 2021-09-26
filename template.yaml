@@ -36,6 +36,7 @@ Globals:
         ALLOW_ORIGIN: !Sub '${Origin}'
         ALLOW_CREDENTIALS: true
         SNS_EXTERNAL_ID: &sns_external_id "b989b444-47ef-4609-b9ae-d127c035a44b"
+        ENVIRONMENT: ${Environment}
 
 Resources:
   # API
