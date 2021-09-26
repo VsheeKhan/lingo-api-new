@@ -1,12 +1,3 @@
-import os
-
-CORS_HEADERS = {
-    'Access-Control-Allow-Headers': os.environ.get('ALLOW_HEADERS'),
-    'Access-Control-Allow-Origin':  os.environ.get('ALLOW_ORIGIN'),
-    'Access-Control-Allow-Methods': os.environ.get('ALLOW_METHODS'),
-    'Access-Control-Allow-Credentials': os.environ.get('ALLOW_CREDENTIALS'),
-}
-
 adp_config = {
     'json_api': 'https://pro16ga-azure.unitysandbox.com/Unity/unityservice.svc/json/',
     'app_name': 'LingoUI.LingoUIServices.TestApp',

@@ -2,7 +2,8 @@ import requests
 import untangle
 from pylambdarest import route
 
-from constants import CORS_HEADERS, adp_config
+from commons.constants import CORS_HEADERS
+from .constants import adp_config
 
 
 @route()

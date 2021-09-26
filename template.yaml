@@ -136,8 +136,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_GetSecurityToken
-      Handler: app.get_security_token_lambda_handler
-      CodeUri: functions/adp/
+      Handler: adp.app.get_security_token_lambda_handler
+      CodeUri: functions/
       Events:
         CreateBookCaller:
           Type: Api
@@ -152,8 +152,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_Magic
-      Handler: app.magic_lambda_handler
-      CodeUri: functions/adp/
+      Handler: adp.app.magic_lambda_handler
+      CodeUri: functions/
       Events:
         CreateBookCaller:
           Type: Api
