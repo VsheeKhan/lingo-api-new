@@ -42,7 +42,7 @@ pro_ehr_get_security_token_lambda_handler = security_token_creator(api_type=ApiT
 pro_pm_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_PM)
 
 
-def magic_creator(api_type=None, action=None):
+def magic_creator(api_type=None, action=None, parameter_processor=lambda x: x):
     if api_type is None:
         raise TypeError
     if not isinstance(api_type, ApiType):
@@ -59,12 +59,12 @@ def magic_creator(api_type=None, action=None):
                     'Token': request.json.get('Token'),
                     'AppUserID': request.json.get('AppUserID'),
                     'PatientID': request.json.get('PatientID'),
-                    'Parameter1': request.json.get('Parameter1'),
-                    'Parameter2': request.json.get('Parameter2'),
-                    'Parameter3': request.json.get('Parameter3'),
-                    'Parameter4': request.json.get('Parameter4'),
-                    'Parameter5': request.json.get('Parameter5'),
-                    'Parameter6': request.json.get('Parameter6'),
+                    'Parameter1': parameter_processor(request.json.get('Parameter1')),
+                    'Parameter2': parameter_processor(request.json.get('Parameter2')),
+                    'Parameter3': parameter_processor(request.json.get('Parameter3')),
+                    'Parameter4': parameter_processor(request.json.get('Parameter4')),
+                    'Parameter5': parameter_processor(request.json.get('Parameter5')),
+                    'Parameter6': parameter_processor(request.json.get('Parameter6')),
                 },
                 verify=adp_config['ssl_verify']
             )
