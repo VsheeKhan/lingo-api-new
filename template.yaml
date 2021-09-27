@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   Eir
 
-  Sample SAM Template for Eir
+  AWS SAM Template for Eir
 
 # Parameters that can be used everywhere
 Parameters:
@@ -36,6 +36,7 @@ Globals:
         ALLOW_ORIGIN: !Sub '${Origin}'
         ALLOW_CREDENTIALS: true
         SNS_EXTERNAL_ID: &sns_external_id "b989b444-47ef-4609-b9ae-d127c035a44b"
+        ENVIRONMENT: ${Environment}
 
 Resources:
   # API
@@ -132,34 +133,118 @@ Resources:
             TableName: !Ref BooksTable
 
   # AllScripts Functions
-  GetSecurityTokenFunction:
+  # GetSecurityToken
+  ProEHRGetSecurityTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_GetSecurityToken
-      Handler: adp.app.get_security_token_lambda_handler
+      FunctionName: !Sub ${Environment}_ProPHRGetSecurityToken
+      Handler: adp.app.pro_ehr_get_security_token_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
-            Path: /adp/getSecurityToken
+            Path: /adp/pro_ehr/getSecurityToken
             Method: get
             Auth:
               Authorizer: EirCognitoAuthorizer
 
-  MagicFunction:
+  ProPMGetSecurityTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_Magic
-      Handler: adp.app.magic_lambda_handler
+      FunctionName: !Sub ${Environment}_ProPMGetSecurityToken
+      Handler: adp.app.pro_pm_get_security_token_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
-            Path: /adp/magic
+            Path: /adp/pro_pm/getSecurityToken
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # Magic (Generic API)
+  ProEHRMagicFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRMagic
+      Handler: adp.app.pro_ehr_magic_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/magic
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  ProPMMagicFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMMagic
+      Handler: adp.app.pro_pm_magic_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/magic
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # Echo
+  ProEHREchoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHREcho
+      Handler: adp.app.pro_ehr_echo_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/echo
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  ProPMEchoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMEcho
+      Handler: adp.app.pro_pm_echo_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/echo
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatient
+  ProPMSavePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSavePatient
+      Handler: adp.app.pro_pm_save_patient_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_patient
             Method: POST
             Auth:
               Authorizer: EirCognitoAuthorizer
