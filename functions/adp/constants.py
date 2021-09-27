@@ -16,5 +16,6 @@ adp_config = {
     'app_name': 'LingoUI.LingoUIServices.TestApp',
     'svc_username': 'Lingo-19a5-LingoUISer-test',
     'svc_password': 'L#nGb^9l5Ng4^cs%rv2ccSt%StbPp9',
-    'ssl_verify': os.environ.get('ENVIRONMENT') == 'DEV',
+    # 'ssl_verify': os.environ.get('ENVIRONMENT') != 'DEV',  # Don't verify SSL if in DEV mode
+    'ssl_verify': False,  # TODO ishan 27-09-2021 This is temporary for now
 }
