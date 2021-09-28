@@ -101,6 +101,10 @@ pro_pm_get_user_authentication_lambda_handler = magic_creator(api_type=ApiType.P
 pro_ehr_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchPatients')
 pro_pm_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SearchPatients')
 
+# Get Patient Demographics
+pro_pm_get_patient_demographics_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientDemographics')
+
+
 def parameter_processor_creator(xml_attributes=None):
     xml_attributes = xml_attributes or []
     # Check for iterable of strings
