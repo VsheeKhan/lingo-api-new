@@ -232,6 +232,7 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetUserAuthentication
   ProEHRGetUserAuthenticationFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -260,6 +261,39 @@ Resources:
           Properties:
             RestApiId: !Ref MainApi
             Path: /adp/pro_pm/get_user_athentication
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SearchPatients
+  ProEHRSearchPatientsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRSearchPatients
+      Handler: adp.app.pro_ehr_search_patients_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/search_patients
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  ProPMSearchPatientsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSearchPatients
+      Handler: adp.app.pro_pm_search_patients_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/search_patients
             Method: POST
             Auth:
               Authorizer: EirCognitoAuthorizer

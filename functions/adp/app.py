@@ -97,6 +97,9 @@ pro_pm_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='Echo
 pro_ehr_get_user_authentication_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetUserAuthentication')
 pro_pm_get_user_authentication_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetUserAuthentication')
 
+# Search Patients
+pro_ehr_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchPatients')
+pro_pm_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SearchPatients')
 
 def parameter_processor_creator(xml_attributes=None):
     xml_attributes = xml_attributes or []
