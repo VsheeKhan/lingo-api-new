@@ -332,6 +332,40 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetResources
+  ProPMGetResourcesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetResources
+      Handler: adp.app.pro_pm_get_resources_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_resources
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetAvailableSchedule
+  ProPMGetAvailableScheduleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAvailableSchedule
+      Handler: adp.app.pro_pm_get_available_schedule_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_available_schedule
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table
