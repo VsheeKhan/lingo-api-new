@@ -232,6 +232,38 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  ProEHRGetUserAuthenticationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetUserAuthentication
+      Handler: adp.app.pro_ehr_get_user_authentication_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_user_athentication
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  ProPMGetUserAuthenticationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetUserAuthentication
+      Handler: adp.app.pro_pm_get_user_authentication_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_user_athentication
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # SavePatient
   ProPMSavePatientFunction:
     Type: AWS::Serverless::Function
