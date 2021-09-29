@@ -128,8 +128,17 @@ pro_pm_get_patient_demographics_lambda_handler = magic_creator(api_type=ApiType.
 # GetResources
 pro_pm_get_resources_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetResources')
 
+# GetResourceByID
+pro_pm_get_resource_by_id_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetResourceByID')
+
 # GetAvailableSchedule
 pro_pm_get_available_schedule_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAvailableSchedule')
+
+# GetSchedulingLocations
+pro_pm_get_scheduling_locations_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetSchedulingLocations')
+
+# GetSchedulingDepartments
+pro_pm_get_scheduling_departments_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetSchedulingDepartments')
 
 # SavePatient
 pro_pm_save_patient_lambda_handler = magic_creator(
@@ -171,6 +180,9 @@ pro_pm_save_memo_appointment_lambda_handler = magic_creator(
 # GetAppointmentTypes
 pro_pm_get_appointment_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAppointmentTypes')
 
+# GetAvailableTimeBlocks
+pro_pm_get_available_time_blocks_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAvailableTimeBlocks')
+
 # GetAppointmentRestrictions
 pro_pm_get_appointment_restriction_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAppointmentRestrictions')
 
@@ -189,3 +201,12 @@ pro_pm_get_appointments_by_change_dttm_lambda_handler = magic_creator(
 
 # SetAppointmentStatus
 pro_pm_set_appointment_status_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SetAppointmentStatus')
+
+# GetPractitioners
+pro_pm_get_practitioners_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPractitioners')
+
+# GetPractitionerSpecialties
+pro_pm_get_practitioner_specialities_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPractitionerSpecialties')
+
+# GetOperators
+pro_pm_get_operators_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetOperators')

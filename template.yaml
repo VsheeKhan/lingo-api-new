@@ -349,6 +349,23 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetResourceByID
+  ProPMGetResourceByIDFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetResourceByID
+      Handler: adp.app.pro_pm_get_resource_by_id_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_resource_by_id
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # GetAvailableSchedule
   ProPMGetAvailableScheduleFunction:
     Type: AWS::Serverless::Function
@@ -362,6 +379,40 @@ Resources:
           Properties:
             RestApiId: !Ref MainApi
             Path: /adp/pro_pm/get_available_schedule
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetSchedulingLocations
+  ProPMGetSchedulingLocationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetSchedulingLocations
+      Handler: adp.app.pro_pm_get_scheduling_locations_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_scheduling_locations
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetSchedulingDepartments
+  ProPMGetSchedulingDepartmentsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetSchedulingDepartments
+      Handler: adp.app.pro_pm_get_scheduling_departments_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_scheduling_departments
             Method: POST
             Auth:
               Authorizer: EirCognitoAuthorizer
@@ -486,6 +537,23 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetAvailableTimeBlocks
+  ProPMGetAvailableTimeBlocksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAvailableTimeBlocks
+      Handler: adp.app.pro_pm_get_available_time_blocks_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_available_time_blocks
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # GetAppointmentRestrictions
   ProPMGetAppointmentRestrictionsFunction:
     Type: AWS::Serverless::Function
@@ -567,6 +635,57 @@ Resources:
           Properties:
             RestApiId: !Ref MainApi
             Path: /adp/pro_pm/set_appointment_status
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPractitioners
+  ProPMGetPractitionersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetPractitioners
+      Handler: adp.app.pro_pm_get_practitioners_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_practitioners
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPractitionerSpecialties
+  ProPMGetPractitionerSpecialtiesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetPractitionerSpecialties
+      Handler: adp.app.pro_pm_get_practitioner_specialities_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_practitioner_specialities
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetOperators
+  ProPMGetOperatorsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetOperators
+      Handler: adp.app.pro_pm_get_operators_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_operators
             Method: POST
             Auth:
               Authorizer: EirCognitoAuthorizer
