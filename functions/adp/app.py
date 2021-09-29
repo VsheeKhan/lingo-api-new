@@ -131,9 +131,58 @@ pro_pm_get_resources_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, act
 # GetAvailableSchedule
 pro_pm_get_available_schedule_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAvailableSchedule')
 
-# Save Patient
+# SavePatient
 pro_pm_save_patient_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SavePatient',
     parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
 )
+
+# GetScheduleByPatientID
+pro_pm_get_schedule_by_patient_id_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetScheduleByPatientID')
+
+# GetAppointmentById
+pro_pm_get_appointment_by_id_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAppointmentById')
+
+# SaveAppointment
+pro_pm_save_appointment_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SaveAppointment',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+)
+
+# SaveForcedAppointment
+pro_pm_save_forced_appointment_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SaveForcedAppointment',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+)
+
+# SaveMemoAppointment
+pro_pm_save_memo_appointment_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SaveMemoAppointment',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+)
+
+# GetAppointmentTypes
+pro_pm_get_appointment_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAppointmentTypes')
+
+# GetAppointmentRestrictions
+pro_pm_get_appointment_restriction_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAppointmentRestrictions')
+
+# GetAppointmentConfirmationResults
+pro_pm_get_appointment_confirmation_results_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAppointmentConfirmationResults')
+
+# GetAppointmentCancellationReasons
+pro_pm_get_appointment_cancellation_reasons_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAppointmentCancellationReasons')
+
+# GetAppointmentsByChangeDTTM
+pro_pm_get_appointments_by_change_dttm_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='GetAppointmentsByChangeDTTM',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+)
+
+# SetAppointmentStatus
+pro_pm_set_appointment_status_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SetAppointmentStatus')

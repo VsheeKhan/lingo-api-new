@@ -366,6 +366,193 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetScheduleByPatientID
+  ProPMGetScheduleByPatientIDFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetScheduleByPatientID
+      Handler: adp.app.pro_pm_get_schedule_by_patient_id_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_schedule_by_patient_id
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetAppointmentById
+  ProPMGetAppointmentByIdFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAppointmentById
+      Handler: adp.app.pro_pm_get_appointment_by_id_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_appointment_by_id
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveAppointment
+  ProPMSaveAppointmentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveAppointment
+      Handler: adp.app.pro_pm_save_appointment_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_appointment
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveForcedAppointment
+  ProPMSaveForcedAppointmentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveForcedAppointment
+      Handler: adp.app.pro_pm_save_forced_appointment_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_forced_appointment
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveMemoAppointment
+  ProPMSaveMemoAppointmentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveMemoAppointment
+      Handler: adp.app.pro_pm_save_memo_appointment_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_memo_appointment
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetAppointmentTypes
+  ProPMGetAppointmentTypesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAppointmentTypes
+      Handler: adp.app.pro_pm_get_appointment_types_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_appointment_types
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetAppointmentRestrictions
+  ProPMGetAppointmentRestrictionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAppointmentRestrictions
+      Handler: adp.app.pro_pm_get_appointment_restriction_types_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_appointment_restriction_types
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetAppointmentConfirmationResults
+  ProPMGetAppointmentConfirmationResultsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAppointmentConfirmationResults
+      Handler: adp.app.pro_pm_get_appointment_confirmation_results_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_appointment_confirmation_results
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetAppointmentCancellationReasons
+  ProPMGetAppointmentCancellationReasonsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAppointmentCancellationReasons
+      Handler: adp.app.pro_pm_get_appointment_cancellation_reasons_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_appointment_cancellation_reasons
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetAppointmentsByChangeDTTM
+  ProPMGetAppointmentsByChangeDTTMFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAppointmentsByChangeDTTM
+      Handler: adp.app.pro_pm_get_appointments_by_change_dttm_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_appointments_by_change_dttm
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SetAppointmentStatus
+  ProPMSetAppointmentStatusFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSetAppointmentStatus
+      Handler: adp.app.pro_pm_set_appointment_status_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/set_appointment_status
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table
