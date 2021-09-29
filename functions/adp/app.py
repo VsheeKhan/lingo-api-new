@@ -138,6 +138,9 @@ pro_pm_save_patient_lambda_handler = magic_creator(
     parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
 )
 
+# GetSchedule
+pro_pm_get_schedule_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetSchedule')
+
 # GetScheduleByPatientID
 pro_pm_get_schedule_by_patient_id_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetScheduleByPatientID')
 

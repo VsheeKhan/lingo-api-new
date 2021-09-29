@@ -366,6 +366,24 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetSchedule
+  ProPMGetScheduleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetSchedule
+      Handler: adp.app.pro_pm_get_schedule_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_schedule
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+
   # GetScheduleByPatientID
   ProPMGetScheduleByPatientIDFunction:
     Type: AWS::Serverless::Function
