@@ -11,6 +11,7 @@ from commons.constants import CORS_HEADERS
 from .constants import adp_config, ApiType
 
 
+# Creator functions (functions to create API(s))
 def security_token_creator(api_type=None):
     if api_type is None:
         raise TypeError('api_type cannot be None')
@@ -39,11 +40,6 @@ def security_token_creator(api_type=None):
         }, CORS_HEADERS
 
     return handler
-
-
-# Security Token
-pro_ehr_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_EHR)
-pro_pm_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_PM)
 
 
 def magic_creator(api_type=None, action=None, parameter_processor=lambda name, value: value):
@@ -85,15 +81,6 @@ def magic_creator(api_type=None, action=None, parameter_processor=lambda name, v
     return handler
 
 
-# Magic (generic)
-pro_ehr_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR)
-pro_pm_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_PM)
-
-# Echo
-pro_ehr_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='Echo')
-pro_pm_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='Echo')
-
-
 def parameter_processor_creator(xml_attributes=None):
     xml_attributes = xml_attributes or []
     # Check for iterable of strings
@@ -113,6 +100,36 @@ def parameter_processor_creator(xml_attributes=None):
 
     return handler
 
+
+# API(s)
+# Security Token
+pro_ehr_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_EHR)
+pro_pm_get_security_token_lambda_handler = security_token_creator(api_type=ApiType.PRO_PM)
+
+# Magic (generic)
+pro_ehr_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR)
+pro_pm_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_PM)
+
+# Echo
+pro_ehr_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='Echo')
+pro_pm_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='Echo')
+
+# Get User Authentication
+pro_ehr_get_user_authentication_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetUserAuthentication')
+pro_pm_get_user_authentication_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetUserAuthentication')
+
+# Search Patients
+pro_ehr_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchPatients')
+pro_pm_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SearchPatients')
+
+# Get Patient Demographics
+pro_pm_get_patient_demographics_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientDemographics')
+
+# GetResources
+pro_pm_get_resources_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetResources')
+
+# GetAvailableSchedule
+pro_pm_get_available_schedule_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAvailableSchedule')
 
 # Save Patient
 pro_pm_save_patient_lambda_handler = magic_creator(
