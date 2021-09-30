@@ -13,6 +13,7 @@ Parameters:
     Description: (Required) Environment type
     AllowedValues:
       - DEV
+      - TEST
       - PROD
   Origin:
     Type: String
@@ -21,6 +22,7 @@ Parameters:
     AllowedValues:
       - http://localhost:3000
       - https://main.d3pbzq317h5g22.amplifyapp.com
+      - https://lingoui-health.dev-ioteractions.org
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:

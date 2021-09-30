@@ -41,10 +41,15 @@ To build and deploy using AWS Toolkit for Jetbrains:
   Environment=DEV
   Origin=http://localhost:3000
   ```
+  * Test Config:
+  ```bash
+  Environment=TEST
+  Origin=https://main.d3pbzq317h5g22.amplifyapp.com
+  ```
   * Production Config:
   ```bash
   Environment=PROD
-  Origin=https://main.d3pbzq317h5g22.amplifyapp.com
+  Origin=https://lingoui-health.dev-ioteractions.org
   ```
 * Select/Create a stack of your own naming convention.
 * Select/Create a bucket for deployment.
