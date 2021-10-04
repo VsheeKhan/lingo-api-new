@@ -210,3 +210,71 @@ pro_pm_get_practitioner_specialities_lambda_handler = magic_creator(api_type=Api
 
 # GetOperators
 pro_pm_get_operators_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetOperators')
+
+# GetPatientPolicyPCPs
+pro_pm_get_patient_policy_pcps_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientPolicyPCPs')
+
+# GetAccountTypes
+pro_pm_get_account_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAccountTypes')
+
+# GetBatchCategories
+pro_pm_get_batch_categories_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetBatchCategories')
+
+# GetBatchDetail
+pro_pm_get_batch_detail_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetBatchDetail')
+
+# GetCarriers
+pro_pm_get_carriers_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetCarriers')
+
+# GetCoverageTypes
+pro_pm_get_coverage_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetCoverageTypes')
+
+# GetDepartments
+pro_pm_get_departments_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetDepartments')
+
+# GetDivisions
+pro_pm_get_divisions_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetDivisions')
+
+# GetEmployerBenefitPlan
+pro_pm_get_employer_benefit_plan_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetEmployerBenefitPlan')
+
+# GetLocations
+pro_pm_get_locations_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetLocations')
+
+# GetPatientAccountBalance
+pro_pm_get_patient_account_balance_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='GetPatientAccountBalance',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+)
+
+# GetPatientAccountBalanceCalc
+pro_pm_get_patient_account_balance_calc_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientAccountBalanceCalc')
+
+# GetPatientPolicy
+pro_pm_get_patient_policy_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientPolicy')
+
+# GetPatientSlidingFeeInfo
+pro_pm_get_patient_sliding_fee_info_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientSlidingFeeInfo')
+
+# GetPlacesOfService
+pro_pm_get_places_of_service_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPlacesOfService')
+
+# GetServicesByVoucherID
+pro_pm_get_services_by_voucher_id_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetServicesByVoucherID')
+
+# GetSlidingFeeScales
+pro_pm_get_sliding_fee_scales_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetSlidingFeeScales')
+
+# GetTransactionCodes
+pro_pm_get_transaction_codes_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetTransactionCodes')
+
+# ReopenBatch
+pro_pm_reopen_batch_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='ReopenBatch')
+
+# SaveChargeVoucher
+pro_pm_save_charge_voucher_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SaveChargeVoucher',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+)
