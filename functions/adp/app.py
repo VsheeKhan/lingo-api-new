@@ -306,3 +306,9 @@ pro_pm_save_voucher_payment_lambda_handler = magic_creator(
     action='SaveVoucherPayment',
     parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
 )
+
+# GetChangedPatients
+pro_pm_get_changed_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetChangedPatients')
+
+# GetEmployers
+pro_pm_get_employers_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetEmployers')
