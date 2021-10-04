@@ -1031,6 +1031,74 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # SavePatientPolicy
+  ProPMSavePatientPolicyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSavePatientPolicy
+      Handler: adp.app.pro_pm_save_patient_policy_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_patient_policy
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatientSlidingFee
+  ProPMSavePatientSlidingFeeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSavePatientSlidingFee
+      Handler: adp.app.pro_pm_save_patient_sliding_fee_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_patient_sliding_fee
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePaymentTransaction
+  ProPMSavePaymentTransactionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSavePaymentTransaction
+      Handler: adp.app.pro_pm_save_payment_transaction_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_payment_transaction
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveVoucherPayment
+  ProPMSaveVoucherPaymentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveVoucherPayment
+      Handler: adp.app.pro_pm_save_voucher_payment_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_voucher_payment
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table

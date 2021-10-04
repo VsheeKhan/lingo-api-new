@@ -278,3 +278,31 @@ pro_pm_save_charge_voucher_lambda_handler = magic_creator(
     action='SaveChargeVoucher',
     parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
 )
+
+# SavePatientPolicy
+pro_pm_save_patient_policy_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SavePatientPolicy',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+)
+
+# SavePatientSlidingFee
+pro_pm_save_patient_sliding_fee_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SavePatientSlidingFee',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
+)
+
+# SavePaymentTransaction
+pro_pm_save_payment_transaction_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SavePaymentTransaction',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+)
+
+# SaveVoucherPayment
+pro_pm_save_voucher_payment_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SaveVoucherPayment',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+)
