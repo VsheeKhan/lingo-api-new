@@ -1371,6 +1371,23 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetAdditionalInfoByPatient
+  ProPMGetAdditionalInfoByPatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAdditionalInfoByPatient
+      Handler: adp.app.pro_pm_get_additional_info_by_patient_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_additional_info_by_patient
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table

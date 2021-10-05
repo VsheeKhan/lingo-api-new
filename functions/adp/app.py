@@ -370,3 +370,6 @@ pro_pm_get_diagnoses_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, act
 
 # SearchDiagnosisCodes
 pro_pm_search_diagnosis_codes_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SearchDiagnosisCodes')
+
+# GetAdditionalInfoByPatient
+pro_pm_get_additional_info_by_patient_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAdditionalInfoByPatient')
