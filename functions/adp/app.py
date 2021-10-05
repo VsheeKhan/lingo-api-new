@@ -339,3 +339,28 @@ pro_pm_get_resource_group_membership_lambda_handler = magic_creator(
 
 # GetResourceGroups
 pro_pm_get_resource_groups_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetResourceGroups')
+
+# GetImageCategory
+pro_pm_get_image_category_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetImageCategory')
+
+# GetImageData
+pro_pm_get_image_data_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetImageData')
+
+# GetImages
+pro_pm_get_images_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetImages')
+
+# GetNotes
+pro_pm_get_notes_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetNotes')
+
+# GetNoteTypes
+pro_pm_get_note_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetNoteTypes')
+
+# SaveImage
+pro_pm_save_image_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SaveImage')
+
+# SavePatientNote
+pro_pm_save_patient_note_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SavePatientNote',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+)

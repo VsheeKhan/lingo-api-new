@@ -1218,6 +1218,125 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetImageCategory
+  ProPMGetImageCategoryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetImageCategory
+      Handler: adp.app.pro_pm_get_image_category_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_image_category
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetImageData
+  ProPMGetImageDataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetImageData
+      Handler: adp.app.pro_pm_get_image_data_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_image_data
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetImages
+  ProPMGetImagesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetImages
+      Handler: adp.app.pro_pm_get_images_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_images
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetNotes
+  ProPMGetNotesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetNotes
+      Handler: adp.app.pro_pm_get_notes_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_notes
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetNoteTypes
+  ProPMGetNoteTypesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetNoteTypes
+      Handler: adp.app.pro_pm_get_note_types_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_note_types
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveImage
+  ProPMSaveImageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveImage
+      Handler: adp.app.pro_pm_save_image_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_image
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatientNote
+  ProPMSavePatientNoteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSavePatientNote
+      Handler: adp.app.pro_pm_save_patient_note_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_patient_note
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table
