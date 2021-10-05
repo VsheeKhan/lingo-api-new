@@ -312,3 +312,20 @@ pro_pm_get_changed_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_
 
 # GetEmployers
 pro_pm_get_employers_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetEmployers')
+
+# SaveAccountContact
+pro_pm_save_account_contact_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SaveAccountContact',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+)
+
+# SaveEmployer
+pro_pm_save_employer_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='SaveEmployer',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+)
+
+# GetServices
+pro_pm_get_services_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetServices')

@@ -1133,6 +1133,57 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # SaveAccountContact
+  ProPMSaveAccountContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveAccountContact
+      Handler: adp.app.pro_pm_save_account_contact_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_account_contact
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveEmployer
+  ProPMSaveEmployerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveEmployer
+      Handler: adp.app.pro_pm_save_employer_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/save_employer
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetServices
+  ProPMGetServicesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetServices
+      Handler: adp.app.pro_pm_get_services_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_services
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table
