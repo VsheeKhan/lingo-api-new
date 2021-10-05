@@ -364,3 +364,9 @@ pro_pm_save_patient_note_lambda_handler = magic_creator(
     action='SavePatientNote',
     parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
 )
+
+# GetDiagnoses
+pro_pm_get_diagnoses_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetDiagnoses')
+
+# SearchDiagnosisCodes
+pro_pm_search_diagnosis_codes_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SearchDiagnosisCodes')
