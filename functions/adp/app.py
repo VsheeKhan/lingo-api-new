@@ -329,3 +329,13 @@ pro_pm_save_employer_lambda_handler = magic_creator(
 
 # GetServices
 pro_pm_get_services_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetServices')
+
+# GetResourceGroupMembership
+pro_pm_get_resource_group_membership_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='GetResourceGroupMembership',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+)
+
+# GetResourceGroups
+pro_pm_get_resource_groups_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetResourceGroups')

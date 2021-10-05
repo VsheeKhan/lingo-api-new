@@ -1184,6 +1184,40 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetResourceGroupMembership
+  ProPMGetResourceGroupMembershipFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetResourceGroupMembership
+      Handler: adp.app.pro_pm_get_resource_group_membership_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_resource_group_membership
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetResourceGroups
+  ProPMGetResourceGroupsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetResourceGroups
+      Handler: adp.app.pro_pm_get_resource_groups_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_resource_groups
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table
