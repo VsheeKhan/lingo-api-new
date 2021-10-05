@@ -1388,6 +1388,125 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetGenders
+  ProPMGetGendersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetGenders
+      Handler: adp.app.pro_pm_get_genders_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_genders
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetMaritalStatuses
+  ProPMGetMaritalStatusesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetMaritalStatuses
+      Handler: adp.app.pro_pm_get_marital_statuses_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_marital_statuses
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetMedicalRecordLocations
+  ProPMGetMedicalRecordLocationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetMedicalRecordLocations
+      Handler: adp.app.pro_pm_get_medical_record_locations_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_medical_record_locations
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPatientAdditionalInfoValues
+  ProPMGetPatientAdditionalInfoValuesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetPatientAdditionalInfoValues
+      Handler: adp.app.pro_pm_get_patient_additional_info_values_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_patient_additional_info_values
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetRelationships
+  ProPMGetRelationshipsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetRelationships
+      Handler: adp.app.pro_pm_get_relationships_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_relationships
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetRequiredFields
+  ProPMGetRequiredFieldsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetRequiredFields
+      Handler: adp.app.pro_pm_get_required_fields_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/get_required_fields
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SetPatientAdditionalInfoValue
+  ProPMSetPatientAdditionalInfoValueFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSetPatientAdditionalInfoValue
+      Handler: adp.app.pro_pm_set_patient_additional_info_value_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_pm/set_patient_additional_info_value
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table

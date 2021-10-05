@@ -114,15 +114,15 @@ pro_pm_magic_lambda_handler = magic_creator(api_type=ApiType.PRO_PM)
 pro_ehr_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='Echo')
 pro_pm_echo_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='Echo')
 
-# Get User Authentication
+# GetUserAuthentication
 pro_ehr_get_user_authentication_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetUserAuthentication')
 pro_pm_get_user_authentication_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetUserAuthentication')
 
-# Search Patients
+# SearchPatients
 pro_ehr_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchPatients')
 pro_pm_search_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SearchPatients')
 
-# Get Patient Demographics
+# GetPatientDemographics
 pro_pm_get_patient_demographics_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientDemographics')
 
 # GetResources
@@ -373,3 +373,24 @@ pro_pm_search_diagnosis_codes_lambda_handler = magic_creator(api_type=ApiType.PR
 
 # GetAdditionalInfoByPatient
 pro_pm_get_additional_info_by_patient_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetAdditionalInfoByPatient')
+
+# GetGenders
+pro_pm_get_genders_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetGenders')
+
+# GetMaritalStatuses
+pro_pm_get_marital_statuses_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetMaritalStatuses')
+
+# GetMedicalRecordLocations
+pro_pm_get_medical_record_locations_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetMedicalRecordLocations')
+
+# GetPatientAdditionalInfoValues
+pro_pm_get_patient_additional_info_values_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetPatientAdditionalInfoValues')
+
+# GetRelationships
+pro_pm_get_relationships_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetRelationships')
+
+# GetRequiredFields
+pro_pm_get_required_fields_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetRequiredFields')
+
+# SetPatientAdditionalInfoValue
+pro_pm_set_patient_additional_info_value_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SetPatientAdditionalInfoValue')
