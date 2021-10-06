@@ -1507,6 +1507,176 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  # GetAllergies
+  ProPMGetAllergiesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetAllergies
+      Handler: adp.app.pro_ehr_get_allergies_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_allergies
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetImmunization
+  ProPMGetImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetImmunization
+      Handler: adp.app.pro_ehr_get_immunization_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_immunization
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetProblems
+  ProPMGetProblemsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMGetProblems
+      Handler: adp.app.pro_ehr_get_problems_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_problems
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveAllergy
+  ProPMSaveAllergyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveAllergy
+      Handler: adp.app.pro_ehr_save_allergy_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/save_allergy
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveImmunization
+  ProPMSaveImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveImmunization
+      Handler: adp.app.pro_ehr_save_immunization_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/save_immunization
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SaveProblemsData
+  ProPMSaveProblemsDataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSaveProblemsData
+      Handler: adp.app.pro_ehr_save_problems_data_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/save_problems_data
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SearchAllergy
+  ProPMSearchAllergyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSearchAllergy
+      Handler: adp.app.pro_ehr_search_allergy_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/search_allergy
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SearchImmunizations
+  ProPMSearchImmunizationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSearchImmunizations
+      Handler: adp.app.pro_ehr_search_immunizations_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/search_immunizations
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SearchMeds
+  ProPMSearchMedsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSearchMeds
+      Handler: adp.app.pro_ehr_search_meds_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/search_meds
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SearchProblemCodes
+  ProPMSearchProblemCodesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProPMSearchProblemCodes
+      Handler: adp.app.pro_ehr_search_problem_codes_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/search_problem_codes
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # Database
   BooksTable:
     Type: AWS::DynamoDB::Table

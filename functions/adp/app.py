@@ -394,3 +394,41 @@ pro_pm_get_required_fields_lambda_handler = magic_creator(api_type=ApiType.PRO_P
 
 # SetPatientAdditionalInfoValue
 pro_pm_set_patient_additional_info_value_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SetPatientAdditionalInfoValue')
+
+# GetAllergies
+pro_ehr_get_allergies_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetAllergies')
+
+# GetImmunization
+pro_ehr_get_immunization_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetImmunization')
+
+# GetProblems
+pro_ehr_get_problems_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetProblems')
+
+# SaveAllergy
+pro_ehr_save_allergy_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SaveAllergy')
+
+# SaveImmunization
+pro_ehr_save_immunization_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_EHR,
+    action='SaveImmunization',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
+)
+
+# SaveProblemsData
+pro_ehr_save_problems_data_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_EHR,
+    action='SaveProblemsData',
+    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
+)
+
+# SearchAllergy
+pro_ehr_search_allergy_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchAllergy')
+
+# SearchImmunizations
+pro_ehr_search_immunizations_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchImmunizations')
+
+# SearchMeds
+pro_ehr_search_meds_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchMeds')
+
+# SearchProblemCodes
+pro_ehr_search_problem_codes_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchProblemCodes')
