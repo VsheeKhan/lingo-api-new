@@ -1,9 +1,14 @@
 from pylambdarest import route
+from pynamodb.exceptions import DoesNotExist, DeleteError
+
 from commons.constants import CORS_HEADERS
+from .models import Allergy
 
-
-@route()
+@route(body_schema = Allergy.body_schema())
 def allergy_create_lambda_handler(request):
+    allergy = Allergy()
+    allergy.deserialize(request.json)
+    allergy.save()
     return 201, {}, CORS_HEADERS
 
 
