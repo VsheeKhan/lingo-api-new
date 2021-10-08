@@ -432,3 +432,14 @@ pro_ehr_search_meds_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, act
 
 # SearchProblemCodes
 pro_ehr_search_problem_codes_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchProblemCodes')
+
+# Save single allergy (one patient)
+# Create a model for Allergy
+# create a route @route(body_schema=Allergy.body_schema())
+# Logic --> Save in DB --> Sync with ADP (Parallel) --> Verify both responses --> Send success response
+
+# List all allergeis (one patient)
+# Query the DB using Allergy Model, send back the response
+# TODO: ishan 07-10-2021 Who else can modify our data on ADP platform (for sync purposes)?
+# Send the response
+# (Thread/Parallel) Trigger a sync of allergies (Maintenance)
