@@ -82,21 +82,35 @@ def magic_creator(api_type=None, action=None, parameter_processor=lambda name, v
 
 
 def parameter_processor_creator(xml_attributes=None):
-    xml_attributes = xml_attributes or []
-    # Check for iterable of strings
-    if not isinstance(xml_attributes, list):
-        raise TypeError('xml_attributes must be a list of strings')
+    xml_attributes = xml_attributes or {}
+    # Check for iterable
+    if not isinstance(xml_attributes, dict):
+        raise TypeError('xml_attributes must be a dict of configs')
 
-    def json_to_partial_xml(value):
+    def json_to_partial_xml(value, item_xml=None):
+        if item_xml is not None:
+            top_level = item_xml['top_level'] or 'root'
+            item_name = item_xml['item_name'] or 'item'
+
+            attributes = []
+            for item in value[top_level]:
+                if type(value[top_level][item]) is dict:
+                    attributes.append(f'<{item}>{json_to_partial_xml(value[top_level][item])}<{item}/>')
+                else:
+                    attributes.append(f'<{item_name} name={item} value="{value[top_level][item]}"/>')
+
+            return f'<{top_level}>{"".join(attributes)}</{top_level}>'
+
+        # Normal JSON to XML
         value_json = readfromstring(json.dumps(value))
         value_xml = Json2xml(value_json, attr_type=False, item_wrap=False).to_xml()
         stripped_xml_lines = value_xml.split('\n')[2:-2]
-        return "".join(stripped_xml_lines).replace('\t', '')  # Remove \t to reduce bandwidth consumption
+        return ''.join(stripped_xml_lines).replace('\t', '')  # Remove \t to reduce bandwidth consumption
 
     def handler(name, value):
         if name not in xml_attributes:
             return value
-        return json_to_partial_xml(value)
+        return json_to_partial_xml(value, item_xml=xml_attributes[name]['item_xml'])
 
     return handler
 
@@ -144,7 +158,11 @@ pro_pm_get_scheduling_departments_lambda_handler = magic_creator(api_type=ApiTyp
 pro_pm_save_patient_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SavePatient',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter2': {
+            'item_xml': None
+        }
+    })
 )
 
 # GetSchedule
@@ -160,21 +178,33 @@ pro_pm_get_appointment_by_id_lambda_handler = magic_creator(api_type=ApiType.PRO
 pro_pm_save_appointment_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SaveAppointment',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
 )
 
 # SaveForcedAppointment
 pro_pm_save_forced_appointment_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SaveForcedAppointment',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
 )
 
 # SaveMemoAppointment
 pro_pm_save_memo_appointment_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SaveMemoAppointment',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
 )
 
 # GetAppointmentTypes
@@ -196,7 +226,11 @@ pro_pm_get_appointment_cancellation_reasons_lambda_handler = magic_creator(api_t
 pro_pm_get_appointments_by_change_dttm_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='GetAppointmentsByChangeDTTM',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter6': {
+            'item_xml': None
+        }
+    })
 )
 
 # SetAppointmentStatus
@@ -245,7 +279,11 @@ pro_pm_get_locations_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, act
 pro_pm_get_patient_account_balance_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='GetPatientAccountBalance',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter6': {
+            'item_xml': None
+        }
+    })
 )
 
 # GetPatientAccountBalanceCalc
@@ -276,35 +314,55 @@ pro_pm_reopen_batch_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, acti
 pro_pm_save_charge_voucher_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SaveChargeVoucher',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter6': {
+            'item_xml': None
+        }
+    })
 )
 
 # SavePatientPolicy
 pro_pm_save_patient_policy_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SavePatientPolicy',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter6': {
+            'item_xml': None
+        }
+    })
 )
 
 # SavePatientSlidingFee
 pro_pm_save_patient_sliding_fee_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SavePatientSlidingFee',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter2': {
+            'item_xml': None
+        }
+    })
 )
 
 # SavePaymentTransaction
 pro_pm_save_payment_transaction_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SavePaymentTransaction',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
 )
 
 # SaveVoucherPayment
 pro_pm_save_voucher_payment_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SaveVoucherPayment',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
 )
 
 # GetChangedPatients
@@ -317,14 +375,22 @@ pro_pm_get_employers_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, act
 pro_pm_save_account_contact_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SaveAccountContact',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter6': {
+            'item_xml': None
+        }
+    })
 )
 
 # SaveEmployer
 pro_pm_save_employer_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SaveEmployer',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter6': {
+            'item_xml': None
+        }
+    })
 )
 
 # GetServices
@@ -334,7 +400,11 @@ pro_pm_get_services_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, acti
 pro_pm_get_resource_group_membership_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='GetResourceGroupMembership',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter6'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter6': {
+            'item_xml': None
+        }
+    })
 )
 
 # GetResourceGroups
@@ -362,7 +432,11 @@ pro_pm_save_image_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action
 pro_pm_save_patient_note_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
     action='SavePatientNote',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter1'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
 )
 
 # GetDiagnoses
@@ -411,14 +485,25 @@ pro_ehr_save_allergy_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, ac
 pro_ehr_save_immunization_lambda_handler = magic_creator(
     api_type=ApiType.PRO_EHR,
     action='SaveImmunization',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter2': {
+            'item_xml': {
+                'top_level': 'saveimmunization',
+                'item_name': 'field'
+            }
+        }
+    })
 )
 
 # SaveProblemsData
 pro_ehr_save_problems_data_lambda_handler = magic_creator(
     api_type=ApiType.PRO_EHR,
     action='SaveProblemsData',
-    parameter_processor=parameter_processor_creator(xml_attributes=['Parameter2'])
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter2': {
+            'item_xml': None
+        }
+    })
 )
 
 # SearchAllergy
