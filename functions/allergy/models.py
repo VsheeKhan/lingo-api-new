@@ -1,24 +1,25 @@
 import os
-from typing import Dict, Any
-from datetime import datetime
 import uuid
+from datetime import datetime
+from typing import Dict, Any
 
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
 
 from commons.models import BaseModel
 
 
-class AllergyModel(BaseModel):
+class Allergy(BaseModel):
     id = UnicodeAttribute(hash_key=True, null=False, default_for_new=lambda : str(uuid.uuid4()))
-    Token = UnicodeAttribute(null=True)
-    PatientID = UnicodeAttribute(null=False)
-    AlergyType = UnicodeAttribute(null=False)
-    AlergyName = UnicodeAttribute(null=False)
-    AlergyOnsetDate = UnicodeAttribute(null=False)
-    AlergyReactions = UnicodeAttribute(null=False)
-    AllergyComments = UnicodeAttribute(null=True)
-    CreatedAt = UTCDateTimeAttribute(null=True, default=datetime.now())
-    UpdatedAt = UTCDateTimeAttribute(null=True)
+    token = UnicodeAttribute(null=True)
+    patient_id = UnicodeAttribute(null=False)
+    allergy_type = UnicodeAttribute(null=False)
+    allergy_name = UnicodeAttribute(null=False)
+    allergy_onset_date = UnicodeAttribute(null=False)
+    allergy_reactions = UnicodeAttribute(null=False)
+    allergy_comments = UnicodeAttribute(null=True)
+    created_at = UTCDateTimeAttribute(null=True, default=datetime.now())
+    updated_at = UTCDateTimeAttribute(null=True)
+
     class Meta:
         table_name = os.environ.get('ALLERGY_TABLE_NAME')
 
@@ -29,4 +30,4 @@ class AllergyModel(BaseModel):
 
     def deserialize(self, attribute_values: Dict[str, Dict[str, Any]]) -> None:
         # Placeholder for adding custom deserialization
-        super(AllergyModel, self).deserialize(attribute_values)
+        super(Allergy, self).deserialize(attribute_values)
