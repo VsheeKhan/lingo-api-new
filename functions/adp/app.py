@@ -42,6 +42,36 @@ def security_token_creator(api_type=None):
     return handler
 
 
+def magic_handler(request, api_type=None, action=None, parameter_processor=lambda name, value: value):
+    try:
+        response = requests.post(
+            f'{adp_config["json_api"][api_type]}/MagicJson',
+            json={
+                'Action': action or request.json.get('Action'),
+                'Appname': adp_config['app_name'],
+                'Token': request.json.get('Token'),
+                'AppUserID': request.json.get('AppUserID'),
+                'PatientID': request.json.get('PatientID'),
+                'Parameter1': parameter_processor('Parameter1', request.json.get('Parameter1')),
+                'Parameter2': parameter_processor('Parameter2', request.json.get('Parameter2')),
+                'Parameter3': parameter_processor('Parameter3', request.json.get('Parameter3')),
+                'Parameter4': parameter_processor('Parameter4', request.json.get('Parameter4')),
+                'Parameter5': parameter_processor('Parameter5', request.json.get('Parameter5')),
+                'Parameter6': parameter_processor('Parameter6', request.json.get('Parameter6')),
+            },
+            verify=adp_config['ssl_verify']
+        )
+    except ConnectionError as error:
+        print(error)
+        return 500, str(error), CORS_HEADERS
+
+    if int(response.status_code / 100) != 2:
+        response_content = response.text
+    else:
+        response_content = response.json()
+    return response.status_code, response_content, CORS_HEADERS
+
+
 def magic_creator(api_type=None, action=None, parameter_processor=lambda name, value: value):
     if api_type is None:
         raise TypeError('api_type cannot be None')
@@ -50,33 +80,7 @@ def magic_creator(api_type=None, action=None, parameter_processor=lambda name, v
 
     @route()
     def handler(request):
-        try:
-            response = requests.post(
-                f'{adp_config["json_api"][api_type]}/MagicJson',
-                json={
-                    'Action': action or request.json.get('Action'),
-                    'Appname': adp_config['app_name'],
-                    'Token': request.json.get('Token'),
-                    'AppUserID': request.json.get('AppUserID'),
-                    'PatientID': request.json.get('PatientID'),
-                    'Parameter1': parameter_processor('Parameter1', request.json.get('Parameter1')),
-                    'Parameter2': parameter_processor('Parameter2', request.json.get('Parameter2')),
-                    'Parameter3': parameter_processor('Parameter3', request.json.get('Parameter3')),
-                    'Parameter4': parameter_processor('Parameter4', request.json.get('Parameter4')),
-                    'Parameter5': parameter_processor('Parameter5', request.json.get('Parameter5')),
-                    'Parameter6': parameter_processor('Parameter6', request.json.get('Parameter6')),
-                },
-                verify=adp_config['ssl_verify']
-            )
-        except ConnectionError as error:
-            print(error)
-            return 500, str(error), CORS_HEADERS
-
-        if int(response.status_code / 100) != 2:
-            response_content = response.text
-        else:
-            response_content = response.json()
-        return response.status_code, response_content, CORS_HEADERS
+        return magic_handler(request, api_type, action, parameter_processor)
 
     return handler
 
