@@ -10,6 +10,7 @@ from commons.models import BaseModel
 
 class AllergyModel(BaseModel):
     id = UnicodeAttribute(hash_key=True, null=False, default_for_new=lambda : str(uuid.uuid4()))
+    Token = UnicodeAttribute(null=True)
     PatientID = UnicodeAttribute(null=False)
     AlergyType = UnicodeAttribute(null=False)
     AlergyName = UnicodeAttribute(null=False)
