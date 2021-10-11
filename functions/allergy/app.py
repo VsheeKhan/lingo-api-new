@@ -2,15 +2,28 @@ from pylambdarest import route
 from pynamodb.exceptions import DoesNotExist, DeleteError, UpdateError
 
 from commons.constants import CORS_HEADERS
-# from functions.adp.constants import ApiType
+from adp.constants import ApiType
 from .models import AllergyModel
-# from functions.adp.app import magic_handler
+from adp.app import magic_handler
 
 @route(body_schema = AllergyModel.body_schema())
 def allergy_create_lambda_handler(request):
+    jsonRequest = request.json
     allergy = AllergyModel()
     allergy.deserialize(request.json)
     allergy.save()
+    adpResponse = magic_handler(api_type=ApiType.PRO_EHR, action='SaveAllergy', request={
+    'json': {
+        "Token": jsonRequest['Token']['S'],
+        "AppUserID": "terry",
+        "PatientID": 36566,
+        "Parameter1": "",
+        "Parameter2": "HISTORY/24045",
+        "Parameter3": "",
+        "Parameter4": "",
+        "Parameter6": jsonRequest['AllergyComments']['S']
+        }
+    })
     return 201, allergy.serialize(), CORS_HEADERS
 
 
@@ -57,16 +70,16 @@ def allergy_update_lambda_handler(request, pk):
     allergy.AlergyReactions = jsonRequest['AlergyReactions']['S']
     allergy.AllergyComments = jsonRequest['AllergyComments']['S']
     allergy.save()
-    # adpResponse = magic_handler(api_type=ApiType.PRO_EHR, action='SaveAllergy', request={
-    # 'json': {
-    #     "Token": jsonRequest['Token'],
-    #     "AppUserID": "terry",
-    #     "PatientID": 36566,
-    #     "Parameter1": "",
-    #     "Parameter2": "HISTORY/24045",
-    #     "Parameter3": "",
-    #     "Parameter4": "",
-    #     "Parameter6": jsonRequest['AllergyComments']['S']
-    #     }
-    # })
+    adpResponse = magic_handler(api_type=ApiType.PRO_EHR, action='SaveAllergy', request={
+    'json': {
+        "Token": jsonRequest['Token']['S'],
+        "AppUserID": "terry",
+        "PatientID": 36566,
+        "Parameter1": "",
+        "Parameter2": "HISTORY/24045",
+        "Parameter3": "",
+        "Parameter4": "",
+        "Parameter6": jsonRequest['AllergyComments']['S']
+        }
+    })
     return 201, allergy.serialize(), CORS_HEADERS
