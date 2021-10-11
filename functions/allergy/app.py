@@ -17,21 +17,20 @@ def allergy_create_lambda_handler(request):
     allergy.deserialize(request.json)
     allergy.save()
     adp_request = PyLambdaRequest(event={
-        'httpMethod': 'PUT',
+        'httpMethod': 'POST',
         'headers': {},
         'body': json.dumps({
-            "Token": json_request['Token']['S'],
+            "Token": json_request['token']['S'],
             "AppUserID": "terry",
-            "PatientID": 36566,
+            "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
             "Parameter2": "HISTORY/24045",
             "Parameter3": "",
             "Parameter4": "",
-            "Parameter6": json_request['AllergyComments']['S']
+            "Parameter6": json_request['allergy_comments']['S']
         })
     })
-    adp_response = magic_handler(api_type=ApiType.PRO_EHR, action='SaveAllergy', request=adp_request)
-    print(adp_response)
+    adp_response = magic_handler(request=adp_request, api_type=ApiType.PRO_EHR, action='SaveAllergy')
     return 201, allergy.serialize(), CORS_HEADERS
 
 
@@ -68,31 +67,31 @@ def allergy_get_lambda_handler(pk):
 
 @route(body_schema=Allergy.body_schema())
 def allergy_update_lambda_handler(request, pk):
-    jsonRequest = request.json
+    json_request = request.json
     try:
         allergy = Allergy.get(pk)
     except DoesNotExist:
         return 404, None, CORS_HEADERS
-    allergy.allergy_type = jsonRequest['AlergyType']['S']
-    allergy.allergy_name = jsonRequest['AlergyName']['S']
-    allergy.allergy_onset_date = jsonRequest['AlergyOnsetDate']['S']
-    allergy.allergy_reactions = jsonRequest['AlergyReactions']['S']
-    allergy.allergy_comments = jsonRequest['AllergyComments']['S']
+    allergy.allergy_type = json_request['allergy_type']['S']
+    allergy.allergy_name = json_request['allergy_name']['S']
+    allergy.allergy_onset_date = json_request['allergy_onset_date']['S']
+    allergy.allergy_reactions = json_request['allergy_reactions']['S']
+    allergy.allergy_comments = json_request['allergy_comments']['S']
     allergy.save()
     adp_request = PyLambdaRequest(event={
-        'httpMethod': 'PUT',
+        'httpMethod': 'POST',
         'headers': {},
         'body': json.dumps({
-            "Token": jsonRequest['Token']['S'],
+            "Token": json_request['token']['S'],
             "AppUserID": "terry",
-            "PatientID": 36566,
+            "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
             "Parameter2": "HISTORY/24045",
             "Parameter3": "",
             "Parameter4": "",
-            "Parameter6": jsonRequest['AllergyComments']['S']
+            "Parameter6": json_request['allergy_comments']['S']
         })
     })
-    adp_response = magic_handler(api_type=ApiType.PRO_EHR, action='SaveAllergy', request=adp_request)
+    adp_response = magic_handler(request=adp_request, api_type=ApiType.PRO_EHR, action='SaveAllergy')
     print(adp_response)
     return 201, allergy.serialize(), CORS_HEADERS
