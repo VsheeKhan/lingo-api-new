@@ -1,12 +1,16 @@
 import uuid
 from typing import Dict, Any
 
-from pynamodb.attributes import UnicodeAttribute, NumberAttribute
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
 from pynamodb.models import Model
 
 ATTRIBUTE_CODE_MAP = {
     UnicodeAttribute: {
         'rest': 'string',
+        'db': 'S',
+    },
+     UTCDateTimeAttribute:{
+        'rest': 'datetime',
         'db': 'S',
     },
     NumberAttribute: {

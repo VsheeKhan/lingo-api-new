@@ -34,6 +34,7 @@ Globals:
       Variables:
         BOOKS_TABLE_NAME: &books_table_name !Sub ${Environment}_books
         ALLERGY_TABLE_NAME: &allergy_table_name !Sub ${Environment}_allergy
+        IMMUNIZATION_TABLE_NAME: &immunization_table_name !Sub ${Environment}_immunization
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
         ALLOW_ORIGIN: !Sub '${Origin}'
