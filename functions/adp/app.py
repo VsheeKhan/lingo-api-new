@@ -101,7 +101,7 @@ def parameter_processor_creator(xml_attributes=None):
                 if type(value[top_level][item]) is dict:
                     attributes.append(f'<{item}>{json_to_partial_xml(value[top_level][item])}</{item}>')
                 else:
-                    attributes.append(f'<{item_name} name={item} value="{value[top_level][item]}"/>')
+                    attributes.append(f'<{item_name} name="{item}" value="{value[top_level][item]}" />')
 
             return f'<{top_level}>{"".join(attributes)}</{top_level}>'
 
