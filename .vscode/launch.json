@@ -1,0 +1,3507 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "functions:allergy/app.allergy_get_lambda_handler (python3.8)",
+            "invokeTarget": {
+                "target": "code",
+                "projectRoot": "${workspaceFolder}/functions",
+                "lambdaHandler": "allergy/app.allergy_get_lambda_handler"
+            },
+            "lambda": {
+                "runtime": "python3.8",
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:MainApi (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "MainApi"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ListBooksFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ListBooksFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ListBooksFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ListBooksFunction"
+            },
+            "api": {
+                "path": "/book",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:CreateBookFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "CreateBookFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:CreateBookFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "CreateBookFunction"
+            },
+            "api": {
+                "path": "/book",
+                "httpMethod": "post",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:DeleteBooksFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "DeleteBooksFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:DeleteBooksFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "DeleteBooksFunction"
+            },
+            "api": {
+                "path": "/book/{pk}",
+                "httpMethod": "delete",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:GetSingleBookFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "GetSingleBookFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:GetSingleBookFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "GetSingleBookFunction"
+            },
+            "api": {
+                "path": "/book/{pk}",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ListAllergiesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ListAllergiesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ListAllergiesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ListAllergiesFunction"
+            },
+            "api": {
+                "path": "/allergy",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:CreateAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "CreateAllergyFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:CreateAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "CreateAllergyFunction"
+            },
+            "api": {
+                "path": "/allergy",
+                "httpMethod": "post",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:DeleteAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "DeleteAllergyFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:DeleteAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "DeleteAllergyFunction"
+            },
+            "api": {
+                "path": "/allergy/{pk}",
+                "httpMethod": "delete",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:GetAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "GetAllergyFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:GetAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "GetAllergyFunction"
+            },
+            "api": {
+                "path": "/allergy/{pk}",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:UpdateAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "UpdateAllergyFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:UpdateAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "UpdateAllergyFunction"
+            },
+            "api": {
+                "path": "/allergy/{pk}",
+                "httpMethod": "put",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProEHRGetSecurityTokenFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRGetSecurityTokenFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProEHRGetSecurityTokenFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRGetSecurityTokenFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/getSecurityToken",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetSecurityTokenFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSecurityTokenFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetSecurityTokenFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSecurityTokenFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/getSecurityToken",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProEHRMagicFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRMagicFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProEHRMagicFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRMagicFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/magic",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMMagicFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMMagicFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMMagicFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMMagicFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/magic",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProEHREchoFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHREchoFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProEHREchoFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHREchoFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/echo",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMEchoFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMEchoFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMEchoFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMEchoFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/echo",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProEHRGetUserAuthenticationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRGetUserAuthenticationFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProEHRGetUserAuthenticationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRGetUserAuthenticationFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/get_user_athentication",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetUserAuthenticationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetUserAuthenticationFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetUserAuthenticationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetUserAuthenticationFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_user_athentication",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProEHRSearchPatientsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRSearchPatientsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProEHRSearchPatientsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProEHRSearchPatientsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/search_patients",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSearchPatientsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchPatientsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSearchPatientsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchPatientsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/search_patients",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSavePatientFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSavePatientFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_patient",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPatientDemographicsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientDemographicsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPatientDemographicsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientDemographicsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_patient_demographics",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetResourcesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourcesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetResourcesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourcesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_resources",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetResourceByIDFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourceByIDFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetResourceByIDFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourceByIDFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_resource_by_id",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAvailableScheduleFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAvailableScheduleFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAvailableScheduleFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAvailableScheduleFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_available_schedule",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetSchedulingLocationsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSchedulingLocationsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetSchedulingLocationsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSchedulingLocationsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_scheduling_locations",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetSchedulingDepartmentsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSchedulingDepartmentsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetSchedulingDepartmentsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSchedulingDepartmentsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_scheduling_departments",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetScheduleFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetScheduleFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetScheduleFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetScheduleFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_schedule",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetScheduleByPatientIDFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetScheduleByPatientIDFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetScheduleByPatientIDFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetScheduleByPatientIDFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_schedule_by_patient_id",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAppointmentByIdFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentByIdFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAppointmentByIdFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentByIdFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_appointment_by_id",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveAppointmentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveAppointmentFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveAppointmentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveAppointmentFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_appointment",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveForcedAppointmentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveForcedAppointmentFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveForcedAppointmentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveForcedAppointmentFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_forced_appointment",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveMemoAppointmentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveMemoAppointmentFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveMemoAppointmentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveMemoAppointmentFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_memo_appointment",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAppointmentTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentTypesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAppointmentTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentTypesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_appointment_types",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAvailableTimeBlocksFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAvailableTimeBlocksFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAvailableTimeBlocksFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAvailableTimeBlocksFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_available_time_blocks",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAppointmentRestrictionsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentRestrictionsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAppointmentRestrictionsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentRestrictionsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_appointment_restriction_types",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAppointmentConfirmationResultsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentConfirmationResultsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAppointmentConfirmationResultsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentConfirmationResultsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_appointment_confirmation_results",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAppointmentCancellationReasonsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentCancellationReasonsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAppointmentCancellationReasonsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentCancellationReasonsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_appointment_cancellation_reasons",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAppointmentsByChangeDTTMFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentsByChangeDTTMFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAppointmentsByChangeDTTMFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAppointmentsByChangeDTTMFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_appointments_by_change_dttm",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSetAppointmentStatusFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSetAppointmentStatusFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSetAppointmentStatusFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSetAppointmentStatusFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/set_appointment_status",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPractitionersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPractitionersFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPractitionersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPractitionersFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_practitioners",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPractitionerSpecialtiesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPractitionerSpecialtiesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPractitionerSpecialtiesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPractitionerSpecialtiesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_practitioner_specialities",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetOperatorsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetOperatorsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetOperatorsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetOperatorsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_operators",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPatientPolicyPCPsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientPolicyPCPsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPatientPolicyPCPsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientPolicyPCPsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_patient_policy_pcps",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAccountTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAccountTypesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAccountTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAccountTypesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_account_types",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetBatchCategoriesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetBatchCategoriesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetBatchCategoriesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetBatchCategoriesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_batch_categories",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetBatchDetailFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetBatchDetailFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetBatchDetailFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetBatchDetailFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_batch_detail",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetCarriersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetCarriersFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetCarriersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetCarriersFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_carriers",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetCoverageTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetCoverageTypesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetCoverageTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetCoverageTypesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_coverage_types",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetDepartmentsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetDepartmentsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetDepartmentsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetDepartmentsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_departments",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetDivisionsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetDivisionsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetDivisionsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetDivisionsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_divisions",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetEmployerBenefitPlanFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetEmployerBenefitPlanFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetEmployerBenefitPlanFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetEmployerBenefitPlanFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_employer_benefit_plan",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetLocationsPlanFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetLocationsPlanFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetLocationsPlanFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetLocationsPlanFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_locations",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPatientAccountBalanceFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientAccountBalanceFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPatientAccountBalanceFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientAccountBalanceFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_patient_account_balance",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPatientAccountBalanceCalcFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientAccountBalanceCalcFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPatientAccountBalanceCalcFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientAccountBalanceCalcFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_patient_account_balance_calc",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPatientPolicyCalcFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientPolicyCalcFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPatientPolicyCalcFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientPolicyCalcFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_patient_policy",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPatientSlidingFeeInfoCalcFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientSlidingFeeInfoCalcFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPatientSlidingFeeInfoCalcFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientSlidingFeeInfoCalcFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_patient_sliding_fee_info",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPlacesOfServiceFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPlacesOfServiceFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPlacesOfServiceFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPlacesOfServiceFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_places_of_service",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetServicesByVoucherIDFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetServicesByVoucherIDFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetServicesByVoucherIDFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetServicesByVoucherIDFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_services_by_voucher_id",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetSlidingFeeScalesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSlidingFeeScalesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetSlidingFeeScalesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetSlidingFeeScalesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_sliding_fee_scales",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetTransactionCodesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetTransactionCodesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetTransactionCodesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetTransactionCodesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_transaction_codes",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMReopenBatchFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMReopenBatchFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMReopenBatchFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMReopenBatchFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/reopen_batch",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveChargeVoucherFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveChargeVoucherFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveChargeVoucherFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveChargeVoucherFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_charge_voucher",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSavePatientPolicyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientPolicyFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSavePatientPolicyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientPolicyFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_patient_policy",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSavePatientSlidingFeeFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientSlidingFeeFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSavePatientSlidingFeeFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientSlidingFeeFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_patient_sliding_fee",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSavePaymentTransactionFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePaymentTransactionFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSavePaymentTransactionFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePaymentTransactionFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_payment_transaction",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveVoucherPaymentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveVoucherPaymentFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveVoucherPaymentFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveVoucherPaymentFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_voucher_payment",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetChangedPatientsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetChangedPatientsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetChangedPatientsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetChangedPatientsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_changed_patients",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetEmployersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetEmployersFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetEmployersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetEmployersFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_employers",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveAccountContactFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveAccountContactFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveAccountContactFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveAccountContactFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_account_contact",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveEmployerFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveEmployerFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveEmployerFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveEmployerFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_employer",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetServicesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetServicesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetServicesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetServicesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_services",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetResourceGroupMembershipFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourceGroupMembershipFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetResourceGroupMembershipFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourceGroupMembershipFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_resource_group_membership",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetResourceGroupsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourceGroupsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetResourceGroupsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetResourceGroupsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_resource_groups",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetImageCategoryFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImageCategoryFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetImageCategoryFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImageCategoryFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_image_category",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetImageDataFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImageDataFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetImageDataFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImageDataFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_image_data",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetImagesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImagesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetImagesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImagesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_images",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetNotesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetNotesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetNotesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetNotesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_notes",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetNoteTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetNoteTypesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetNoteTypesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetNoteTypesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_note_types",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveImageFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveImageFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveImageFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveImageFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_image",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSavePatientNoteFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientNoteFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSavePatientNoteFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSavePatientNoteFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/save_patient_note",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetDiagnosesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetDiagnosesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetDiagnosesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetDiagnosesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_diagnoses",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSearchDiagnosisCodesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchDiagnosisCodesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSearchDiagnosisCodesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchDiagnosisCodesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/search_diagnosis_codes",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAdditionalInfoByPatientFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAdditionalInfoByPatientFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAdditionalInfoByPatientFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAdditionalInfoByPatientFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_additional_info_by_patient",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetGendersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetGendersFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetGendersFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetGendersFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_genders",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetMaritalStatusesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetMaritalStatusesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetMaritalStatusesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetMaritalStatusesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_marital_statuses",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetMedicalRecordLocationsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetMedicalRecordLocationsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetMedicalRecordLocationsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetMedicalRecordLocationsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_medical_record_locations",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetPatientAdditionalInfoValuesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientAdditionalInfoValuesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetPatientAdditionalInfoValuesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetPatientAdditionalInfoValuesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_patient_additional_info_values",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetRelationshipsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetRelationshipsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetRelationshipsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetRelationshipsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_relationships",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetRequiredFieldsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetRequiredFieldsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetRequiredFieldsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetRequiredFieldsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/get_required_fields",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSetPatientAdditionalInfoValueFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSetPatientAdditionalInfoValueFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSetPatientAdditionalInfoValueFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSetPatientAdditionalInfoValueFunction"
+            },
+            "api": {
+                "path": "/adp/pro_pm/set_patient_additional_info_value",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetAllergiesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAllergiesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetAllergiesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetAllergiesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/get_allergies",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetImmunizationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImmunizationFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetImmunizationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetImmunizationFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/get_immunization",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMGetProblemsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetProblemsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMGetProblemsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMGetProblemsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/get_problems",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveAllergyFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveAllergyFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/save_allergy",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveImmunizationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveImmunizationFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveImmunizationFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveImmunizationFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/save_immunization",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSaveProblemsDataFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveProblemsDataFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSaveProblemsDataFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSaveProblemsDataFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/save_problems_data",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSearchAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchAllergyFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSearchAllergyFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchAllergyFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/search_allergy",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSearchImmunizationsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchImmunizationsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSearchImmunizationsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchImmunizationsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/search_immunizations",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSearchMedsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchMedsFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSearchMedsFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchMedsFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/search_meds",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:ProPMSearchProblemCodesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchProblemCodesFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API eir:ProPMSearchProblemCodesFunction (python3.8)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "ProPMSearchProblemCodesFunction"
+            },
+            "api": {
+                "path": "/adp/pro_ehr/search_problem_codes",
+                "httpMethod": "POST",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "python3.8"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:BooksTable (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "BooksTable"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:AllergyTable (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "AllergyTable"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:EirCognitoUserPool (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "EirCognitoUserPool"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:EirCognitoUserPoolClient (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "EirCognitoUserPoolClient"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "eir:EirCognitoSnsIamRole (python3.8)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "EirCognitoSnsIamRole"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        }
+    ]
+}
