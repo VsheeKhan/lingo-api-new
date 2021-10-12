@@ -9,8 +9,14 @@ from adp.constants import ApiType
 from commons.constants import CORS_HEADERS
 from .models import Allergy
 
+allergy_create_body_schema = Allergy.body_schema()
+# allergy_create_body_schema['properties']['token'] = {
+#     'type': 'string'
+# }
+# Add allergen_id like above, we probably need to add allergen_id to the model too
 
-@route(body_schema=Allergy.body_schema())
+
+@route(body_schema=allergy_create_body_schema)
 def allergy_create_lambda_handler(request):
     json_request = request.json
     allergy = Allergy()
@@ -24,13 +30,14 @@ def allergy_create_lambda_handler(request):
             "AppUserID": "terry",
             "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
-            "Parameter2": "HISTORY/24045",
+            "Parameter2": json_request['allergen_id'] or "HISTORY/24045",  # TODO ishan 12-10-2021 fallback for now, but make it mandatory for the client
             "Parameter3": "",
             "Parameter4": "",
             "Parameter6": json_request['allergy_comments']['S']
         })
     })
     adp_response = magic_handler(request=adp_request, api_type=ApiType.PRO_EHR, action='SaveAllergy')
+    print(adp_response)
     return 201, allergy.serialize(), CORS_HEADERS
 
 
@@ -65,6 +72,7 @@ def allergy_get_lambda_handler(pk):
     return 200, allergy.serialize(), CORS_HEADERS
 
 
+# TODO: ishan 12-10-2021 update the body_schema in the same way as create handler
 @route(body_schema=Allergy.body_schema())
 def allergy_update_lambda_handler(request, pk):
     json_request = request.json
@@ -86,7 +94,7 @@ def allergy_update_lambda_handler(request, pk):
             "AppUserID": "terry",
             "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
-            "Parameter2": "HISTORY/24045",
+            "Parameter2": "HISTORY/24045",  # TODO: ishan 12-10-2021 make similar changes like create handler
             "Parameter3": "",
             "Parameter4": "",
             "Parameter6": json_request['allergy_comments']['S']
