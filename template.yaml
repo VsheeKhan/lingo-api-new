@@ -33,6 +33,8 @@ Globals:
     Environment:
       Variables:
         BOOKS_TABLE_NAME: &books_table_name !Sub ${Environment}_books
+        ALLERGY_TABLE_NAME: &allergy_table_name !Sub ${Environment}_allergy
+        IMMUNIZATION_TABLE_NAME: &immunization_table_name !Sub ${Environment}_immunization
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
         ALLOW_ORIGIN: !Sub '${Origin}'
@@ -133,6 +135,102 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
+
+  # Allergy
+  ListAllergiesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ListAllergies
+      Handler: allergy.app.allergy_list_lambda_handler
+      CodeUri: functions/
+      Events:
+        ListBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /allergy
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AllergyTable
+
+  CreateAllergyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_CreateAllergy
+      Handler: allergy.app.allergy_create_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /allergy
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AllergyTable
+
+  DeleteAllergyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_DeleteAllergy
+      Handler: allergy.app.allergy_delete_lambda_handler
+      CodeUri: functions/
+      Events:
+        DeleteBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /allergy/{pk}
+            Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AllergyTable
+
+  GetAllergyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetAllergy
+      Handler: allergy.app.allergy_get_lambda_handler
+      CodeUri: functions/
+      Events:
+        GetSingleBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /allergy/{pk}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AllergyTable
+
+  UpdateAllergyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdateAllergy
+      Handler: allergy.app.allergy_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /allergy/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AllergyTable
 
   # AllScripts Functions
   # GetSecurityToken
@@ -1682,6 +1780,18 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: *books_table_name
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  AllergyTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: *allergy_table_name
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
