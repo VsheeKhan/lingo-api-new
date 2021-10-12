@@ -77,11 +77,11 @@ def allergy_get_lambda_handler(pk):
 
 
 allergy_update_body_schema = Allergy.body_schema()
-allergy_create_body_schema['properties']['token'] = {
+allergy_update_body_schema['properties']['token'] = {
     "type": "object",
     "S": "string"
 }
-allergy_create_body_schema['properties']['allergen_id'] = {
+allergy_update_body_schema['properties']['allergen_id'] = {
     "type": "object",
     "S": "string"
 }
