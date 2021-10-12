@@ -10,13 +10,14 @@ from commons.constants import CORS_HEADERS
 from .models import Allergy
 
 allergy_create_body_schema = Allergy.body_schema()
-# allergy_create_body_schema['properties']['token'] = {
-#     'type': 'string'
-# }
-# allergy_create_body_schema['properties']['allergen_id'] = {
-#     'type': 'string'
-# }
-# Add allergen_id like above, we probably need to add allergen_id to the model too
+allergy_create_body_schema['properties']['token'] = {
+    "type": "object",
+    "S": "string"
+}
+allergy_create_body_schema['properties']['allergen_id'] = {
+    "type": "object",
+    "S": "string"
+}
 
 
 @route(body_schema=allergy_create_body_schema)
@@ -33,7 +34,7 @@ def allergy_create_lambda_handler(request):
             "AppUserID": "terry",
             "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
-            "Parameter2": json_request['allergen_id'] or "HISTORY/24045",  # TODO ishan 12-10-2021 fallback for now, but make it mandatory for the client
+            "Parameter2": json_request['allergen_id']['S'] or "HISTORY/24045",  # TODO ishan 12-10-2021 fallback for now, but make it mandatory for the client
             "Parameter3": "",
             "Parameter4": "",
             "Parameter6": json_request['allergy_comments']['S']
@@ -74,14 +75,18 @@ def allergy_get_lambda_handler(pk):
 
     return 200, allergy.serialize(), CORS_HEADERS
 
+
 allergy_update_body_schema = Allergy.body_schema()
-# allergy_update_body_schema['properties']['token'] = {
-#     'type': 'string'
-# }
-# allergy_update_body_schema['properties']['allergen_id'] = {
-#     'type': 'string'
-# }
-# TODO: ishan 12-10-2021 update the body_schema in the same way as create handler
+allergy_create_body_schema['properties']['token'] = {
+    "type": "object",
+    "S": "string"
+}
+allergy_create_body_schema['properties']['allergen_id'] = {
+    "type": "object",
+    "S": "string"
+}
+
+
 @route(body_schema=allergy_update_body_schema)
 def allergy_update_lambda_handler(request, pk):
     json_request = request.json
@@ -94,6 +99,7 @@ def allergy_update_lambda_handler(request, pk):
     allergy.allergy_onset_date = json_request['allergy_onset_date']['S']
     allergy.allergy_reactions = json_request['allergy_reactions']['S']
     allergy.allergy_comments = json_request['allergy_comments']['S']
+    allergy.allergen_id = json_request['allergen_id']['S']
     allergy.save()
     adp_request = PyLambdaRequest(event={
         'httpMethod': 'POST',
