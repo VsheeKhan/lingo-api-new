@@ -13,6 +13,9 @@ allergy_create_body_schema = Allergy.body_schema()
 # allergy_create_body_schema['properties']['token'] = {
 #     'type': 'string'
 # }
+# allergy_create_body_schema['properties']['allergen_id'] = {
+#     'type': 'string'
+# }
 # Add allergen_id like above, we probably need to add allergen_id to the model too
 
 
@@ -71,9 +74,15 @@ def allergy_get_lambda_handler(pk):
 
     return 200, allergy.serialize(), CORS_HEADERS
 
-
+allergy_update_body_schema = Allergy.body_schema()
+# allergy_update_body_schema['properties']['token'] = {
+#     'type': 'string'
+# }
+# allergy_update_body_schema['properties']['allergen_id'] = {
+#     'type': 'string'
+# }
 # TODO: ishan 12-10-2021 update the body_schema in the same way as create handler
-@route(body_schema=Allergy.body_schema())
+@route(body_schema=allergy_update_body_schema)
 def allergy_update_lambda_handler(request, pk):
     json_request = request.json
     try:
@@ -94,7 +103,7 @@ def allergy_update_lambda_handler(request, pk):
             "AppUserID": "terry",
             "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
-            "Parameter2": "HISTORY/24045",  # TODO: ishan 12-10-2021 make similar changes like create handler
+            "Parameter2": json_request['allergen_id'] or "HISTORY/24045",  # TODO: ishan 12-10-2021 make similar changes like create handler
             "Parameter3": "",
             "Parameter4": "",
             "Parameter6": json_request['allergy_comments']['S']
