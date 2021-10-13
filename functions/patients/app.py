@@ -14,12 +14,11 @@ patient_create_body_schema['properties']['token'] = {
     "type": "object",
     "S": "string"
 }
+
+
 @route(body_schema = patient_create_body_schema)
 def patient_create_lambda_handler(request):
     json_request = request.json
-    patient = Patient()
-    patient.deserialize(request.json)
-    patient.save()
     adp_request = PyLambdaRequest(event={
         'httpMethod': 'POST',
         'headers': {},
@@ -66,7 +65,7 @@ def patient_create_lambda_handler(request):
             }
         })
     })
-    adp_response = magic_handler(
+    adp_status_code, adp_response, _ = magic_handler(
         request=adp_request,
         api_type=ApiType.PRO_EHR,
         action='SavePatient',
@@ -77,7 +76,29 @@ def patient_create_lambda_handler(request):
         })
     )
     print(adp_response)
+    # After updating the ADP with patient info, take the patient_id from ADP and store it in our DB
+    # [
+    #     {
+    #         "savepatientinfo": [
+    #             {
+    #                 "AddressID": "5949",
+    #                 "AccountID": "4185",
+    #                 "AccountDate": "9/28/2021 12:00:00 AM",
+    #                 "ContactID": "5872",
+    #                 "AccountNumber": "39910",
+    #                 "PatientNumber": "39910",
+    #                 "PatientID": "36613",
+    #                 "MRN": "2399"
+    #             }
+    #         ]
+    #     }
+    # ]
+    patient = Patient()
+    patient.deserialize(request.json)
+    patient.patient_id = int(adp_response[0]['savepatientinfo']['PatientID'])
+    patient.save()
     return 201, patient.serialize(), CORS_HEADERS
+
 
 @route()
 def patient_delete_lambda_handler(pk):
@@ -93,6 +114,7 @@ def patient_delete_lambda_handler(pk):
 
     return 200, None, CORS_HEADERS
 
+
 @route()
 def patient_get_lambda_handler(pk):
     try:
@@ -102,11 +124,14 @@ def patient_get_lambda_handler(pk):
 
     return 200, patient.serialize(), CORS_HEADERS
 
+
 patient_update_body_schema = Patient.body_schema()
 patient_update_body_schema['properties']['token'] = {
     "type": "object",
     "S": "string"
 }
+
+
 @route(body_schema = patient_update_body_schema)
 def patient_update_lambda_handler(request, pk):
     json_request = request.json
