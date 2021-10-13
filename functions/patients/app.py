@@ -4,7 +4,7 @@ from pylambdarest import route
 from pylambdarest.request import Request as PyLambdaRequest
 from pynamodb.exceptions import DoesNotExist, DeleteError
 
-from adp.app import magic_handler
+from adp.app import magic_handler, parameter_processor_creator
 from adp.constants import ApiType
 from commons.constants import CORS_HEADERS
 from .models import Patient
@@ -66,7 +66,16 @@ def patient_create_lambda_handler(request):
             }
         })
     })
-    adp_response = magic_handler(request=adp_request, api_type=ApiType.PRO_EHR, action='SavePatient')
+    adp_response = magic_handler(
+        request=adp_request,
+        api_type=ApiType.PRO_EHR,
+        action='SavePatient',
+        parameter_processor=parameter_processor_creator(xml_attributes={
+            'Parameter2': {
+                'item_xml': None
+            }
+        })
+    )
     print(adp_response)
     return 201, patient.serialize(), CORS_HEADERS
 
@@ -179,6 +188,15 @@ def patient_update_lambda_handler(request, pk):
             }
         })
     })
-    adp_response = magic_handler(request=adp_request, api_type=ApiType.PRO_EHR, action='SavePatient')
+    adp_response = magic_handler(
+        request=adp_request,
+        api_type=ApiType.PRO_EHR,
+        action='SavePatient',
+        parameter_processor=parameter_processor_creator(xml_attributes={
+            'Parameter2': {
+                'item_xml': None
+            }
+        })
+    )
     print(adp_response)
     return 201, patient.serialize(), CORS_HEADERS
