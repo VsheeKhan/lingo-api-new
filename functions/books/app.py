@@ -14,8 +14,9 @@ def books_create_lambda_handler(request):
 
 
 @route()
-def books_list_lambda_handler():
+def books_list_lambda_handler(request):
     books = [b.serialize() for b in Book.scan(limit=10)]
+    print(request)
     return 200, books, CORS_HEADERS
 
 
