@@ -1,14 +1,13 @@
 import os
 from typing import Dict, Any
 from datetime import datetime
-import uuid
 
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
 
 from commons.models import BaseModel
 
 class Patient(BaseModel):
-    patient_id = UnicodeAttribute(null=False)
+    patient_id = UnicodeAttribute(null=True)
     first_name = UnicodeAttribute(null=False)
     last_name = UnicodeAttribute(null=False)
     middle_initial = UnicodeAttribute(null=True)
@@ -38,7 +37,7 @@ class Patient(BaseModel):
     created_at = UTCDateTimeAttribute(null=True, default=datetime.now)
     updated_at = UTCDateTimeAttribute(null=True)
     class Meta:
-        table_name = os.environ.get('PATIENT_TABLE_NAME')
+        table_name = os.environ.get('PATIENTS_TABLE_NAME')
 
     @classmethod
     def body_schema(cls):

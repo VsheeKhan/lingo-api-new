@@ -105,6 +105,7 @@ def patient_update_lambda_handler(request, pk):
         patient = Patient.get(pk)
     except DoesNotExist:
         return 404, None, CORS_HEADERS
+    patient.patient_id = json_request['patient_id']['S']
     patient.first_name = json_request['first_name']['S']
     patient.last_name = json_request['last_name']['S']
     patient.middle_initial = json_request['middle_initial']['S']
