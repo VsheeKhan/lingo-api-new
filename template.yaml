@@ -232,6 +232,84 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref AllergyTable
 
+  #Patient
+  CreatePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_CreatePatient
+      Handler: patient.app.patient_create_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PatientTable
+
+  DeletePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_DeletePatient
+      Handler: patient.app.patient_delete_lambda_handler
+      CodeUri: functions/
+      Events:
+        DeleteBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient/{pk}
+            Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PatientTable
+
+  GetPatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetPatient
+      Handler: patient.app.patient_get_lambda_handler
+      CodeUri: functions/
+      Events:
+        GetSingleBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient/{pk}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref PatientTable
+
+  UpdatePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdatePatient
+      Handler: patient.app.patient_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PatientTable
+
+
   # AllScripts Functions
   # GetSecurityToken
   ProEHRGetSecurityTokenFunction:
