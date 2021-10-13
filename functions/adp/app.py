@@ -371,6 +371,53 @@ pro_pm_save_voucher_payment_lambda_handler = magic_creator(
 
 # GetChangedPatients
 pro_pm_get_changed_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetChangedPatients')
+pro_ehr_get_changed_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetChangedPatients')
+
+# GetClinicalSummary
+pro_ehr_get_clinical_summary_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetClinicalSummary')
+
+# GetPatientsBySomething
+pro_ehr_get_patients_by_something_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPatientsBySomething')
+
+# SavePatientBloodType
+pro_ehr_save_patient_blood_type_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SavePatientBloodType')
+
+# GetPatientPharmacies
+pro_ehr_get_patient_pharmacies_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPatientPharmacies')
+
+# GetPharmacyEligibility
+pro_ehr_get_pharmacy_eligibility_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPharmacyEligibility')
+
+# SavePatientRetailPharmacy
+pro_ehr_save_patient_retail_pharmacy_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SavePatientRetailPharmacy')
+
+# SetFMHInvite
+pro_ehr_set_fmh_invite_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_EHR,
+    action='SetFMHInvite',
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
+)
+
+# GetClinicalQuestions
+pro_ehr_get_clinical_questions_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetClinicalQuestions')
+
+# GetProcedureDetails
+pro_ehr_get_procedure_details_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetProcedureDetails')
+
+# GetProcedures
+pro_ehr_get_procedures_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_EHR,
+    action='GetProcedures',
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
+)
 
 # GetEmployers
 pro_pm_get_employers_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetEmployers')
@@ -522,13 +569,4 @@ pro_ehr_search_meds_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, act
 # SearchProblemCodes
 pro_ehr_search_problem_codes_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchProblemCodes')
 
-# Save single allergy (one patient)
-# Create a model for Allergy
-# create a route @route(body_schema=Allergy.body_schema())
-# Logic --> Save in DB --> Sync with ADP (Parallel) --> Verify both responses --> Send success response
 
-# List all allergeis (one patient)
-# Query the DB using Allergy Model, send back the response
-# TODO: ishan 07-10-2021 Who else can modify our data on ADP platform (for sync purposes)?
-# Send the response
-# (Thread/Parallel) Trigger a sync of allergies (Maintenance)
