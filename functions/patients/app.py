@@ -24,10 +24,10 @@ def patient_create_lambda_handler(request):
         'headers': {},
         'body': json.dumps({
             "Token": json_request['token']['S'],
-            "AppUserID": "terry",
+            "AppUserID": "demo1",
             "Parameter2": {
                 "patient": {
-                    "patientID": json_request['patient_id']['S'],
+                    "patientID": "",
                     "lastName": json_request['last_name']['S'],
                     "firstName": json_request['first_name']['S'],
                     "mi": json_request['middle_initial']['S'],
@@ -67,7 +67,7 @@ def patient_create_lambda_handler(request):
     })
     adp_status_code, adp_response, _ = magic_handler(
         request=adp_request,
-        api_type=ApiType.PRO_EHR,
+        api_type=ApiType.PRO_PM,
         action='SavePatient',
         parameter_processor=parameter_processor_creator(xml_attributes={
             'Parameter2': {
@@ -75,7 +75,7 @@ def patient_create_lambda_handler(request):
             }
         })
     )
-    print(adp_response)
+    print(adp_response[0]['savepatientinfo'][0]['PatientID'])
     # After updating the ADP with patient info, take the patient_id from ADP and store it in our DB
     # [
     #     {
@@ -95,9 +95,9 @@ def patient_create_lambda_handler(request):
     # ]
     patient = Patient()
     patient.deserialize(request.json)
-    patient.patient_id = int(adp_response[0]['savepatientinfo']['PatientID'])
+    patient.patient_id = int(adp_response[0]['savepatientinfo'][0]['PatientID'])
     patient.save()
-    return 201, patient.serialize(), CORS_HEADERS
+    return 201, patient, CORS_HEADERS
 
 
 @route()
@@ -139,7 +139,7 @@ def patient_update_lambda_handler(request, pk):
         patient = Patient.get(pk)
     except DoesNotExist:
         return 404, None, CORS_HEADERS
-    patient.patient_id = json_request['patient_id']['S']
+    patient.patient_id = json_request['patient_id']['N']
     patient.first_name = json_request['first_name']['S']
     patient.last_name = json_request['last_name']['S']
     patient.middle_initial = json_request['middle_initial']['S']
@@ -172,10 +172,10 @@ def patient_update_lambda_handler(request, pk):
         'headers': {},
         'body': json.dumps({
             "Token": json_request['token']['S'],
-            "AppUserID": "terry",
+            "AppUserID": "demo1",
             "Parameter2": {
                 "patient": {
-                    "patientID": json_request['patient_id']['S'],
+                    "patientID": json_request['patient_id']['N'],
                     "lastName": json_request['last_name']['S'],
                     "firstName": json_request['first_name']['S'],
                     "mi": json_request['middle_initial']['S'],
@@ -215,7 +215,7 @@ def patient_update_lambda_handler(request, pk):
     })
     adp_response = magic_handler(
         request=adp_request,
-        api_type=ApiType.PRO_EHR,
+        api_type=ApiType.PRO_PM,
         action='SavePatient',
         parameter_processor=parameter_processor_creator(xml_attributes={
             'Parameter2': {

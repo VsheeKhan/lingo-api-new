@@ -2,12 +2,12 @@ import os
 from typing import Dict, Any
 from datetime import datetime
 
-from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
+from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute, NumberAttribute
 
 from commons.models import BaseModel
 
 class Patient(BaseModel):
-    patient_id = UnicodeAttribute(null=True)
+    patient_id = NumberAttribute(null=True)
     first_name = UnicodeAttribute(null=False)
     last_name = UnicodeAttribute(null=False)
     middle_initial = UnicodeAttribute(null=True)
