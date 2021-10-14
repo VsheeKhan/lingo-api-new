@@ -433,6 +433,9 @@ pro_pm_save_account_contact_lambda_handler = magic_creator(
     })
 )
 
+# GetPatientContacts
+pro_ehr_get_patient_contacts_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPatientContacts')
+
 # SaveEmployer
 pro_pm_save_employer_lambda_handler = magic_creator(
     api_type=ApiType.PRO_PM,
