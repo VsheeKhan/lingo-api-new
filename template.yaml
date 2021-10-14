@@ -34,6 +34,7 @@ Globals:
       Variables:
         BOOKS_TABLE_NAME: &books_table_name !Sub ${Environment}_books
         ALLERGY_TABLE_NAME: &allergy_table_name !Sub ${Environment}_allergy
+        CONTACTS_TABLE_NAME: &contacts_table_name !Sub ${Environment}_contacts
         IMMUNIZATION_TABLE_NAME: &immunization_table_name !Sub ${Environment}_immunization
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
@@ -231,6 +232,83 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AllergyTable
+
+    #Contacts
+    ListContactsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ListContacts
+      Handler: contacts.app.contacts_list_lambda_handler
+      CodeUri: functions/
+      Events:
+        ListBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ContactsTable
+
+  CreateContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_CreateContact
+      Handler: contacts.app.contact_create_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ContactsTable
+
+  DeleteContactsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_DeleteContact
+      Handler: contacts.app.contact_delete_lambda_handler
+      CodeUri: functions/
+      Events:
+        DeleteBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact/{pk}
+            Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ContactsTable
+
+  GetSingleContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetContact
+      Handler: contacts.app.contact_get_single_lambda_handler
+      CodeUri: functions/
+      Events:
+        GetSingleBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact/{pk}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ContactsTable
 
   # AllScripts Functions
   # GetSecurityToken
@@ -1792,6 +1870,18 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: *allergy_table_name
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+  
+  ContactsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: *contacts_table_name
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
