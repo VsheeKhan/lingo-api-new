@@ -14,10 +14,6 @@ immunization_create_body_schema['properties']['token'] = {
     "type": "object",
     "S": "string"
 }
-immunization_create_body_schema['properties']['allergen_id'] = {
-    "type": "object",
-    "S": "string"
-}
 @route(body_schema = immunization_create_body_schema)
 def immunization_create_lambda_handler(request):
     json_request = request.json
@@ -107,10 +103,6 @@ def immunization_get_lambda_handler(pk):
 
 immunization_update_body_schema = Immunization.body_schema()
 immunization_update_body_schema['properties']['token'] = {
-    "type": "object",
-    "S": "string"
-}
-immunization_update_body_schema['properties']['allergen_id'] = {
     "type": "object",
     "S": "string"
 }
