@@ -24,7 +24,7 @@ def patient_create_lambda_handler(request):
         'headers': {},
         'body': json.dumps({
             "Token": json_request['token']['S'],
-            "AppUserID": "demo1",
+            "AppUserID": "demo1",  # TODO: ishan 14-10-2021 Move this value to the front-end
             "Parameter2": {
                 "patient": {
                     "patientID": "",
@@ -47,11 +47,11 @@ def patient_create_lambda_handler(request):
                     "cellphone": json_request['mobile_phone']['S'],
                     "email": json_request['email_address']['S'],
                     "maritalstatus": json_request['marital_status']['S'],
-                    "HIPAAStmtExp": "5/5/2020",
-                    "usualprov": "MARFEE",
-                    "referringdr": "MARFEE",
-                    "pcp": "MARFEE",
-                    "employer": "AHS",
+                    "HIPAAStmtExp": "5/5/2020",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "usualprov": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "referringdr": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "pcp": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "employer": "AHS",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "employmentstatus": "",
                     "studentstatus": "",
                     "IsGuarantor": "",
@@ -76,23 +76,6 @@ def patient_create_lambda_handler(request):
         })
     )
     print(adp_response[0]['savepatientinfo'][0]['PatientID'])
-    # After updating the ADP with patient info, take the patient_id from ADP and store it in our DB
-    # [
-    #     {
-    #         "savepatientinfo": [
-    #             {
-    #                 "AddressID": "5949",
-    #                 "AccountID": "4185",
-    #                 "AccountDate": "9/28/2021 12:00:00 AM",
-    #                 "ContactID": "5872",
-    #                 "AccountNumber": "39910",
-    #                 "PatientNumber": "39910",
-    #                 "PatientID": "36613",
-    #                 "MRN": "2399"
-    #             }
-    #         ]
-    #     }
-    # ]
     patient = Patient()
     patient.deserialize(request.json)
     patient.patient_id = int(adp_response[0]['savepatientinfo'][0]['PatientID'])
@@ -172,7 +155,7 @@ def patient_update_lambda_handler(request, pk):
         'headers': {},
         'body': json.dumps({
             "Token": json_request['token']['S'],
-            "AppUserID": "demo1",
+            "AppUserID": "demo1",  # TODO: ishan 14-10-2021 Move this value to the front-end
             "Parameter2": {
                 "patient": {
                     "patientID": json_request['patient_id']['N'],
@@ -195,17 +178,17 @@ def patient_update_lambda_handler(request, pk):
                     "cellphone": json_request['mobile_phone']['S'],
                     "email": json_request['email_address']['S'],
                     "maritalstatus": json_request['marital_status']['S'],
-                    "HIPAAStmtExp": "5/5/2020",
-                    "usualprov": "MARFEE",
-                    "referringdr": "MARFEE",
-                    "pcp": "MARFEE",
-                    "employer": "AHS",
-                    "employmentstatus": "",
-                    "studentstatus": "",
-                    "IsGuarantor": "",
-                    "RelationToGuarantor": "",
-                    "IsEmergencyContact": "",
-                    "EmergencyContactRelation": "",
+                    "HIPAAStmtExp": "5/5/2020",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "usualprov": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "referringdr": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "pcp": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "employer": "AHS",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "employmentstatus": "",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "studentstatus": "",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "IsGuarantor": "",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "RelationToGuarantor": "",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "IsEmergencyContact": "",  # TODO: ishan 14-10-2021 Move this value to the front-end
+                    "EmergencyContactRelation": "",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "AccountType": "",
                     "PatientComments": "",
                     "MedRecLoc": ""

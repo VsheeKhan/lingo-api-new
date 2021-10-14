@@ -31,7 +31,7 @@ def allergy_create_lambda_handler(request):
         'headers': {},
         'body': json.dumps({
             "Token": json_request['token']['S'],
-            "AppUserID": "terry",
+            "AppUserID": "terry",  # TODO: ishan 14-10-2021 Move this value to the front-end
             "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
             "Parameter2": json_request['allergen_id']['S'] or "HISTORY/24045",  # TODO ishan 12-10-2021 fallback for now, but make it mandatory for the client
@@ -106,7 +106,7 @@ def allergy_update_lambda_handler(request, pk):
         'headers': {},
         'body': json.dumps({
             "Token": json_request['token']['S'],
-            "AppUserID": "terry",
+            "AppUserID": "terry",  # TODO: ishan 14-10-2021 Move this value to the front-end
             "PatientID": json_request['patient_id']['S'],
             "Parameter1": "",
             "Parameter2": json_request['allergen_id'] or "HISTORY/24045",  # TODO: ishan 12-10-2021 make similar changes like create handler
