@@ -1293,6 +1293,192 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  ProEHRGetChangedPatientsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetChangedPatients
+      Handler: adp.app.pro_ehr_get_changed_patients_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_changed_patients
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetClinicalSummary
+  ProEHRGetClinicalSummaryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetClinicalSummary
+      Handler: adp.app.pro_ehr_get_clinical_summary_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_clinical_summary
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPatientsBySomething
+  ProEHRGetPatientsBySomethingFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPatientsBySomething
+      Handler: adp.app.pro_ehr_get_patients_by_something_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_patients_by_something
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatientBloodType
+  ProEHRSavePatientBloodTypeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRSavePatientBloodType
+      Handler: adp.app.pro_ehr_save_patient_blood_type_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/save_patient_blood_type
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPatientPharmacies
+  ProEHRGetPatientPharmaciesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPatientPharmacies
+      Handler: adp.app.pro_ehr_get_patient_pharmacies_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_patient_pharmacies
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPharmacyEligibility
+  ProEHRGetPharmacyEligibilityFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPharmacyEligibility
+      Handler: adp.app.pro_ehr_get_pharmacy_eligibility_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_pharmacy_eligibility
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatientRetailPharmacy
+  ProEHRSavePatientRetailPharmacyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRSavePatientRetailPharmacy
+      Handler: adp.app.pro_ehr_save_patient_retail_pharmacy_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/save_patient_retail_pharmacy
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SetFMHInvite
+  ProEHRSetFMHInviteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRSetFMHInvite
+      Handler: adp.app.pro_ehr_set_fmh_invite_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/set_fmh_invite
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetClinicalQuestions
+  ProEHRGetClinicalQuestionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetClinicalQuestions
+      Handler: adp.app.pro_ehr_get_clinical_questions_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_clinical_questions
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetProcedureDetails
+  ProEHRGetProcedureDetailsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetProcedureDetails
+      Handler: adp.app.pro_ehr_get_procedure_details_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_procedure_details
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetProcedures
+  ProEHRGetProceduresFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetProcedures
+      Handler: adp.app.pro_ehr_get_procedures_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_procedures
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # GetEmployers
   ProPMGetEmployersFunction:
     Type: AWS::Serverless::Function
@@ -1323,6 +1509,23 @@ Resources:
           Properties:
             RestApiId: !Ref MainApi
             Path: /adp/pro_pm/save_account_contact
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPatientContacts
+  ProPMGetPatientContactsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPatientContacts
+      Handler: adp.app.pro_ehr_get_patient_contacts_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_patient_contacts
             Method: POST
             Auth:
               Authorizer: EirCognitoAuthorizer

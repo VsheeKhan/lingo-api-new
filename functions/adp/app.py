@@ -42,7 +42,7 @@ def security_token_creator(api_type=None):
     return handler
 
 
-def magic_handler(request, api_type=None, action=None, parameter_processor=lambda name, value: value):
+def magic_handler(request, api_type=None, action=None, parameter_processor=lambda name, value: value, response_processor=None):
     try:
         response = requests.post(
             f'{adp_config["json_api"][api_type]}/MagicJson',
@@ -69,10 +69,13 @@ def magic_handler(request, api_type=None, action=None, parameter_processor=lambd
         response_content = response.text
     else:
         response_content = response.json()
+
+    # TODO: ishan 14-10-2021 Add support for response_processor to make the API payload and responses consistent
+
     return response.status_code, response_content, CORS_HEADERS
 
 
-def magic_creator(api_type=None, action=None, parameter_processor=lambda name, value: value):
+def magic_creator(api_type=None, action=None, parameter_processor=lambda name, value: value, response_processor=None):
     if api_type is None:
         raise TypeError('api_type cannot be None')
     if not isinstance(api_type, ApiType):
@@ -80,7 +83,7 @@ def magic_creator(api_type=None, action=None, parameter_processor=lambda name, v
 
     @route()
     def handler(request):
-        return magic_handler(request, api_type, action, parameter_processor)
+        return magic_handler(request, api_type, action, parameter_processor, response_processor)
 
     return handler
 
@@ -91,7 +94,9 @@ def parameter_processor_creator(xml_attributes=None):
     if not isinstance(xml_attributes, dict):
         raise TypeError('xml_attributes must be a dict of configs')
 
-    def json_to_partial_xml(value, item_xml=None):
+    def json_to_partial_xml(value, item_xml=None, transformer=None):
+        # TODO: ishan 14-10-2021 Add support for transformer to make the API payload and responses consistent
+
         if item_xml is not None:
             top_level = item_xml['top_level'] or 'root'
             item_name = item_xml['item_name'] or 'item'
@@ -114,7 +119,9 @@ def parameter_processor_creator(xml_attributes=None):
     def handler(name, value):
         if name not in xml_attributes:
             return value
-        return json_to_partial_xml(value, item_xml=xml_attributes[name]['item_xml'])
+        return json_to_partial_xml(
+            value, item_xml=xml_attributes[name]['item_xml'], transformer=xml_attributes[name]['transformer']
+        )
 
     return handler
 
@@ -371,6 +378,53 @@ pro_pm_save_voucher_payment_lambda_handler = magic_creator(
 
 # GetChangedPatients
 pro_pm_get_changed_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetChangedPatients')
+pro_ehr_get_changed_patients_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetChangedPatients')
+
+# GetClinicalSummary
+pro_ehr_get_clinical_summary_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetClinicalSummary')
+
+# GetPatientsBySomething
+pro_ehr_get_patients_by_something_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPatientsBySomething')
+
+# SavePatientBloodType
+pro_ehr_save_patient_blood_type_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SavePatientBloodType')
+
+# GetPatientPharmacies
+pro_ehr_get_patient_pharmacies_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPatientPharmacies')
+
+# GetPharmacyEligibility
+pro_ehr_get_pharmacy_eligibility_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPharmacyEligibility')
+
+# SavePatientRetailPharmacy
+pro_ehr_save_patient_retail_pharmacy_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SavePatientRetailPharmacy')
+
+# SetFMHInvite
+pro_ehr_set_fmh_invite_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_EHR,
+    action='SetFMHInvite',
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
+)
+
+# GetClinicalQuestions
+pro_ehr_get_clinical_questions_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetClinicalQuestions')
+
+# GetProcedureDetails
+pro_ehr_get_procedure_details_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetProcedureDetails')
+
+# GetProcedures
+pro_ehr_get_procedures_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_EHR,
+    action='GetProcedures',
+    parameter_processor=parameter_processor_creator(xml_attributes={
+        'Parameter1': {
+            'item_xml': None
+        }
+    })
+)
 
 # GetEmployers
 pro_pm_get_employers_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetEmployers')
@@ -381,10 +435,15 @@ pro_pm_save_account_contact_lambda_handler = magic_creator(
     action='SaveAccountContact',
     parameter_processor=parameter_processor_creator(xml_attributes={
         'Parameter6': {
-            'item_xml': None
+            'item_xml': None,
+            'transformer': None,
         }
-    })
+    }),
+
 )
+
+# GetPatientContacts
+pro_ehr_get_patient_contacts_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='GetPatientContacts')
 
 # SaveEmployer
 pro_pm_save_employer_lambda_handler = magic_creator(
@@ -522,13 +581,4 @@ pro_ehr_search_meds_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, act
 # SearchProblemCodes
 pro_ehr_search_problem_codes_lambda_handler = magic_creator(api_type=ApiType.PRO_EHR, action='SearchProblemCodes')
 
-# Save single allergy (one patient)
-# Create a model for Allergy
-# create a route @route(body_schema=Allergy.body_schema())
-# Logic --> Save in DB --> Sync with ADP (Parallel) --> Verify both responses --> Send success response
 
-# List all allergeis (one patient)
-# Query the DB using Allergy Model, send back the response
-# TODO: ishan 07-10-2021 Who else can modify our data on ADP platform (for sync purposes)?
-# Send the response
-# (Thread/Parallel) Trigger a sync of allergies (Maintenance)
