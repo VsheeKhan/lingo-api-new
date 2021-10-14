@@ -35,6 +35,7 @@ Globals:
         BOOKS_TABLE_NAME: &books_table_name !Sub ${Environment}_books
         ALLERGY_TABLE_NAME: &allergy_table_name !Sub ${Environment}_allergy
         IMMUNIZATION_TABLE_NAME: &immunization_table_name !Sub ${Environment}_immunization
+        PATIENTS_TABLE_NAME: &patients_table_name !Sub ${Environment}_patients
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
         ALLOW_ORIGIN: !Sub '${Origin}'
@@ -231,6 +232,84 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AllergyTable
+
+  #Patient
+  CreatePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_CreatePatient
+      Handler: patients.app.patient_create_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PatientsTable
+
+  DeletePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_DeletePatient
+      Handler: patients.app.patient_delete_lambda_handler
+      CodeUri: functions/
+      Events:
+        DeleteBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient/{pk}
+            Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PatientsTable
+
+  GetPatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetPatient
+      Handler: patients.app.patient_get_lambda_handler
+      CodeUri: functions/
+      Events:
+        GetSingleBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient/{pk}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref PatientsTable
+
+  UpdatePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdatePatient
+      Handler: patients.app.patient_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PatientsTable
+
 
   # AllScripts Functions
   # GetSecurityToken
@@ -1995,6 +2074,18 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: *allergy_table_name
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+  
+  PatientsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: *patients_table_name
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
