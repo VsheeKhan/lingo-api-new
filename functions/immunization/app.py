@@ -83,7 +83,7 @@ def immunization_create_lambda_handler(request):
     print(adp_response)
     immunization = Immunization()
     immunization.deserialize(request.json)
-    immunization.transid = int(adp_response[0]['saveimmunizationinfo'][0]['transid'])
+    immunization.transid = adp_response[0]['saveimmunizationinfo'][0]['transid']
     immunization.save()
     return 201, immunization.serialize(), CORS_HEADERS
 
