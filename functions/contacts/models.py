@@ -9,6 +9,7 @@ from commons.models import BaseModel
 
 class Contact(BaseModel):
     patient_id = UnicodeAttribute(null=False)
+    adp_contact_id = UnicodeAttribute(null=True)  
     contact_relationship = UnicodeAttribute(null=False)  
     is_patient = BooleanAttribute(null=False, default=False)
     contact_patient_id = UnicodeAttribute(null=True)  

@@ -4,39 +4,77 @@ from pylambdarest import route
 from pylambdarest.request import Request as PyLambdaRequest
 from pynamodb.exceptions import DoesNotExist, DeleteError
 
-from adp.app import magic_handler
+from adp.app import magic_handler, parameter_processor_creator
 from adp.constants import ApiType
 from commons.constants import CORS_HEADERS
 from .models import Contact
 
+con_params_list = ['token', 'mi', 'gender', 'ssn', 'dob', 'street1', 'city', 'state', 'zip', 'is_guarantor', 'is_emergency_contact']
+
 contact_create_body_schema = Contact.body_schema()
-contact_create_body_schema['properties']['token'] = {
-    "type": "object",
-    "S": "string"
-}
+for param in con_params_list:
+    contact_create_body_schema['properties'][param] = {
+        "type": "object",
+        "S": "string"
+    }
 
 @route(body_schema=contact_create_body_schema)
 def contact_create_lambda_handler(request):
     json_request = request.json
+    adp_request = PyLambdaRequest(event={
+        'httpMethod': 'POST',
+        'headers': {},
+        'body': json.dumps({
+            "Token": json_request['token']['S'],
+            "AppUserID": "demo1",
+            "PatientID": int(json_request['patient_id']['S']),
+            "Parameter1": 4185,
+            "Parameter2": "",
+            "Parameter6": {
+                "contact": {
+                    "lastName": json_request['non_patient_last_name']['S'],
+                    "firstName": json_request['non_patient_first_name']['S'],
+                    "mi": json_request['mi']['S'],
+                    "suffix": "",
+                    "gender": json_request['gender']['S'],
+                    "ssn": json_request['ssn']['S'],
+                    "dob": json_request['dob']['S'],
+                    "street1": json_request['street1']['S'],
+                    "street2": "",
+                    "city": json_request['city']['S'],
+                    "state": json_request['state']['S'],
+                    "zip": json_request['zip']['S'],
+                    "phone": json_request['non_patient_phone']['S'],
+                    "workphone": "",
+                    "workphoneext": "",
+                    "cellphone": "",
+                    "email": json_request['non_patient_email_address']['S'],
+                    "employer": "",
+                    "IsGuarantor": json_request['is_guarantor']['S'],
+                    "IsEmergencyContact": json_request['is_emergency_contact']['S'],
+                    "EmergencyContactRelation": "",
+                    "IsSubscriber": "",
+                    "CanGetStatements": "",
+                    "comments": ""
+                }
+            }
+            })
+        })
+    adp_status_code, adp_response, _ = magic_handler(
+        request=adp_request,
+        api_type=ApiType.PRO_PM,
+        action='SaveAccountContact',
+        parameter_processor=parameter_processor_creator(xml_attributes={
+            'Parameter6': {
+            'item_xml': None
+            }
+        })
+    )
+    print(adp_response)
     contact = Contact()
     contact.deserialize(request.json)
+    contact.adp_contact_id = adp_response[0]['saveaccountcontactinfo'][0]['ContactID']
     contact.save()
-    # adp_request = PyLambdaRequest(event={
-    #     'httpMethod': 'POST',
-    #     'headers': {},
-    #     'body': json.dumps({
-    #         "Token": json_request['token']['S'],
-    #         "AppUserID": "demo1",
-    #         "PatientID": json_request['patient_id']['S'],
-    #         "Parameter1": "",
-    #         "Parameter2": json_request['allergen_id']['S'] or "HISTORY/24045",  
-    #         "Parameter3": "",
-    #         "Parameter4": "",
-    #         "Parameter6": json_request['contact_comments']['S']
-    #     })
-    # })
-    # adp_response = magic_handler(request=adp_request, api_type=ApiType.PRO_PM, action='SaveContact')
-    # print(adp_response)
     return 201, contact.serialize(), CORS_HEADERS
 
 
@@ -93,20 +131,54 @@ def contact_update_lambda_handler(request, pk):
     contact.non_patient_phone = json_request['non_patient_phone']['S']
     contact.non_patient_email_address = json_request['non_patient_email_address']['S']
     contact.save()
-    # adp_request = PyLambdaRequest(event={
-    #     'httpMethod': 'POST',
-    #     'headers': {},
-    #     'body': json.dumps({
-    #         "Token": json_request['token']['S'],
-    #         "AppUserID": "terry",
-    #         "PatientID": json_request['patient_id']['S'],
-    #         "Parameter1": "",
-    #         "Parameter2": json_request['allergen_id'] or "HISTORY/24045",  # TODO: ishan 12-10-2021 make similar changes like create handler
-    #         "Parameter3": "",
-    #         "Parameter4": "",
-    #         "Parameter6": json_request['contact_comments']['S']
-    #     })
-    # })
-    # adp_response = magic_handler(request=adp_request, api_type=ApiType.PRO_EHR, action='SaveContact')
-    # print(adp_response)
+    adp_request = PyLambdaRequest(event={
+    'httpMethod': 'POST',
+    'headers': {},
+    'body': json.dumps({
+        "Token": json_request['token']['S'],
+        "AppUserID": "demo1",
+        "PatientID": int(json_request['patient_id']['S']),
+        "Parameter1": 4185,
+        "Parameter2": int(json_request['adp_contact_id']['S']),
+        "Parameter6": {
+            "contact": {
+                "lastName": json_request['non_patient_last_name']['S'],
+                "firstName": json_request['non_patient_first_name']['S'],
+                "mi": json_request['mi']['S'],
+                "suffix": "",
+                "gender": json_request['gender']['S'],
+                "ssn": json_request['ssn']['S'],
+                "dob": json_request['dob']['S'],
+                "street1": json_request['street1']['S'],
+                "street2": "",
+                "city": json_request['city']['S'],
+                "state": json_request['state']['S'],
+                "zip": json_request['zip']['S'],
+                "phone": json_request['non_patient_phone']['S'],
+                "workphone": "",
+                "workphoneext": "",
+                "cellphone": "",
+                "email": json_request['non_patient_email_address']['S'],
+                "employer": "",
+                "IsGuarantor": json_request['is_guarantor']['S'],
+                "IsEmergencyContact": json_request['is_emergency_contact']['S'],
+                "EmergencyContactRelation": "",
+                "IsSubscriber": "",
+                "CanGetStatements": "",
+                "comments": ""
+            }
+        }
+        })
+    })
+    adp_status_code, adp_response, _ = magic_handler(
+        request=adp_request,
+        api_type=ApiType.PRO_PM,
+        action='SaveAccountContact',
+        parameter_processor=parameter_processor_creator(xml_attributes={
+            'Parameter6': {
+            'item_xml': None
+            }
+        })
+    )
+    print(adp_response)
     return 201, contact.serialize(), CORS_HEADERS
