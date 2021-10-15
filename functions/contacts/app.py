@@ -9,7 +9,7 @@ from adp.constants import ApiType
 from commons.constants import CORS_HEADERS
 from .models import Contact
 
-con_params_list = ['token', 'mi', 'gender', 'ssn', 'dob', 'street1', 'city', 'state', 'zip', 'is_guarantor', 'is_emergency_contact']
+con_params_list = ['token', 'adp_contact_id', 'app_user_id', 'mi', 'gender', 'ssn', 'dob', 'street1', 'city', 'state', 'zip', 'is_guarantor', 'is_emergency_contact', 'account_id']
 
 contact_create_body_schema = Contact.body_schema()
 for param in con_params_list:
@@ -27,14 +27,14 @@ def contact_create_lambda_handler(request):
         'headers': {},
         'body': json.dumps({
             "Token": json_request['token']['S'],
-            "AppUserID": "demo1",
+            "AppUserID": json_request['app_user_id']['S'],
             "PatientID": int(json_request['patient_id']['S']),
-            "Parameter1": 4185,  # TODO: ishan 15-10-2021 Can't hardcode this, get this from front-end
+            "Parameter1": int(json_request['account_id']['S']),  # TODO: ishan 15-10-2021 Can't hardcode this, get this from front-end
             "Parameter2": "",
             "Parameter6": {
                 "contact": {
-                    "lastName": json_request['non_patient_last_name']['S'],
-                    "firstName": json_request['non_patient_first_name']['S'],
+                    "lastName": json_request['last_name']['S'],
+                    "firstName": json_request['first_name']['S'],
                     "mi": json_request['mi']['S'],
                     "suffix": "",
                     "gender": json_request['gender']['S'],
@@ -45,11 +45,11 @@ def contact_create_lambda_handler(request):
                     "city": json_request['city']['S'],
                     "state": json_request['state']['S'],
                     "zip": json_request['zip']['S'],
-                    "phone": json_request['non_patient_phone']['S'],
+                    "phone": json_request['phone']['S'],
                     "workphone": "",
                     "workphoneext": "",
                     "cellphone": "",
-                    "email": json_request['non_patient_email_address']['S'],
+                    "email": json_request['email_address']['S'],
                     "employer": "",
                     "IsGuarantor": json_request['is_guarantor']['S'],
                     "IsEmergencyContact": json_request['is_emergency_contact']['S'],
@@ -71,17 +71,18 @@ def contact_create_lambda_handler(request):
             }
         })
     )
+    adp_response = adp_response[0]
     print(adp_response)
     contact = Contact()
     contact.deserialize(request.json)
-    contact.adp_contact_id = adp_response[0]['saveaccountcontactinfo'][0]['ContactID']
+    contact.adp_contact_id = adp_response['saveaccountcontactinfo'][0]['ContactID']
     contact.save()
     return 201, contact.serialize(), CORS_HEADERS
 
 
 @route()
-def contacts_list_lambda_handler():
-    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == '36566')]  # TODO: ishan 15-10-2021 Can't hardcode this
+def contacts_list_lambda_handler(patient_id):
+    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == patient_id)]  # TODO: ishan 15-10-2021 Can't hardcode this
     return 200, {'items': contacts}, CORS_HEADERS
 
 
@@ -111,10 +112,11 @@ def contact_get_lambda_handler(pk):
 
 
 contact_update_body_schema = Contact.body_schema()
-contact_update_body_schema['properties']['token'] = {
-    "type": "object",
-    "S": "string"
-}
+for param in con_params_list:
+    contact_update_body_schema['properties'][param] = {
+        "type": "object",
+        "S": "string"
+    }
 
 
 @route(body_schema=contact_update_body_schema)
@@ -127,25 +129,25 @@ def contact_update_lambda_handler(request, pk):
     contact.contact_relationship = json_request['contact_relationship']['S']
     # contact.is_patient = json_request['is_patient']['BOOL'] #TODO : confirmarion is_patient to be updated or not (Just send this to front-end)
     # contact.contact_patient_id = json_request['contact_patient_id']['S'] #TODO : confirmarion contact_patiet_id to be updated or not
-    contact.non_patient_first_name = json_request['non_patient_first_name']['S']
-    contact.non_patient_last_name = json_request['non_patient_last_name']['S']
-    contact.non_patient_age = json_request['non_patient_age']['S']
-    contact.non_patient_phone = json_request['non_patient_phone']['S']
-    contact.non_patient_email_address = json_request['non_patient_email_address']['S']
+    contact.first_name = json_request['first_name']['S']
+    contact.last_name = json_request['last_name']['S']
+    contact.age = json_request['age']['S']
+    contact.phone = json_request['phone']['S']
+    contact.email_address = json_request['email_address']['S']
     contact.save()
     adp_request = PyLambdaRequest(event={
     'httpMethod': 'POST',
     'headers': {},
     'body': json.dumps({
         "Token": json_request['token']['S'],
-        "AppUserID": "demo1",
+        "AppUserID": json_request['app_user_id']['S'],
         "PatientID": int(json_request['patient_id']['S']),
-        "Parameter1": 4185,  # TODO: ishan 15-10-2021 can't hardcode this
+        "Parameter1": json_request['app_user_id']['S'],  # TODO: ishan 15-10-2021 can't hardcode this
         "Parameter2": int(json_request['adp_contact_id']['S']),
         "Parameter6": {
             "contact": {
-                "lastName": json_request['non_patient_last_name']['S'],
-                "firstName": json_request['non_patient_first_name']['S'],
+                "lastName": json_request['last_name']['S'],
+                "firstName": json_request['first_name']['S'],
                 "mi": json_request['mi']['S'],
                 "suffix": "",
                 "gender": json_request['gender']['S'],
@@ -156,11 +158,11 @@ def contact_update_lambda_handler(request, pk):
                 "city": json_request['city']['S'],
                 "state": json_request['state']['S'],
                 "zip": json_request['zip']['S'],
-                "phone": json_request['non_patient_phone']['S'],
+                "phone": json_request['phone']['S'],
                 "workphone": "",
                 "workphoneext": "",
                 "cellphone": "",
-                "email": json_request['non_patient_email_address']['S'],
+                "email": json_request['email_address']['S'],
                 "employer": "",
                 "IsGuarantor": json_request['is_guarantor']['S'],
                 "IsEmergencyContact": json_request['is_emergency_contact']['S'],

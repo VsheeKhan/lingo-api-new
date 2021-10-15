@@ -234,7 +234,7 @@ Resources:
             TableName: !Ref AllergyTable
 
     #Contacts
-    ListContactsFunction:
+  ListContactsFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_ListContacts
@@ -245,7 +245,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
-            Path: /contact
+            Path: /contact/{patient_id}
             Method: get
             Auth:
               Authorizer: EirCognitoAuthorizer
@@ -272,7 +272,26 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref ContactsTable
 
-  DeleteContactsFunction:
+  UpdateContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdateContact
+      Handler: contacts.app.contact_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ContactsTable
+
+  DeleteContactFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${Environment}_DeleteContact
