@@ -18,6 +18,7 @@ for param in con_params_list:
         "S": "string"
     }
 
+
 @route(body_schema=contact_create_body_schema)
 def contact_create_lambda_handler(request):
     json_request = request.json
@@ -28,7 +29,7 @@ def contact_create_lambda_handler(request):
             "Token": json_request['token']['S'],
             "AppUserID": "demo1",
             "PatientID": int(json_request['patient_id']['S']),
-            "Parameter1": 4185,
+            "Parameter1": 4185,  # TODO: ishan 15-10-2021 Can't hardcode this, get this from front-end
             "Parameter2": "",
             "Parameter6": {
                 "contact": {
@@ -66,7 +67,7 @@ def contact_create_lambda_handler(request):
         action='SaveAccountContact',
         parameter_processor=parameter_processor_creator(xml_attributes={
             'Parameter6': {
-            'item_xml': None
+                'item_xml': None
             }
         })
     )
@@ -80,7 +81,7 @@ def contact_create_lambda_handler(request):
 
 @route()
 def contacts_list_lambda_handler():
-    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == '36566')]
+    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == '36566')]  # TODO: ishan 15-10-2021 Can't hardcode this
     return 200, {'items': contacts}, CORS_HEADERS
 
 
@@ -115,6 +116,7 @@ contact_update_body_schema['properties']['token'] = {
     "S": "string"
 }
 
+
 @route(body_schema=contact_update_body_schema)
 def contact_update_lambda_handler(request, pk):
     json_request = request.json
@@ -123,7 +125,7 @@ def contact_update_lambda_handler(request, pk):
     except DoesNotExist:
         return 404, None, CORS_HEADERS
     contact.contact_relationship = json_request['contact_relationship']['S']
-    # contact.is_patient = json_request['is_patient']['BOOL'] #TODO : confirmarion is_patient to be updated or not
+    # contact.is_patient = json_request['is_patient']['BOOL'] #TODO : confirmarion is_patient to be updated or not (Just send this to front-end)
     # contact.contact_patient_id = json_request['contact_patient_id']['S'] #TODO : confirmarion contact_patiet_id to be updated or not
     contact.non_patient_first_name = json_request['non_patient_first_name']['S']
     contact.non_patient_last_name = json_request['non_patient_last_name']['S']
@@ -138,7 +140,7 @@ def contact_update_lambda_handler(request, pk):
         "Token": json_request['token']['S'],
         "AppUserID": "demo1",
         "PatientID": int(json_request['patient_id']['S']),
-        "Parameter1": 4185,
+        "Parameter1": 4185,  # TODO: ishan 15-10-2021 can't hardcode this
         "Parameter2": int(json_request['adp_contact_id']['S']),
         "Parameter6": {
             "contact": {
@@ -176,7 +178,7 @@ def contact_update_lambda_handler(request, pk):
         action='SaveAccountContact',
         parameter_processor=parameter_processor_creator(xml_attributes={
             'Parameter6': {
-            'item_xml': None
+                'item_xml': None
             }
         })
     )
