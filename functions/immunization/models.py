@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from typing import Dict, Any
 
-from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
+from pynamodb.attributes import NumberAttribute, UnicodeAttribute, UTCDateTimeAttribute
 
 from commons.models import BaseModel
 
@@ -14,6 +14,7 @@ class Immunization(BaseModel):
     immunization_status = UnicodeAttribute(null=False)
     immunization_provider = UnicodeAttribute(null=False)
     immunization_facility = UnicodeAttribute(null=False)
+    transid = UnicodeAttribute(null=True)
     created_at = UTCDateTimeAttribute(null=True, default=datetime.now)
     updated_at = UTCDateTimeAttribute(null=True)
     class Meta:
