@@ -9,7 +9,13 @@ from adp.constants import ApiType
 from commons.constants import CORS_HEADERS
 from .models import Immunization
 
-im_params_list = ["token", "status", "contact_id", "encounter_id", "procedure_id", "entered_date", "entered_by_caregiver", "completed_date", "completedbycaregiver_id", "facility_code", "reason_non_code", "given_date", "given_date_mask", "givenbycaregiver_id", "comment", "dose_value", "dose_units", "lot_number", "expiration_date", "expiration_date_mask", "mvxcode", "injectionroute_code", "injectionsite_code", "informed_consent", "patient_positive_id", "historical_flag", "adverse_reaction_flag", "drug_code", "ndc", "excludefromccd", "historical_facility", "vfc_no_participation", "vis_code"]
+im_params_list = [
+    "token", "status", "contact_id", "encounter_id", "procedure_id", "entered_date", "entered_by_caregiver",
+    "completed_date", "completedbycaregiver_id", "facility_code", "reason_non_code", "given_date", "given_date_mask",
+    "givenbycaregiver_id", "comment", "dose_value", "dose_units", "lot_number", "expiration_date",
+    "expiration_date_mask", "mvxcode", "injectionroute_code", "injectionsite_code", "informed_consent",
+    "patient_positive_id", "historical_flag", "adverse_reaction_flag", "drug_code", "ndc", "excludefromccd",
+    "historical_facility", "vfc_no_participation", "vis_code"]
 
 immunization_create_body_schema = Immunization.body_schema()
 for param in im_params_list:
@@ -17,7 +23,9 @@ for param in im_params_list:
         "type": "object",
         "S": "string"
     }
-@route(body_schema = immunization_create_body_schema)
+
+
+@route(body_schema=immunization_create_body_schema)
 def immunization_create_lambda_handler(request):
     json_request = request.json
     adp_request = PyLambdaRequest(event={
@@ -30,7 +38,7 @@ def immunization_create_lambda_handler(request):
             "Parameter1": "",
             "Parameter2": {
                 "saveimmunization": {
-                    "immunization_id": json_request['immunization_name']['S'],
+                    "immunization_id": json_request['immunization_id']['S'],
                     "status": json_request['immunization_status']['S'],
                     "contact_id": "",
                     "encounter_id": "",
@@ -63,10 +71,10 @@ def immunization_create_lambda_handler(request):
                     "historical_facility": "",
                     "vfc_no_participation": "",
                     "vis_code": ""
-                    }
                 }
-            })
+            }
         })
+    })
     adp_status_code, adp_response, _ = magic_handler(
         request=adp_request,
         api_type=ApiType.PRO_EHR,
@@ -80,18 +88,21 @@ def immunization_create_lambda_handler(request):
             }
         })
     )
+    adp_response = adp_response[0]
     print(adp_response)
     immunization = Immunization()
     immunization.deserialize(request.json)
-    immunization.transid = adp_response[0]['saveimmunizationinfo'][0]['transid']
+    immunization.trans_id = adp_response['saveimmunizationinfo'][0]['transid']
     immunization.save()
     return 201, immunization.serialize(), CORS_HEADERS
 
 
 @route()
-def immunization_list_lambda_handler():
-    immunizations = [result.serialize() for result in Immunization.scan(Immunization.patient_id == '36566')]
-    return 200, {'items':immunizations}, CORS_HEADERS
+def immunization_list_lambda_handler(request):
+    immunizations = [result.serialize() for result in Immunization.scan(Immunization.patient_id == '36566')]  # TODO: ishan 15-10-2021 Don't hardcode this, get it from front-end
+    # TODO: ishan 15-10-2021 In future we will fetch the patient_id from JWT token itself
+    return 200, {'items': immunizations}, CORS_HEADERS
+
 
 @route()
 def immunization_delete_lambda_handler(pk):
@@ -117,12 +128,15 @@ def immunization_get_lambda_handler(pk):
 
     return 200, immunization.serialize(), CORS_HEADERS
 
+
 immunization_update_body_schema = Immunization.body_schema()
 for param in im_params_list:
     immunization_update_body_schema['properties'][param] = {
         "type": "object",
         "S": "string"
     }
+
+
 @route(body_schema=immunization_update_body_schema)
 def immunization_update_lambda_handler(request, pk):
     json_request = request.json
@@ -130,7 +144,7 @@ def immunization_update_lambda_handler(request, pk):
         immunization = Immunization.get(pk)
     except DoesNotExist:
         return 404, None, CORS_HEADERS
-    immunization.immunization_name = json_request['immunization_name']['S']
+    immunization.immunization_name = json_request['immunization_id']['S']
     immunization.immunization_date = json_request['immunization_date']['S']
     immunization.immunization_status = json_request['immunization_status']['S']
     immunization.immunization_provider = json_request['immunization_provider']['S']
@@ -143,10 +157,10 @@ def immunization_update_lambda_handler(request, pk):
             "Token": json_request['token']['S'],
             "AppUserID": "terry",
             "PatientID": int(json_request['patient_id']['S']),
-            "Parameter1": int(json_request['transid']['S']),
+            "Parameter1": int(json_request['trans_id']['S']),
             "Parameter2": {
                 "saveimmunization": {
-                    "immunization_id": json_request['immunization_name']['S'],
+                    "immunization_id": json_request['immunization_id']['S'],
                     "status": json_request['immunization_status']['S'],
                     "contact_id": "",
                     "encounter_id": "",
@@ -179,10 +193,10 @@ def immunization_update_lambda_handler(request, pk):
                     "historical_facility": "",
                     "vfc_no_participation": "",
                     "vis_code": ""
-                    }
                 }
-            })
+            }
         })
+    })
     adp_status_code, adp_response, _ = magic_handler(
         request=adp_request,
         api_type=ApiType.PRO_EHR,
