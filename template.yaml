@@ -419,7 +419,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
-            Path: /contact/{patient_id}
+            Path: /contact/{pk}
             Method: get
             Auth:
               Authorizer: EirCognitoAuthorizer

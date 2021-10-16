@@ -81,8 +81,8 @@ def contact_create_lambda_handler(request):
 
 
 @route()
-def contacts_list_lambda_handler(patient_id):
-    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == patient_id)]
+def contacts_list_lambda_handler(pk):
+    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == pk)]
     return 200, {'items': contacts}, CORS_HEADERS
 
 
