@@ -8,6 +8,7 @@ from pylambdarest import route
 from requests.exceptions import ConnectionError
 
 from commons.constants import CORS_HEADERS
+from .adp_value_processor import field_name_processor, action_response_processor
 from .constants import adp_config, ApiType
 
 
@@ -42,8 +43,10 @@ def security_token_creator(api_type=None):
     return handler
 
 
-def magic_handler(request, api_type=None, action=None, parameter_processor=lambda name, value: value, response_processor=None):
+def magic_handler(request, api_type=None, action=None, parameter_processor=lambda name, value: value,
+                  response_processor=lambda val: val):
     try:
+        # Make ADP request
         response = requests.post(
             f'{adp_config["json_api"][api_type]}/MagicJson',
             json={
@@ -65,13 +68,13 @@ def magic_handler(request, api_type=None, action=None, parameter_processor=lambd
         print(error)
         return 500, str(error), CORS_HEADERS
 
+    # Process ADP response
     if int(response.status_code / 100) != 2:
         response_content = response.text
     else:
         response_content = response.json()
-
-    # TODO: ishan 14-10-2021 Add support for response_processor to make the API payload and responses consistent
-
+    response_content = response_processor(response_content)
+    # Return response
     return response.status_code, response_content, CORS_HEADERS
 
 
@@ -122,6 +125,23 @@ def parameter_processor_creator(xml_attributes=None):
         return json_to_partial_xml(
             value, item_xml=xml_attributes[name]['item_xml'], transformer=xml_attributes[name]['transformer']
         )
+
+    return handler
+
+
+def response_processor_creator(action=None):
+    def dict_processor(resp):
+        return {field_name_processor[field]['key']:field_name_processor[field]['val'](resp[field]) for field in resp}
+
+    def handler(resp):
+        # Fetch the value from response
+        resp = action_response_processor[action](resp)
+
+        # Transform the values
+        if isinstance(resp, dict):
+            return dict_processor(resp)
+        if isinstance(resp, list):
+            return [dict_processor(obj) for obj in resp]
 
     return handler
 
@@ -486,7 +506,11 @@ pro_pm_get_images_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action
 pro_pm_get_notes_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetNotes')
 
 # GetNoteTypes
-pro_pm_get_note_types_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='GetNoteTypes')
+pro_pm_get_note_types_lambda_handler = magic_creator(
+    api_type=ApiType.PRO_PM,
+    action='GetNoteTypes',
+    response_processor=response_processor_creator(action='GetNoteTypes')
+)
 
 # SaveImage
 pro_pm_save_image_lambda_handler = magic_creator(api_type=ApiType.PRO_PM, action='SaveImage')

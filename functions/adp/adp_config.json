@@ -1,0 +1,54 @@
+{
+  "field_map": {
+    "Note_Type_ID": {
+      "key": "note_type_id",
+      "val": "simple"
+    },
+    "Abbreviation": {
+      "key": "abbreviation",
+      "val": "simple"
+    },
+    "Description": {
+      "key": "description",
+      "val": "simple"
+    },
+    "Type_Of_Note": {
+      "key": "type_of_note",
+      "val": "simple"
+    },
+    "Warning_Flag": {
+      "key": "warning_flag",
+      "val": "simple"
+    },
+    "Prevent_New_Appointments": {
+      "key": "prevent_new_appointments",
+      "val": "simple"
+    },
+    "Hold_Statements": {
+      "key": "hold_statements",
+      "val": "simple"
+    },
+    "Default_Text": {
+      "key": "default_text",
+      "val": "simple"
+    },
+    "Default_Subject": {
+      "key": "default_subject",
+      "val": "simple"
+    },
+    "Allow_Editable_Text": {
+      "key": "allow_editable_text",
+      "val": "simple"
+    },
+    "SystemOnlyFLAG": {
+      "key": "system_only_flag",
+      "val": "simple"
+    }
+  },
+  "action_response_map": {
+    "GetNoteTypes": {
+      "type": "array",
+      "key": "getappointmenttypesinfo"
+    }
+  }
+}
