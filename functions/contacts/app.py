@@ -29,7 +29,7 @@ def contact_create_lambda_handler(request):
             "Token": json_request['token']['S'],
             "AppUserID": json_request['app_user_id']['S'],
             "PatientID": int(json_request['patient_id']['S']),
-            "Parameter1": int(json_request['account_id']['S']),  # TODO: ishan 15-10-2021 Can't hardcode this, get this from front-end
+            "Parameter1": int(json_request['account_id']['S']),
             "Parameter2": "",
             "Parameter6": {
                 "contact": {
@@ -82,7 +82,7 @@ def contact_create_lambda_handler(request):
 
 @route()
 def contacts_list_lambda_handler(patient_id):
-    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == patient_id)]  # TODO: ishan 15-10-2021 Can't hardcode this
+    contacts = [result.serialize() for result in Contact.scan(Contact.patient_id == patient_id)]
     return 200, {'items': contacts}, CORS_HEADERS
 
 
@@ -142,7 +142,7 @@ def contact_update_lambda_handler(request, pk):
         "Token": json_request['token']['S'],
         "AppUserID": json_request['app_user_id']['S'],
         "PatientID": int(json_request['patient_id']['S']),
-        "Parameter1": json_request['app_user_id']['S'],  # TODO: ishan 15-10-2021 can't hardcode this
+        "Parameter1": json_request['app_user_id']['S'],
         "Parameter2": int(json_request['adp_contact_id']['S']),
         "Parameter6": {
             "contact": {
