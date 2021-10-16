@@ -34,8 +34,8 @@ Globals:
       Variables:
         BOOKS_TABLE_NAME: &books_table_name !Sub ${Environment}_books
         ALLERGY_TABLE_NAME: &allergy_table_name !Sub ${Environment}_allergy
-        CONTACTS_TABLE_NAME: &contacts_table_name !Sub ${Environment}_contacts
         IMMUNIZATION_TABLE_NAME: &immunization_table_name !Sub ${Environment}_immunization
+        PATIENTS_TABLE_NAME: &patients_table_name !Sub ${Environment}_patients
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
         ALLOW_ORIGIN: !Sub '${Origin}'
@@ -136,6 +136,102 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
+       
+  # Immunization
+  ListImmunizationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ListAllergies
+      Handler: immunization.app.immunization_list_lambda_handler
+      CodeUri: functions/
+      Events:
+        ListBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AllergyTable
+
+  CreateImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_CreateImmunization
+      Handler: immunization.app.immunization_create_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ImmunizationTable
+
+  DeleteImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_DeleteImmunization
+      Handler: immunization.app.immunization_delete_lambda_handler
+      CodeUri: functions/
+      Events:
+        DeleteBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization/{pk}
+            Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ImmunizationTable
+
+  GetImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetImmunization
+      Handler: immunization.app.immunization_get_lambda_handler
+      CodeUri: functions/
+      Events:
+        GetSingleBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization/{pk}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ImmunizationTable
+
+  UpdateImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdateImmunization
+      Handler: immunization.app.immunization_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ImmunizationTable
 
   # Allergy
   ListAllergiesFunction:
@@ -233,101 +329,83 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref AllergyTable
 
-  #Contacts
-  ListContactsFunction:
+  #Patient
+  CreatePatientFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ListContacts
-      Handler: contacts.app.contacts_list_lambda_handler
-      CodeUri: functions/
-      Events:
-        ListBooksCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /contact/{patient_id}
-            Method: get
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBReadPolicy:
-            TableName: !Ref ContactsTable
-
-  CreateContactFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_CreateContact
-      Handler: contacts.app.contact_create_lambda_handler
+      FunctionName: !Sub ${Environment}_CreatePatient
+      Handler: patients.app.patient_create_lambda_handler
       CodeUri: functions/
       Events:
         CreateBookCaller:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
-            Path: /contact
+            Path: /patient
             Method: post
             Auth:
               Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref ContactsTable
+            TableName: !Ref PatientsTable
 
-  UpdateContactFunction:
+  DeletePatientFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_UpdateContact
-      Handler: contacts.app.contact_update_lambda_handler
-      CodeUri: functions/
-      Events:
-        CreateBookCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /contact/{pk}
-            Method: put
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ContactsTable
-
-  DeleteContactFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_DeleteContact
-      Handler: contacts.app.contact_delete_lambda_handler
+      FunctionName: !Sub ${Environment}_DeletePatient
+      Handler: patients.app.patient_delete_lambda_handler
       CodeUri: functions/
       Events:
         DeleteBooksCaller:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
-            Path: /contact/{pk}
+            Path: /patient/{pk}
             Method: delete
             Auth:
               Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref ContactsTable
+            TableName: !Ref PatientsTable
 
-  GetSingleContactFunction:
+  GetPatientFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_GetContact
-      Handler: contacts.app.contact_get_single_lambda_handler
+      FunctionName: !Sub ${Environment}_GetPatient
+      Handler: patients.app.patient_get_lambda_handler
       CodeUri: functions/
       Events:
         GetSingleBookCaller:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
-            Path: /contact/{pk}
+            Path: /patient/{pk}
             Method: get
             Auth:
               Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBReadPolicy:
-            TableName: !Ref ContactsTable
+            TableName: !Ref PatientsTable
+
+  UpdatePatientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdatePatient
+      Handler: patients.app.patient_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /patient/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PatientsTable
+
 
   # AllScripts Functions
   # GetSecurityToken
@@ -1311,6 +1389,192 @@ Resources:
             Auth:
               Authorizer: EirCognitoAuthorizer
 
+  ProEHRGetChangedPatientsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetChangedPatients
+      Handler: adp.app.pro_ehr_get_changed_patients_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_changed_patients
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetClinicalSummary
+  ProEHRGetClinicalSummaryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetClinicalSummary
+      Handler: adp.app.pro_ehr_get_clinical_summary_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_clinical_summary
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPatientsBySomething
+  ProEHRGetPatientsBySomethingFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPatientsBySomething
+      Handler: adp.app.pro_ehr_get_patients_by_something_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_patients_by_something
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatientBloodType
+  ProEHRSavePatientBloodTypeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRSavePatientBloodType
+      Handler: adp.app.pro_ehr_save_patient_blood_type_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/save_patient_blood_type
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPatientPharmacies
+  ProEHRGetPatientPharmaciesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPatientPharmacies
+      Handler: adp.app.pro_ehr_get_patient_pharmacies_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_patient_pharmacies
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPharmacyEligibility
+  ProEHRGetPharmacyEligibilityFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPharmacyEligibility
+      Handler: adp.app.pro_ehr_get_pharmacy_eligibility_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_pharmacy_eligibility
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SavePatientRetailPharmacy
+  ProEHRSavePatientRetailPharmacyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRSavePatientRetailPharmacy
+      Handler: adp.app.pro_ehr_save_patient_retail_pharmacy_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/save_patient_retail_pharmacy
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # SetFMHInvite
+  ProEHRSetFMHInviteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRSetFMHInvite
+      Handler: adp.app.pro_ehr_set_fmh_invite_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/set_fmh_invite
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetClinicalQuestions
+  ProEHRGetClinicalQuestionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetClinicalQuestions
+      Handler: adp.app.pro_ehr_get_clinical_questions_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_clinical_questions
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetProcedureDetails
+  ProEHRGetProcedureDetailsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetProcedureDetails
+      Handler: adp.app.pro_ehr_get_procedure_details_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_procedure_details
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetProcedures
+  ProEHRGetProceduresFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetProcedures
+      Handler: adp.app.pro_ehr_get_procedures_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_procedures
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
   # GetEmployers
   ProPMGetEmployersFunction:
     Type: AWS::Serverless::Function
@@ -1341,6 +1605,23 @@ Resources:
           Properties:
             RestApiId: !Ref MainApi
             Path: /adp/pro_pm/save_account_contact
+            Method: POST
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+
+  # GetPatientContacts
+  ProPMGetPatientContactsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ProEHRGetPatientContacts
+      Handler: adp.app.pro_ehr_get_patient_contacts_lambda_handler
+      CodeUri: functions/
+      Events:
+        ApiRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /adp/pro_ehr/get_patient_contacts
             Method: POST
             Auth:
               Authorizer: EirCognitoAuthorizer
@@ -1897,10 +2178,10 @@ Resources:
         - AttributeName: id
           KeyType: HASH
   
-  ContactsTable:
+  PatientsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: *contacts_table_name
+      TableName: *patients_table_name
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
