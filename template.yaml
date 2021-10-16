@@ -1450,10 +1450,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # GetChangedPatients
-  ProEHRGetChangedPatientsFunction:
+  ProPMGetChangedPatientsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProEHRGetChangedPatients
+      FunctionName: !Sub ${Environment}_ProPMGetChangedPatients
       Handler: adp.app.pro_pm_get_changed_patients_lambda_handler
       CodeUri: functions/
       Events:
