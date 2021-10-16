@@ -484,25 +484,6 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref ContactsTable
 
-  GetSingleContactFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_GetContact
-      Handler: contacts.app.contact_get_single_lambda_handler
-      CodeUri: functions/
-      Events:
-        ApiRequest:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /contact/{pk}
-            Method: get
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBReadPolicy:
-            TableName: !Ref ContactsTable
-
   # AllScripts Functions
   # GetSecurityToken
   ProEHRGetSecurityTokenFunction:

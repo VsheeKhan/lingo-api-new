@@ -101,16 +101,6 @@ def contact_delete_lambda_handler(pk):
     return 200, None, CORS_HEADERS
 
 
-@route()
-def contact_get_lambda_handler(pk):
-    try:
-        contact = Contact.get(pk)
-    except DoesNotExist:
-        return 404, None, CORS_HEADERS
-
-    return 200, contact.serialize(), CORS_HEADERS
-
-
 contact_update_body_schema = Contact.body_schema()
 for param in con_params_list:
     contact_update_body_schema['properties'][param] = {
