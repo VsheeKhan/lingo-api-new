@@ -233,7 +233,7 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref AllergyTable
 
-    #Contacts
+  #Contacts
   ListContactsFunction:
     Type: AWS::Serverless::Function
     Properties:
