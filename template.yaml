@@ -69,7 +69,7 @@ Resources:
       Handler: books.app.books_list_lambda_handler
       CodeUri: functions/
       Events:
-        ListBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -88,7 +88,7 @@ Resources:
       Handler: books.app.books_create_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -107,7 +107,7 @@ Resources:
       Handler: books.app.books_delete_lambda_handler
       CodeUri: functions/
       Events:
-        DeleteBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -126,7 +126,7 @@ Resources:
       Handler: books.app.book_get_single_lambda_handler
       CodeUri: functions/
       Events:
-        GetSingleBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -146,7 +146,7 @@ Resources:
       Handler: allergy.app.allergy_list_lambda_handler
       CodeUri: functions/
       Events:
-        ListBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -165,7 +165,7 @@ Resources:
       Handler: allergy.app.allergy_create_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -184,7 +184,7 @@ Resources:
       Handler: allergy.app.allergy_delete_lambda_handler
       CodeUri: functions/
       Events:
-        DeleteBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -203,7 +203,7 @@ Resources:
       Handler: allergy.app.allergy_get_lambda_handler
       CodeUri: functions/
       Events:
-        GetSingleBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -222,7 +222,7 @@ Resources:
       Handler: allergy.app.allergy_update_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -238,11 +238,11 @@ Resources:
   ListImmunizationsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ListAllergies
+      FunctionName: !Sub ${Environment}_ListImmunizations
       Handler: immunization.app.immunization_list_lambda_handler
       CodeUri: functions/
       Events:
-        ListBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -252,7 +252,7 @@ Resources:
               Authorizer: EirCognitoAuthorizer
       Policies:
         - DynamoDBReadPolicy:
-            TableName: !Ref AllergyTable
+            TableName: !Ref ImmunizationTable
 
   CreateImmunizationFunction:
     Type: AWS::Serverless::Function
@@ -261,7 +261,7 @@ Resources:
       Handler: immunization.app.immunization_create_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -280,7 +280,7 @@ Resources:
       Handler: immunization.app.immunization_delete_lambda_handler
       CodeUri: functions/
       Events:
-        DeleteBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -299,7 +299,7 @@ Resources:
       Handler: immunization.app.immunization_get_lambda_handler
       CodeUri: functions/
       Events:
-        GetSingleBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -318,7 +318,7 @@ Resources:
       Handler: immunization.app.immunization_update_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -338,7 +338,7 @@ Resources:
       Handler: patients.app.patient_create_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -357,7 +357,7 @@ Resources:
       Handler: patients.app.patient_delete_lambda_handler
       CodeUri: functions/
       Events:
-        DeleteBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -376,7 +376,7 @@ Resources:
       Handler: patients.app.patient_get_lambda_handler
       CodeUri: functions/
       Events:
-        GetSingleBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -395,7 +395,7 @@ Resources:
       Handler: patients.app.patient_update_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -415,7 +415,7 @@ Resources:
       Handler: contacts.app.contacts_list_lambda_handler
       CodeUri: functions/
       Events:
-        ListBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -434,7 +434,7 @@ Resources:
       Handler: contacts.app.contact_create_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -453,7 +453,7 @@ Resources:
       Handler: contacts.app.contact_update_lambda_handler
       CodeUri: functions/
       Events:
-        CreateBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -472,7 +472,7 @@ Resources:
       Handler: contacts.app.contact_delete_lambda_handler
       CodeUri: functions/
       Events:
-        DeleteBooksCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
@@ -491,7 +491,7 @@ Resources:
       Handler: contacts.app.contact_get_single_lambda_handler
       CodeUri: functions/
       Events:
-        GetSingleBookCaller:
+        ApiRequest:
           Type: Api
           Properties:
             RestApiId: !Ref MainApi
