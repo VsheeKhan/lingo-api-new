@@ -1469,10 +1469,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # GetChangedPatients
-  ProPMGetChangedPatientsFunction:
+  ProEHRGetChangedPatientsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMGetChangedPatients
+      FunctionName: !Sub ${Environment}_ProEHRGetChangedPatients
       Handler: adp.app.pro_pm_get_changed_patients_lambda_handler
       CodeUri: functions/
       Events:
@@ -2097,10 +2097,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # GetImmunization
-  ProPMGetImmunizationFunction:
+  ProEHRGetImmunizationFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMGetImmunization
+      FunctionName: !Sub ${Environment}_ProEHRGetImmunization
       Handler: adp.app.pro_ehr_get_immunization_lambda_handler
       CodeUri: functions/
       Events:
@@ -2114,10 +2114,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # GetProblems
-  ProPMGetProblemsFunction:
+  ProEHRGetProblemsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMGetProblems
+      FunctionName: !Sub ${Environment}_ProEHRGetProblems
       Handler: adp.app.pro_ehr_get_problems_lambda_handler
       CodeUri: functions/
       Events:
@@ -2131,10 +2131,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # SaveAllergy
-  ProPMSaveAllergyFunction:
+  ProEHRSaveAllergyFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMSaveAllergy
+      FunctionName: !Sub ${Environment}_ProEHRSaveAllergy
       Handler: adp.app.pro_ehr_save_allergy_lambda_handler
       CodeUri: functions/
       Events:
@@ -2148,10 +2148,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # SaveImmunization
-  ProPMSaveImmunizationFunction:
+  ProEHRSaveImmunizationFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMSaveImmunization
+      FunctionName: !Sub ${Environment}_ProEHRSaveImmunization
       Handler: adp.app.pro_ehr_save_immunization_lambda_handler
       CodeUri: functions/
       Events:
@@ -2165,10 +2165,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # SaveProblemsData
-  ProPMSaveProblemsDataFunction:
+  ProEHRSaveProblemsDataFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMSaveProblemsData
+      FunctionName: !Sub ${Environment}_ProEHRSaveProblemsData
       Handler: adp.app.pro_ehr_save_problems_data_lambda_handler
       CodeUri: functions/
       Events:
@@ -2182,10 +2182,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # SearchAllergy
-  ProPMSearchAllergyFunction:
+  ProEHRSearchAllergyFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMSearchAllergy
+      FunctionName: !Sub ${Environment}_ProEHRSearchAllergy
       Handler: adp.app.pro_ehr_search_allergy_lambda_handler
       CodeUri: functions/
       Events:
@@ -2199,10 +2199,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # SearchImmunizations
-  ProPMSearchImmunizationsFunction:
+  ProEHRSearchImmunizationsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMSearchImmunizations
+      FunctionName: !Sub ${Environment}_ProEHRSearchImmunizations
       Handler: adp.app.pro_ehr_search_immunizations_lambda_handler
       CodeUri: functions/
       Events:
@@ -2216,10 +2216,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # SearchMeds
-  ProPMSearchMedsFunction:
+  ProEHRSearchMedsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMSearchMeds
+      FunctionName: !Sub ${Environment}_ProEHRSearchMeds
       Handler: adp.app.pro_ehr_search_meds_lambda_handler
       CodeUri: functions/
       Events:
@@ -2233,10 +2233,10 @@ Resources:
               Authorizer: EirCognitoAuthorizer
 
   # SearchProblemCodes
-  ProPMSearchProblemCodesFunction:
+  ProEHRSearchProblemCodesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}_ProPMSearchProblemCodes
+      FunctionName: !Sub ${Environment}_ProEHRSearchProblemCodes
       Handler: adp.app.pro_ehr_search_problem_codes_lambda_handler
       CodeUri: functions/
       Events:
