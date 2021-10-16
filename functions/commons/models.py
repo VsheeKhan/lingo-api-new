@@ -1,7 +1,7 @@
 import uuid
 from typing import Dict, Any
 
-from pynamodb.attributes import UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
+from pynamodb.attributes import BooleanAttribute, UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
 from pynamodb.models import Model
 
 ATTRIBUTE_CODE_MAP = {
@@ -17,6 +17,10 @@ ATTRIBUTE_CODE_MAP = {
         'rest': 'number',
         'db': 'N',
     },
+    BooleanAttribute: {
+        'rest': 'boolean',
+        'db': 'BOOL'
+    }
 }
 
 
