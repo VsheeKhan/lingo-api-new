@@ -36,6 +36,7 @@ Globals:
         ALLERGY_TABLE_NAME: &allergy_table_name !Sub ${Environment}_allergy
         IMMUNIZATION_TABLE_NAME: &immunization_table_name !Sub ${Environment}_immunization
         PATIENTS_TABLE_NAME: &patients_table_name !Sub ${Environment}_patients
+        CONTACTS_TABLE_NAME: &contacts_table_name !Sub ${Environment}_contacts
         ALLOW_METHODS: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
         ALLOW_HEADERS: 'X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Requested-With,X-Auth-Token,Referer,User-Agent,Origin,Content-Type,Authorization,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'
         ALLOW_ORIGIN: !Sub '${Origin}'
@@ -136,102 +137,6 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref BooksTable
-       
-  # Immunization
-  ListImmunizationsFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_ListAllergies
-      Handler: immunization.app.immunization_list_lambda_handler
-      CodeUri: functions/
-      Events:
-        ListBooksCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /immunization
-            Method: get
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBReadPolicy:
-            TableName: !Ref AllergyTable
-
-  CreateImmunizationFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_CreateImmunization
-      Handler: immunization.app.immunization_create_lambda_handler
-      CodeUri: functions/
-      Events:
-        CreateBookCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /immunization
-            Method: post
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ImmunizationTable
-
-  DeleteImmunizationFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_DeleteImmunization
-      Handler: immunization.app.immunization_delete_lambda_handler
-      CodeUri: functions/
-      Events:
-        DeleteBooksCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /immunization/{pk}
-            Method: delete
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ImmunizationTable
-
-  GetImmunizationFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_GetImmunization
-      Handler: immunization.app.immunization_get_lambda_handler
-      CodeUri: functions/
-      Events:
-        GetSingleBookCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /immunization/{pk}
-            Method: get
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBReadPolicy:
-            TableName: !Ref ImmunizationTable
-
-  UpdateImmunizationFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${Environment}_UpdateImmunization
-      Handler: immunization.app.immunization_update_lambda_handler
-      CodeUri: functions/
-      Events:
-        CreateBookCaller:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MainApi
-            Path: /immunization/{pk}
-            Method: put
-            Auth:
-              Authorizer: EirCognitoAuthorizer
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ImmunizationTable
 
   # Allergy
   ListAllergiesFunction:
@@ -329,6 +234,102 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref AllergyTable
 
+  # Immunization
+  ListImmunizationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ListAllergies
+      Handler: immunization.app.immunization_list_lambda_handler
+      CodeUri: functions/
+      Events:
+        ListBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AllergyTable
+
+  CreateImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_CreateImmunization
+      Handler: immunization.app.immunization_create_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ImmunizationTable
+
+  DeleteImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_DeleteImmunization
+      Handler: immunization.app.immunization_delete_lambda_handler
+      CodeUri: functions/
+      Events:
+        DeleteBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization/{pk}
+            Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ImmunizationTable
+
+  GetImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetImmunization
+      Handler: immunization.app.immunization_get_lambda_handler
+      CodeUri: functions/
+      Events:
+        GetSingleBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization/{pk}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ImmunizationTable
+
+  UpdateImmunizationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdateImmunization
+      Handler: immunization.app.immunization_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /immunization/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ImmunizationTable
+
   #Patient
   CreatePatientFunction:
     Type: AWS::Serverless::Function
@@ -406,6 +407,101 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref PatientsTable
 
+  #Contacts
+  ListContactsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_ListContacts
+      Handler: contacts.app.contacts_list_lambda_handler
+      CodeUri: functions/
+      Events:
+        ListBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact/{patient_id}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ContactsTable
+
+  CreateContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_CreateContact
+      Handler: contacts.app.contact_create_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact
+            Method: post
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ContactsTable
+
+  UpdateContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_UpdateContact
+      Handler: contacts.app.contact_update_lambda_handler
+      CodeUri: functions/
+      Events:
+        CreateBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact/{pk}
+            Method: put
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ContactsTable
+
+  DeleteContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_DeleteContact
+      Handler: contacts.app.contact_delete_lambda_handler
+      CodeUri: functions/
+      Events:
+        DeleteBooksCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact/{pk}
+            Method: delete
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ContactsTable
+
+  GetSingleContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Environment}_GetContact
+      Handler: contacts.app.contact_get_single_lambda_handler
+      CodeUri: functions/
+      Events:
+        GetSingleBookCaller:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MainApi
+            Path: /contact/{pk}
+            Method: get
+            Auth:
+              Authorizer: EirCognitoAuthorizer
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ContactsTable
 
   # AllScripts Functions
   # GetSecurityToken
@@ -2177,11 +2273,35 @@ Resources:
       KeySchema:
         - AttributeName: id
           KeyType: HASH
-  
+
+  ImmunizationTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: *immunization_table_name
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
   PatientsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: *patients_table_name
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  ContactsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: *contacts_table_name
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
