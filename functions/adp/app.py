@@ -120,7 +120,7 @@ def parameter_processor_creator(xml_attributes=None):
         if name not in xml_attributes:
             return value
         return json_to_partial_xml(
-            value, item_xml=xml_attributes[name]['item_xml'], transformer=xml_attributes[name]['transformer']
+            value, item_xml=xml_attributes[name]['item_xml'], transformer=xml_attributes[name].get('transformer')
         )
 
     return handler
