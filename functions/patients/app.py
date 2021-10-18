@@ -179,7 +179,7 @@ def patient_update_lambda_handler(request, pk):
                     "firstName": json_request['first_name']['S'],
                     "mi": json_request['middle_initial']['S'],
                     "suffix": json_request['suffix']['S'],
-                    "gender": json_request['adp_birth_sex']['S'],
+                    "gender": json_request['adp_birth_sex']['S'], # TODO: zuber 18-10-2021 Remove this extra value use the same as birth_sex we're using
                     "ssn": json_request['ssn']['S'],
                     "dob": json_request['dob']['S'],
                     "street1": json_request['street1']['S'],
@@ -193,7 +193,7 @@ def patient_update_lambda_handler(request, pk):
                     "workphoneext": json_request['work_phone_ext']['S'],
                     "cellphone": json_request['mobile_phone']['S'],
                     "email": json_request['email_address']['S'],
-                    "maritalstatus": json_request['adp_marital_status']['S'],
+                    "maritalstatus": json_request['adp_marital_status']['S'], # TODO: zuber 18-10-2021 Remove this extra value use the same as marital_status we're using
                     "HIPAAStmtExp": "5/5/2020",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "usualprov": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "referringdr": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
