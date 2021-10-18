@@ -14,6 +14,14 @@ patient_create_body_schema['properties']['token'] = {
     "type": "object",
     "S": "string"
 }
+patient_create_body_schema['properties']['adp_birth_sex'] = {
+    "type": "object",
+    "S": "string"
+}
+patient_create_body_schema['properties']['adp_marital_status'] = {
+    "type": "object",
+    "S": "string"
+}
 
 
 @route(body_schema = patient_create_body_schema)
@@ -32,7 +40,7 @@ def patient_create_lambda_handler(request):
                     "firstName": json_request['first_name']['S'],
                     "mi": json_request['middle_initial']['S'],
                     "suffix": json_request['suffix']['S'],
-                    "gender": json_request['birth_sex']['S'],
+                    "gender": json_request['adp_birth_sex']['S'],
                     "ssn": json_request['ssn']['S'],
                     "dob": json_request['dob']['S'],
                     "street1": json_request['street1']['S'],
@@ -46,7 +54,7 @@ def patient_create_lambda_handler(request):
                     "workphoneext": json_request['work_phone_ext']['S'],
                     "cellphone": json_request['mobile_phone']['S'],
                     "email": json_request['email_address']['S'],
-                    "maritalstatus": json_request['marital_status']['S'],
+                    "maritalstatus": json_request['adp_marital_status']['S'],
                     "HIPAAStmtExp": "5/5/2020",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "usualprov": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "referringdr": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
@@ -80,7 +88,7 @@ def patient_create_lambda_handler(request):
     patient.deserialize(request.json)
     patient.patient_id = int(adp_response[0]['savepatientinfo'][0]['PatientID'])
     patient.save()
-    return 201, patient, CORS_HEADERS
+    return 201, patient.serialize(), CORS_HEADERS
 
 
 @route()
@@ -110,6 +118,14 @@ def patient_get_lambda_handler(pk):
 
 patient_update_body_schema = Patient.body_schema()
 patient_update_body_schema['properties']['token'] = {
+    "type": "object",
+    "S": "string"
+}
+patient_update_body_schema['properties']['adp_birth_sex'] = {
+    "type": "object",
+    "S": "string"
+}
+patient_update_body_schema['properties']['adp_marital_status'] = {
     "type": "object",
     "S": "string"
 }
@@ -163,7 +179,7 @@ def patient_update_lambda_handler(request, pk):
                     "firstName": json_request['first_name']['S'],
                     "mi": json_request['middle_initial']['S'],
                     "suffix": json_request['suffix']['S'],
-                    "gender": json_request['birth_sex']['S'],
+                    "gender": json_request['adp_birth_sex']['S'],
                     "ssn": json_request['ssn']['S'],
                     "dob": json_request['dob']['S'],
                     "street1": json_request['street1']['S'],
@@ -177,7 +193,7 @@ def patient_update_lambda_handler(request, pk):
                     "workphoneext": json_request['work_phone_ext']['S'],
                     "cellphone": json_request['mobile_phone']['S'],
                     "email": json_request['email_address']['S'],
-                    "maritalstatus": json_request['marital_status']['S'],
+                    "maritalstatus": json_request['adp_marital_status']['S'],
                     "HIPAAStmtExp": "5/5/2020",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "usualprov": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end
                     "referringdr": "MARFEE",  # TODO: ishan 14-10-2021 Move this value to the front-end

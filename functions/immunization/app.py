@@ -39,7 +39,7 @@ def immunization_create_lambda_handler(request):
             "Parameter2": {
                 "saveimmunization": {
                     "immunization_id": json_request['immunization_id']['S'],
-                    "status": json_request['immunization_status']['S'],
+                    "status": json_request['status']['S'],
                     "contact_id": "",
                     "encounter_id": "",
                     "procedure_id": "",
@@ -144,7 +144,7 @@ def immunization_update_lambda_handler(request, pk):
         immunization = Immunization.get(pk)
     except DoesNotExist:
         return 404, None, CORS_HEADERS
-    immunization.immunization_name = json_request['immunization_id']['S']
+    immunization.immunization_id = json_request['immunization_id']['S']
     immunization.immunization_date = json_request['immunization_date']['S']
     immunization.immunization_status = json_request['immunization_status']['S']
     immunization.immunization_provider = json_request['immunization_provider']['S']
@@ -161,7 +161,7 @@ def immunization_update_lambda_handler(request, pk):
             "Parameter2": {
                 "saveimmunization": {
                     "immunization_id": json_request['immunization_id']['S'],
-                    "status": json_request['immunization_status']['S'],
+                    "status": json_request['status']['S'],
                     "contact_id": "",
                     "encounter_id": "",
                     "procedure_id": "",
